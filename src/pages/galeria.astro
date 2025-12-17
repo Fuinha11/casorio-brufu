@@ -1,5 +1,6 @@
 ---
 import ProtectedLayout from '@/layouts/ProtectedLayout.astro';
+import HeroDecoration from '@/components/HeroDecoration.astro';
 
 // Placeholder images - replace with real photos
 const photos = [
@@ -17,6 +18,7 @@ const photos = [
 
 <ProtectedLayout title="Galeria">
   <section class="page-hero">
+    <HeroDecoration variant="light" />
     <div class="container text-center">
       <p class="section-subtitle">Momentos</p>
       <h1 class="page-title">Galeria de Fotos</h1>
@@ -80,6 +82,8 @@ const photos = [
 
 <style>
   .page-hero {
+    position: relative;
+    overflow: hidden;
     padding: var(--spacing-24) var(--spacing-6) var(--spacing-16);
     background: linear-gradient(135deg, var(--color-secondary-light) 0%, var(--color-secondary) 100%);
   }

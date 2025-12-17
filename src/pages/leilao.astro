@@ -1,5 +1,6 @@
 ---
 import ProtectedLayout from '@/layouts/ProtectedLayout.astro';
+import HeroDecoration from '@/components/HeroDecoration.astro';
 
 const auctionItems = [
   {
@@ -44,6 +45,7 @@ const auctionItemsJson = JSON.stringify(auctionItems);
 
 <ProtectedLayout title="Leilão">
   <section class="page-hero">
+    <HeroDecoration variant="dark" />
     <div class="container text-center">
       <p class="section-subtitle">Diversão</p>
       <h1 class="page-title">Leilão Beneficente</h1>
@@ -172,6 +174,8 @@ const auctionItemsJson = JSON.stringify(auctionItems);
 
 <style>
   .page-hero {
+    position: relative;
+    overflow: hidden;
     padding: var(--spacing-24) var(--spacing-6) var(--spacing-16);
     background: linear-gradient(135deg, var(--color-accent-light) 0%, var(--color-accent) 100%);
   }

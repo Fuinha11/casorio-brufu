@@ -17,7 +17,7 @@ const navLinks = [
 <header class="header">
   <div class="header-container">
     <a href={`${basePath}/`} class="logo">
-      <span class="logo-text">B & M</span>
+      <img src={`${basePath}/images/logo.svg`} alt="Bruna & Marcos" class="logo-img" />
     </a>
 
     <button class="mobile-menu-btn" aria-label="Abrir menu" aria-expanded="false">
@@ -88,17 +88,19 @@ const navLinks = [
 
   .logo {
     text-decoration: none;
+    display: flex;
+    align-items: center;
   }
 
-  .logo-text {
-    font-family: var(--font-script);
-    font-size: var(--font-size-2xl);
-    color: var(--color-primary);
-    transition: color var(--transition-fast);
+  .logo-img {
+    height: 40px;
+    width: auto;
+    transition: all var(--transition-fast);
+    filter: sepia(1) hue-rotate(-10deg) saturate(2) brightness(0.5);
   }
 
-  .logo:hover .logo-text {
-    color: var(--color-primary-dark);
+  .logo:hover .logo-img {
+    opacity: 0.8;
   }
 
   .nav {

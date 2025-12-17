@@ -1,6 +1,7 @@
 ---
 import ProtectedLayout from '@/layouts/ProtectedLayout.astro';
 import AddToCalendar from '@/components/AddToCalendar.astro';
+import HeroDecoration from '@/components/HeroDecoration.astro';
 
 const eventDetails = {
   title: 'Casamento Bruna & Marcos',
@@ -13,6 +14,7 @@ const eventDetails = {
 
 <ProtectedLayout title="O Evento">
   <section class="page-hero">
+    <HeroDecoration variant="light" />
     <div class="container text-center">
       <p class="section-subtitle">Informações</p>
       <h1 class="page-title">O Evento</h1>
@@ -144,6 +146,8 @@ const eventDetails = {
 
 <style>
   .page-hero {
+    position: relative;
+    overflow: hidden;
     padding: var(--spacing-24) var(--spacing-6) var(--spacing-16);
     background: linear-gradient(135deg, var(--color-secondary-light) 0%, var(--color-secondary) 100%);
   }
