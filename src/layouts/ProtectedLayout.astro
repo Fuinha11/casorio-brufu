@@ -1,0 +1,52 @@
+---
+import Layout from './Layout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  showHeader?: boolean;
+  showFooter?: boolean;
+}
+
+const {
+  title,
+  description,
+  showHeader = true,
+  showFooter = true
+} = Astro.props;
+---
+
+<Layout title={title} description={description}>
+  {showHeader && <Header />}
+
+  <main class="main-content">
+    <slot />
+  </main>
+
+  {showFooter && <Footer />}
+
+  <!-- Auth Check Script -->
+  <script>
+    import { requireAuth } from '@/scripts/auth';
+
+    // Check authentication on page load
+    function checkAuth() {
+      requireAuth();
+    }
+
+    // Run on initial load
+    checkAuth();
+
+    // Re-run after view transitions
+    document.addEventListener('astro:page-load', checkAuth);
+  </script>
+</Layout>
+
+<style is:global>
+  .main-content {
+    min-height: 100vh;
+    padding-top: 60px; /* Account for fixed header */
+  }
+</style>

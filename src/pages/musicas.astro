@@ -1,0 +1,201 @@
+---
+import ProtectedLayout from '@/layouts/ProtectedLayout.astro';
+---
+
+<ProtectedLayout title="Sugestao de Musicas">
+  <section class="page-hero">
+    <div class="container text-center">
+      <p class="section-subtitle">Playlist</p>
+      <h1 class="page-title">Sugestao de Musicas</h1>
+    </div>
+  </section>
+
+  <section class="section music-section">
+    <div class="container container-narrow">
+      <div class="music-intro text-center">
+        <div class="music-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M9 18V5l12-2v13M9 18c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3zM21 16c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3z"></path>
+          </svg>
+        </div>
+        <h2 class="music-intro-title">Ajude a montar a playlist!</h2>
+        <p class="music-intro-text">
+          Queremos que a festa seja inesquecivel! Sugira suas musicas favoritas
+          e ajude a criar a trilha sonora perfeita para celebrar conosco.
+        </p>
+      </div>
+
+      <div class="music-form-container">
+        <div class="form-placeholder">
+          <!-- Replace this with your embedded Google Form -->
+          <iframe
+            src="YOUR_GOOGLE_FORM_EMBED_URL"
+            width="100%"
+            height="600"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
+            title="Formulario de sugestao de musicas"
+          >
+            Carregando formulario...
+          </iframe>
+
+          <!-- Placeholder while form URL is not set -->
+          <div class="form-placeholder-content" id="formPlaceholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+              <path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            <p>Formulario de sugestao de musicas</p>
+            <span>O formulario sera exibido aqui</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="music-tips">
+        <h3 class="music-tips-title">Dicas</h3>
+        <ul class="music-tips-list">
+          <li>Sugira musicas que facam voce querer dancar!</li>
+          <li>Pode ser qualquer genero - quanto mais variedade, melhor!</li>
+          <li>Nao se preocupe se a musica ja foi sugerida</li>
+          <li>Conta pra gente por que essa musica e especial</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</ProtectedLayout>
+
+<style>
+  .page-hero {
+    padding: var(--spacing-24) var(--spacing-6) var(--spacing-16);
+    background: linear-gradient(135deg, var(--color-secondary-light) 0%, var(--color-secondary) 100%);
+  }
+
+  .page-title {
+    font-family: var(--font-script);
+    font-size: var(--font-size-4xl);
+    color: var(--color-primary);
+    margin-bottom: 0;
+  }
+
+  .music-section {
+    background-color: var(--color-background);
+  }
+
+  .music-intro {
+    margin-bottom: var(--spacing-10);
+  }
+
+  .music-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto var(--spacing-6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-secondary);
+    border-radius: var(--radius-full);
+  }
+
+  .music-icon svg {
+    width: 40px;
+    height: 40px;
+    color: var(--color-primary);
+  }
+
+  .music-intro-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-2xl);
+    color: var(--color-text);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .music-intro-text {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-light);
+    line-height: var(--line-height-relaxed);
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .music-form-container {
+    margin-bottom: var(--spacing-10);
+  }
+
+  .form-placeholder {
+    background-color: var(--color-background);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    min-height: 600px;
+    position: relative;
+  }
+
+  .form-placeholder iframe {
+    display: block;
+  }
+
+  .form-placeholder-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-secondary);
+    color: var(--color-text-muted);
+  }
+
+  .form-placeholder-content svg {
+    width: 64px;
+    height: 64px;
+    margin-bottom: var(--spacing-4);
+    opacity: 0.5;
+  }
+
+  .form-placeholder-content p {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-2);
+  }
+
+  .form-placeholder-content span {
+    font-size: var(--font-size-sm);
+    opacity: 0.7;
+  }
+
+  .music-tips {
+    background-color: var(--color-background-alt);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-6);
+  }
+
+  .music-tips-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-lg);
+    color: var(--color-text);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .music-tips-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .music-tips-list li {
+    position: relative;
+    padding-left: var(--spacing-6);
+    margin-bottom: var(--spacing-2);
+    color: var(--color-text-light);
+  }
+
+  .music-tips-list li:last-child {
+    margin-bottom: 0;
+  }
+
+  .music-tips-list li::before {
+    content: '🎵';
+    position: absolute;
+    left: 0;
+    font-size: var(--font-size-sm);
+  }
+</style>

@@ -1,0 +1,315 @@
+---
+import Layout from '@/layouts/Layout.astro';
+---
+
+<Layout title="Entrar">
+  <div class="login-page">
+    <div class="login-container">
+      <div class="login-header">
+        <h1 class="login-title script-font">Bruna & Marcos</h1>
+        <p class="login-subtitle">10 de Abril de 2026</p>
+      </div>
+
+      <div class="login-card">
+        <h2 class="login-card-title">Bem-vindo(a)!</h2>
+        <p class="login-card-text">
+          Digite o codigo do seu convite para acessar o site do nosso casamento.
+        </p>
+
+        <form id="loginForm" class="login-form">
+          <div class="form-group">
+            <label for="guestCode" class="form-label">Codigo do Convite</label>
+            <input
+              type="text"
+              id="guestCode"
+              name="guestCode"
+              class="form-input"
+              placeholder="Digite seu codigo"
+              autocomplete="off"
+              required
+            />
+          </div>
+
+          <p id="errorMessage" class="error-message"></p>
+
+          <button type="submit" class="btn btn-primary btn-lg login-btn">
+            <span class="btn-text">Entrar</span>
+            <span class="btn-loading" hidden>
+              <svg class="spinner" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="30 70"></circle>
+              </svg>
+            </span>
+          </button>
+        </form>
+
+        <p class="login-help">
+          Nao tem um codigo? Entre em contato conosco.
+        </p>
+      </div>
+
+      <div class="login-decoration">
+        <div class="decoration-line"></div>
+        <span class="decoration-heart">&hearts;</span>
+        <div class="decoration-line"></div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .login-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-6);
+    background: linear-gradient(
+      135deg,
+      var(--color-secondary-light) 0%,
+      var(--color-secondary) 50%,
+      var(--color-secondary-dark) 100%
+    );
+  }
+
+  .login-container {
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+  }
+
+  .login-header {
+    margin-bottom: var(--spacing-8);
+  }
+
+  .login-title {
+    font-family: var(--font-script);
+    font-size: var(--font-size-4xl);
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-2);
+  }
+
+  .login-subtitle {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-lg);
+    color: var(--color-text-light);
+    letter-spacing: var(--letter-spacing-wide);
+    margin-bottom: 0;
+  }
+
+  .login-card {
+    background-color: var(--color-background);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-10);
+    box-shadow: var(--shadow-xl);
+  }
+
+  .login-card-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-2xl);
+    color: var(--color-text);
+    margin-bottom: var(--spacing-3);
+  }
+
+  .login-card-text {
+    font-size: var(--font-size-base);
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-6);
+  }
+
+  .login-form {
+    text-align: left;
+  }
+
+  .form-group {
+    margin-bottom: var(--spacing-4);
+  }
+
+  .form-label {
+    display: block;
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--spacing-2);
+    color: var(--color-text);
+  }
+
+  .form-input {
+    width: 100%;
+    padding: var(--spacing-4);
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    color: var(--color-text);
+    background-color: var(--color-background);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 4px rgba(var(--color-primary-rgb), 0.15);
+  }
+
+  .form-input::placeholder {
+    color: var(--color-text-muted);
+  }
+
+  .error-message {
+    color: var(--color-error);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--spacing-4);
+    min-height: 1.5em;
+  }
+
+  .error-message:empty {
+    display: none;
+  }
+
+  .login-btn {
+    width: 100%;
+    padding: var(--spacing-4);
+    font-size: var(--font-size-md);
+    position: relative;
+  }
+
+  .btn-loading {
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-loading:not([hidden]) {
+    display: flex;
+  }
+
+  .spinner {
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .login-btn[disabled] {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  .login-help {
+    margin-top: var(--spacing-4);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-bottom: 0;
+    text-align: center;
+  }
+
+  .login-decoration {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: var(--spacing-8);
+    gap: var(--spacing-4);
+  }
+
+  .decoration-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      var(--color-accent),
+      transparent
+    );
+    max-width: 100px;
+  }
+
+  .decoration-heart {
+    color: var(--color-accent);
+    font-size: var(--font-size-xl);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+
+  /* Mobile adjustments */
+  @media (max-width: 480px) {
+    .login-page {
+      padding: var(--spacing-4);
+    }
+
+    .login-card {
+      padding: var(--spacing-6);
+    }
+
+    .login-title {
+      font-size: var(--font-size-3xl);
+    }
+  }
+</style>
+
+<script>
+  import { handleLogin, redirectIfAuthenticated } from '@/scripts/auth';
+
+  function initLoginPage() {
+    // Redirect if already logged in
+    redirectIfAuthenticated();
+
+    const form = document.getElementById('loginForm') as HTMLFormElement;
+    const codeInput = document.getElementById('guestCode') as HTMLInputElement;
+    const errorMessage = document.getElementById('errorMessage') as HTMLParagraphElement;
+    const submitBtn = form?.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const btnText = submitBtn?.querySelector('.btn-text') as HTMLSpanElement;
+    const btnLoading = submitBtn?.querySelector('.btn-loading') as HTMLSpanElement;
+
+    if (!form || !codeInput || !errorMessage || !submitBtn) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const code = codeInput.value.trim();
+      if (!code) {
+        errorMessage.textContent = 'Por favor, digite o codigo do convite.';
+        return;
+      }
+
+      // Show loading state
+      submitBtn.disabled = true;
+      if (btnText) btnText.hidden = true;
+      if (btnLoading) btnLoading.hidden = false;
+      errorMessage.textContent = '';
+
+      try {
+        const result = await handleLogin(code);
+
+        if (result.success) {
+          // Redirect to home page
+          const basePath = import.meta.env.BASE_URL || '';
+          window.location.href = `${basePath}/`;
+        } else {
+          errorMessage.textContent = result.error || 'Codigo invalido.';
+        }
+      } catch {
+        errorMessage.textContent = 'Erro ao verificar codigo. Tente novamente.';
+      } finally {
+        // Reset loading state
+        submitBtn.disabled = false;
+        if (btnText) btnText.hidden = false;
+        if (btnLoading) btnLoading.hidden = true;
+      }
+    });
+
+    // Clear error on input
+    codeInput.addEventListener('input', () => {
+      errorMessage.textContent = '';
+    });
+  }
+
+  // Initialize on page load
+  document.addEventListener('DOMContentLoaded', initLoginPage);
+  document.addEventListener('astro:page-load', initLoginPage);
+</script>

@@ -1,0 +1,248 @@
+---
+import ProtectedLayout from '@/layouts/ProtectedLayout.astro';
+---
+
+<ProtectedLayout title="Nossa Historia">
+  <section class="page-hero">
+    <div class="container text-center">
+      <p class="section-subtitle">A Jornada</p>
+      <h1 class="page-title">Nossa Historia</h1>
+    </div>
+  </section>
+
+  <section class="section timeline-section">
+    <div class="container container-narrow">
+      <div class="timeline">
+        <!-- Timeline Item 1 -->
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <span class="timeline-date">2018</span>
+            <h3 class="timeline-title">Onde Tudo Comecou</h3>
+            <p class="timeline-text">
+              Foi em um dia comum que nossas vidas se cruzaram pela primeira vez.
+              O que parecia ser um encontro casual se transformou no inicio de uma
+              linda historia de amor.
+            </p>
+            <div class="timeline-image-placeholder">
+              <span>Foto do casal</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Timeline Item 2 -->
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <span class="timeline-date">2019</span>
+            <h3 class="timeline-title">Primeiro Ano Juntos</h3>
+            <p class="timeline-text">
+              Descobrimos que eramos melhores juntos. Cada dia nos aproximava mais,
+              e percebemos que tinhamos encontrado algo especial um no outro.
+            </p>
+            <div class="timeline-image-placeholder">
+              <span>Foto do casal</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Timeline Item 3 -->
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <span class="timeline-date">2021</span>
+            <h3 class="timeline-title">Aventuras Compartilhadas</h3>
+            <p class="timeline-text">
+              Viagens, sonhos e planos. Cada experiencia vivida juntos fortaleceu
+              ainda mais nosso amor e nos mostrou que queriamos construir uma vida a dois.
+            </p>
+            <div class="timeline-image-placeholder">
+              <span>Foto do casal</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Timeline Item 4 -->
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <span class="timeline-date">2024</span>
+            <h3 class="timeline-title">O Pedido</h3>
+            <p class="timeline-text">
+              Em um momento magico e inesquecivel, demos mais um passo em nossa
+              jornada. O "sim" foi a confirmacao de tudo o que ja sabiamos:
+              eramos feitos um para o outro.
+            </p>
+            <div class="timeline-image-placeholder">
+              <span>Foto do noivado</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Timeline Item 5 -->
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <span class="timeline-date">2026</span>
+            <h3 class="timeline-title">O Grande Dia</h3>
+            <p class="timeline-text">
+              E agora, estamos prestes a dar o proximo passo. No dia 10 de abril de 2026,
+              vamos celebrar nosso amor diante de todos que sao especiais para nos.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-quote text-center">
+        <blockquote>
+          "O amor nao se define. Sente-se."
+        </blockquote>
+      </div>
+    </div>
+  </section>
+</ProtectedLayout>
+
+<style>
+  .page-hero {
+    padding: var(--spacing-24) var(--spacing-6) var(--spacing-16);
+    background: linear-gradient(135deg, var(--color-secondary-light) 0%, var(--color-secondary) 100%);
+  }
+
+  .page-title {
+    font-family: var(--font-script);
+    font-size: var(--font-size-4xl);
+    color: var(--color-primary);
+    margin-bottom: 0;
+  }
+
+  .timeline-section {
+    background-color: var(--color-background);
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: var(--spacing-10);
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--color-primary), var(--color-accent));
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: var(--spacing-12);
+  }
+
+  .timeline-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .timeline-marker {
+    position: absolute;
+    left: calc(-1 * var(--spacing-10) - 6px);
+    top: 0;
+    width: 14px;
+    height: 14px;
+    background-color: var(--color-primary);
+    border: 3px solid var(--color-background);
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px var(--color-primary-light);
+  }
+
+  .timeline-content {
+    background-color: var(--color-background);
+    padding: var(--spacing-6);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+
+  .timeline-date {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wider);
+    margin-bottom: var(--spacing-2);
+  }
+
+  .timeline-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-xl);
+    color: var(--color-text);
+    margin-bottom: var(--spacing-3);
+  }
+
+  .timeline-text {
+    color: var(--color-text-light);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .timeline-text:last-child {
+    margin-bottom: 0;
+  }
+
+  .timeline-image-placeholder {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: var(--color-secondary);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+  }
+
+  .story-quote {
+    margin-top: var(--spacing-16);
+    padding: var(--spacing-8);
+  }
+
+  .story-quote blockquote {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-2xl);
+    font-style: italic;
+    color: var(--color-primary);
+    position: relative;
+  }
+
+  .story-quote blockquote::before,
+  .story-quote blockquote::after {
+    content: '"';
+    font-family: var(--font-script);
+    font-size: var(--font-size-4xl);
+    color: var(--color-accent);
+    line-height: 1;
+  }
+
+  .story-quote blockquote::before {
+    margin-right: var(--spacing-2);
+  }
+
+  .story-quote blockquote::after {
+    margin-left: var(--spacing-2);
+  }
+
+  @media (max-width: 768px) {
+    .timeline {
+      padding-left: var(--spacing-8);
+    }
+
+    .timeline-marker {
+      left: calc(-1 * var(--spacing-8) - 6px);
+    }
+
+    .timeline-content {
+      padding: var(--spacing-4);
+    }
+  }
+</style>

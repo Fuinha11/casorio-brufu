@@ -1,0 +1,210 @@
+---
+import ProtectedLayout from '@/layouts/ProtectedLayout.astro';
+---
+
+<ProtectedLayout title="Confirmar Presenca">
+  <section class="page-hero">
+    <div class="container text-center">
+      <p class="section-subtitle">RSVP</p>
+      <h1 class="page-title">Confirmar Presenca</h1>
+    </div>
+  </section>
+
+  <section class="section rsvp-section">
+    <div class="container container-narrow">
+      <div class="rsvp-intro text-center">
+        <p class="rsvp-intro-text">
+          Por favor, confirme sua presenca ate <strong>15 de marco de 2026</strong>.
+          Sua confirmacao e muito importante para organizarmos o evento.
+        </p>
+      </div>
+
+      <div class="rsvp-card">
+        <div class="rsvp-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+        </div>
+
+        <h2 class="rsvp-title">Voce vira?</h2>
+
+        <p class="rsvp-text">
+          Clique no botao abaixo para acessar o formulario de confirmacao.
+          Voce precisara informar:
+        </p>
+
+        <ul class="rsvp-checklist">
+          <li>Seu nome e codigo do convite</li>
+          <li>Numero de acompanhantes</li>
+          <li>Restricoes alimentares (se houver)</li>
+          <li>Uma mensagem para os noivos (opcional)</li>
+        </ul>
+
+        <a
+          href="YOUR_GOOGLE_FORM_URL"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-primary btn-lg rsvp-btn"
+          id="rsvpBtn"
+        >
+          Confirmar Presenca
+        </a>
+
+        <p class="rsvp-note">
+          Voce sera redirecionado para um formulario do Google Forms.
+        </p>
+      </div>
+
+      <div class="rsvp-help">
+        <h3 class="rsvp-help-title">Duvidas?</h3>
+        <p class="rsvp-help-text">
+          Se tiver alguma duvida ou problema para confirmar sua presenca,
+          entre em contato conosco diretamente.
+        </p>
+      </div>
+    </div>
+  </section>
+</ProtectedLayout>
+
+<style>
+  .page-hero {
+    padding: var(--spacing-24) var(--spacing-6) var(--spacing-16);
+    background: linear-gradient(135deg, var(--color-secondary-light) 0%, var(--color-secondary) 100%);
+  }
+
+  .page-title {
+    font-family: var(--font-script);
+    font-size: var(--font-size-4xl);
+    color: var(--color-primary);
+    margin-bottom: 0;
+  }
+
+  .rsvp-section {
+    background-color: var(--color-background);
+  }
+
+  .rsvp-intro {
+    margin-bottom: var(--spacing-10);
+  }
+
+  .rsvp-intro-text {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-light);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .rsvp-card {
+    background-color: var(--color-background);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-10);
+    text-align: center;
+    margin-bottom: var(--spacing-10);
+  }
+
+  .rsvp-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto var(--spacing-6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-secondary);
+    border-radius: var(--radius-full);
+  }
+
+  .rsvp-icon svg {
+    width: 40px;
+    height: 40px;
+    color: var(--color-primary);
+  }
+
+  .rsvp-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-2xl);
+    color: var(--color-text);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .rsvp-text {
+    font-size: var(--font-size-base);
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-6);
+  }
+
+  .rsvp-checklist {
+    list-style: none;
+    text-align: left;
+    max-width: 350px;
+    margin: 0 auto var(--spacing-8);
+  }
+
+  .rsvp-checklist li {
+    position: relative;
+    padding-left: var(--spacing-6);
+    margin-bottom: var(--spacing-2);
+    color: var(--color-text);
+  }
+
+  .rsvp-checklist li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-primary);
+    border-radius: var(--radius-full);
+  }
+
+  .rsvp-btn {
+    margin-bottom: var(--spacing-4);
+  }
+
+  .rsvp-note {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-bottom: 0;
+  }
+
+  .rsvp-help {
+    text-align: center;
+    padding: var(--spacing-8);
+    background-color: var(--color-background-alt);
+    border-radius: var(--radius-lg);
+  }
+
+  .rsvp-help-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-lg);
+    color: var(--color-text);
+    margin-bottom: var(--spacing-2);
+  }
+
+  .rsvp-help-text {
+    font-size: var(--font-size-base);
+    color: var(--color-text-light);
+    margin-bottom: 0;
+  }
+</style>
+
+<script>
+  import { getGuestCode, getGuestName, buildFormUrl } from '@/scripts/auth';
+
+  function initRSVPPage() {
+    const rsvpBtn = document.getElementById('rsvpBtn') as HTMLAnchorElement;
+    if (!rsvpBtn) return;
+
+    // You'll need to replace these with your actual Google Form field IDs
+    const formUrl = buildFormUrl(
+      'YOUR_GOOGLE_FORM_URL',
+      'entry.CODE_FIELD_ID',  // Replace with actual field ID
+      'entry.NAME_FIELD_ID'   // Replace with actual field ID
+    );
+
+    rsvpBtn.href = formUrl;
+  }
+
+  document.addEventListener('DOMContentLoaded', initRSVPPage);
+  document.addEventListener('astro:page-load', initRSVPPage);
+</script>

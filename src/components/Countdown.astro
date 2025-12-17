@@ -1,0 +1,249 @@
+---
+interface Props {
+  targetDate: string; // ISO date string e.g., "2026-04-10T20:00:00"
+  showLabels?: boolean;
+}
+
+const { targetDate, showLabels = true } = Astro.props;
+---
+
+<div class="countdown" data-target-date={targetDate}>
+  <div class="countdown-item">
+    <div class="countdown-value">
+      <span class="countdown-number" id="countdown-days">--</span>
+    </div>
+    {showLabels && <span class="countdown-label">Dias</span>}
+  </div>
+
+  <div class="countdown-separator">:</div>
+
+  <div class="countdown-item">
+    <div class="countdown-value">
+      <span class="countdown-number" id="countdown-hours">--</span>
+    </div>
+    {showLabels && <span class="countdown-label">Horas</span>}
+  </div>
+
+  <div class="countdown-separator">:</div>
+
+  <div class="countdown-item">
+    <div class="countdown-value">
+      <span class="countdown-number" id="countdown-minutes">--</span>
+    </div>
+    {showLabels && <span class="countdown-label">Minutos</span>}
+  </div>
+
+  <div class="countdown-separator">:</div>
+
+  <div class="countdown-item">
+    <div class="countdown-value">
+      <span class="countdown-number" id="countdown-seconds">--</span>
+    </div>
+    {showLabels && <span class="countdown-label">Segundos</span>}
+  </div>
+</div>
+
+<style>
+  .countdown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-4);
+    flex-wrap: wrap;
+  }
+
+  .countdown-item {
+    text-align: center;
+    min-width: 80px;
+  }
+
+  .countdown-value {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-4) var(--spacing-5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .countdown-number {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-inverse);
+    line-height: 1;
+    display: block;
+  }
+
+  .countdown-label {
+    display: block;
+    margin-top: var(--spacing-2);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: rgba(255, 255, 255, 0.8);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wider);
+  }
+
+  .countdown-separator {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-3xl);
+    color: rgba(255, 255, 255, 0.6);
+    padding-bottom: var(--spacing-8);
+  }
+
+  /* Animation for number changes */
+  .countdown-number.flip {
+    animation: flip 0.3s ease-in-out;
+  }
+
+  @keyframes flip {
+    0% {
+      transform: perspective(400px) rotateX(0);
+    }
+    50% {
+      transform: perspective(400px) rotateX(-90deg);
+      opacity: 0.5;
+    }
+    100% {
+      transform: perspective(400px) rotateX(0);
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .countdown {
+      gap: var(--spacing-2);
+    }
+
+    .countdown-item {
+      min-width: 60px;
+    }
+
+    .countdown-value {
+      padding: var(--spacing-3) var(--spacing-4);
+    }
+
+    .countdown-number {
+      font-size: var(--font-size-2xl);
+    }
+
+    .countdown-separator {
+      font-size: var(--font-size-2xl);
+      padding-bottom: var(--spacing-6);
+    }
+
+    .countdown-label {
+      font-size: var(--font-size-xs);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .countdown-item {
+      min-width: 50px;
+    }
+
+    .countdown-value {
+      padding: var(--spacing-2) var(--spacing-3);
+    }
+
+    .countdown-number {
+      font-size: var(--font-size-xl);
+    }
+
+    .countdown-separator {
+      font-size: var(--font-size-xl);
+      padding-bottom: var(--spacing-5);
+    }
+  }
+</style>
+
+<script>
+  interface CountdownElements {
+    days: HTMLElement | null;
+    hours: HTMLElement | null;
+    minutes: HTMLElement | null;
+    seconds: HTMLElement | null;
+  }
+
+  interface TimeLeft {
+    days: number;
+    hours: number;
+    minutes: number;
+    seconds: number;
+  }
+
+  function initCountdown() {
+    const countdownEl = document.querySelector('.countdown') as HTMLElement;
+    if (!countdownEl) return;
+
+    const targetDateStr = countdownEl.dataset.targetDate;
+    if (!targetDateStr) return;
+
+    const targetDate = new Date(targetDateStr).getTime();
+
+    const elements: CountdownElements = {
+      days: document.getElementById('countdown-days'),
+      hours: document.getElementById('countdown-hours'),
+      minutes: document.getElementById('countdown-minutes'),
+      seconds: document.getElementById('countdown-seconds'),
+    };
+
+    let prevValues: TimeLeft = { days: -1, hours: -1, minutes: -1, seconds: -1 };
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance < 0) {
+        // Wedding day has passed
+        updateElement(elements.days, 0, prevValues.days);
+        updateElement(elements.hours, 0, prevValues.hours);
+        updateElement(elements.minutes, 0, prevValues.minutes);
+        updateElement(elements.seconds, 0, prevValues.seconds);
+        return;
+      }
+
+      const timeLeft: TimeLeft = {
+        days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+        minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+        seconds: Math.floor((distance % (1000 * 60)) / 1000),
+      };
+
+      // Update each element with animation if value changed
+      updateElement(elements.days, timeLeft.days, prevValues.days);
+      updateElement(elements.hours, timeLeft.hours, prevValues.hours);
+      updateElement(elements.minutes, timeLeft.minutes, prevValues.minutes);
+      updateElement(elements.seconds, timeLeft.seconds, prevValues.seconds);
+
+      prevValues = { ...timeLeft };
+    }
+
+    function updateElement(el: HTMLElement | null, newValue: number, oldValue: number) {
+      if (!el) return;
+
+      const formattedValue = String(newValue).padStart(2, '0');
+
+      if (newValue !== oldValue) {
+        el.classList.add('flip');
+        el.textContent = formattedValue;
+
+        setTimeout(() => {
+          el.classList.remove('flip');
+        }, 300);
+      } else if (el.textContent === '--') {
+        el.textContent = formattedValue;
+      }
+    }
+
+    // Initial update
+    updateCountdown();
+
+    // Update every second
+    setInterval(updateCountdown, 1000);
+  }
+
+  // Initialize on page load
+  document.addEventListener('DOMContentLoaded', initCountdown);
+  document.addEventListener('astro:page-load', initCountdown);
+</script>

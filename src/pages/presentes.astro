@@ -1,0 +1,348 @@
+---
+import ProtectedLayout from '@/layouts/ProtectedLayout.astro';
+
+const giftIdeas = [
+  { id: 1, name: 'Jogo de Panelas', description: 'Para preparar nossas receitas favoritas' },
+  { id: 2, name: 'Jogo de Cama', description: 'Conforto para nosso lar' },
+  { id: 3, name: 'Eletrodomesticos', description: 'Para facilitar o dia a dia' },
+  { id: 4, name: 'Utensilios de Cozinha', description: 'Para nossas aventuras culinarias' },
+  { id: 5, name: 'Decoracao', description: 'Para deixar nossa casa mais aconchegante' },
+  { id: 6, name: 'Experiencias', description: 'Viagens e momentos especiais' },
+];
+---
+
+<ProtectedLayout title="Lista de Presentes">
+  <section class="page-hero">
+    <div class="container text-center">
+      <p class="section-subtitle">Presenteie</p>
+      <h1 class="page-title">Lista de Presentes</h1>
+    </div>
+  </section>
+
+  <section class="section gifts-section">
+    <div class="container container-narrow">
+      <div class="gifts-intro text-center">
+        <p class="gifts-intro-text">
+          Sua presenca e o maior presente que poderiamos receber!
+          Mas se desejar nos presentear, preparamos algumas sugestoes
+          que nos ajudarao a montar nosso novo lar.
+        </p>
+      </div>
+
+      <!-- PIX Section -->
+      <div class="pix-section">
+        <div class="pix-card">
+          <div class="pix-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <h3 class="pix-title">Presente via PIX</h3>
+          <p class="pix-text">
+            Se preferir, voce pode contribuir com qualquer valor
+            atraves do PIX. Sera usado para nossa lua de mel!
+          </p>
+          <div class="pix-key">
+            <span class="pix-key-label">Chave PIX:</span>
+            <code class="pix-key-value" id="pixKey">email@exemplo.com</code>
+            <button class="pix-copy-btn" id="copyPixBtn" title="Copiar chave">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gift Ideas -->
+      <div class="gift-ideas">
+        <h3 class="gift-ideas-title text-center">Sugestoes de Presentes</h3>
+        <div class="gift-ideas-grid">
+          {giftIdeas.map((gift) => (
+            <div class="gift-idea-card">
+              <div class="gift-idea-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path>
+                </svg>
+              </div>
+              <h4 class="gift-idea-name">{gift.name}</h4>
+              <p class="gift-idea-description">{gift.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Gift Confirmation Form -->
+      <div class="gift-form-section">
+        <h3 class="gift-form-title text-center">Confirmar seu Presente</h3>
+        <p class="gift-form-text text-center">
+          Ja comprou ou transferiu seu presente? Confirme aqui para podermos agradecer pessoalmente!
+        </p>
+        <div class="gift-form-cta text-center">
+          <a href="YOUR_GOOGLE_FORM_URL" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">
+            Confirmar Presente
+          </a>
+        </div>
+        <p class="gift-form-note text-center">
+          Voce sera redirecionado para um formulario onde podera
+          informar seu presente e anexar o comprovante.
+        </p>
+      </div>
+    </div>
+  </section>
+</ProtectedLayout>
+
+<style>
+  .page-hero {
+    padding: var(--spacing-24) var(--spacing-6) var(--spacing-16);
+    background: linear-gradient(135deg, var(--color-secondary-light) 0%, var(--color-secondary) 100%);
+  }
+
+  .page-title {
+    font-family: var(--font-script);
+    font-size: var(--font-size-4xl);
+    color: var(--color-primary);
+    margin-bottom: 0;
+  }
+
+  .gifts-section {
+    background-color: var(--color-background);
+  }
+
+  .gifts-intro {
+    margin-bottom: var(--spacing-12);
+  }
+
+  .gifts-intro-text {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-light);
+    line-height: var(--line-height-relaxed);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* PIX Section */
+  .pix-section {
+    margin-bottom: var(--spacing-12);
+  }
+
+  .pix-card {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-10);
+    text-align: center;
+    color: var(--color-text-inverse);
+  }
+
+  .pix-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto var(--spacing-4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-full);
+  }
+
+  .pix-icon svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .pix-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-3);
+  }
+
+  .pix-text {
+    font-size: var(--font-size-base);
+    opacity: 0.9;
+    margin-bottom: var(--spacing-6);
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .pix-key {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    background-color: rgba(255, 255, 255, 0.15);
+    padding: var(--spacing-3) var(--spacing-4);
+    border-radius: var(--radius-lg);
+  }
+
+  .pix-key-label {
+    font-size: var(--font-size-sm);
+    opacity: 0.8;
+  }
+
+  .pix-key-value {
+    font-family: monospace;
+    font-size: var(--font-size-base);
+    background: none;
+    padding: 0;
+  }
+
+  .pix-copy-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: var(--radius-md);
+    color: white;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+  }
+
+  .pix-copy-btn:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .pix-copy-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Gift Ideas */
+  .gift-ideas {
+    margin-bottom: var(--spacing-12);
+  }
+
+  .gift-ideas-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-2xl);
+    color: var(--color-text);
+    margin-bottom: var(--spacing-8);
+  }
+
+  .gift-ideas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--spacing-4);
+  }
+
+  .gift-idea-card {
+    background-color: var(--color-secondary);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-6);
+    text-align: center;
+    transition: all var(--transition-normal);
+  }
+
+  .gift-idea-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .gift-idea-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto var(--spacing-3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+  }
+
+  .gift-idea-icon svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .gift-idea-name {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-md);
+    color: var(--color-text);
+    margin-bottom: var(--spacing-2);
+  }
+
+  .gift-idea-description {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    margin-bottom: 0;
+  }
+
+  /* Gift Form Section */
+  .gift-form-section {
+    background-color: var(--color-background-alt);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-10);
+  }
+
+  .gift-form-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-2xl);
+    color: var(--color-text);
+    margin-bottom: var(--spacing-3);
+  }
+
+  .gift-form-text {
+    font-size: var(--font-size-base);
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-6);
+  }
+
+  .gift-form-cta {
+    margin-bottom: var(--spacing-4);
+  }
+
+  .gift-form-note {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 768px) {
+    .pix-key {
+      flex-direction: column;
+      gap: var(--spacing-2);
+    }
+
+    .gift-ideas-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
+
+<script>
+  function initGiftsPage() {
+    const copyBtn = document.getElementById('copyPixBtn');
+    const pixKey = document.getElementById('pixKey');
+
+    copyBtn?.addEventListener('click', async () => {
+      const text = pixKey?.textContent || '';
+
+      try {
+        await navigator.clipboard.writeText(text);
+
+        // Visual feedback
+        const originalSvg = copyBtn.innerHTML;
+        copyBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="20,6 9,17 4,12"></polyline>
+        </svg>`;
+
+        setTimeout(() => {
+          copyBtn.innerHTML = originalSvg;
+        }, 2000);
+      } catch {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initGiftsPage);
+  document.addEventListener('astro:page-load', initGiftsPage);
+</script>

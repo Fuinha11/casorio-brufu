@@ -1,0 +1,27 @@
+{
+  "name": "casorio-brufu",
+  "version": "1.0.0",
+  "description": "Website do casamento de Bruna & Marcos",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fuinha11/casorio-brufu.git"
+  },
+  "keywords": ["wedding", "casamento", "astro"],
+  "author": "Bruna & Marcos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Fuinha11/casorio-brufu/issues"
+  },
+  "homepage": "https://github.com/Fuinha11/casorio-brufu#readme",
+  "dependencies": {
+    "astro": "^5.16.6"
+  }
+}

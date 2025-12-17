@@ -1,0 +1,68 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-content">
+      <p class="footer-names script-font">Bruna & Marcos</p>
+      <p class="footer-date">10 de Abril de 2026</p>
+      <p class="footer-venue">Botanico Quintal - Sao Paulo</p>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copyright">
+        &copy; {currentYear} Bruna & Marcos. Feito com amor.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background-color: var(--color-background-dark);
+    color: var(--color-text-inverse);
+    padding: var(--spacing-12) var(--spacing-6) var(--spacing-6);
+    text-align: center;
+  }
+
+  .footer-container {
+    max-width: var(--container-lg);
+    margin: 0 auto;
+  }
+
+  .footer-content {
+    margin-bottom: var(--spacing-8);
+  }
+
+  .footer-names {
+    font-family: var(--font-script);
+    font-size: var(--font-size-3xl);
+    color: var(--color-accent);
+    margin-bottom: var(--spacing-2);
+  }
+
+  .footer-date {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-lg);
+    letter-spacing: var(--letter-spacing-wide);
+    margin-bottom: var(--spacing-2);
+  }
+
+  .footer-venue {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-bottom: 0;
+  }
+
+  .footer-bottom {
+    padding-top: var(--spacing-6);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .footer-copyright {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-bottom: 0;
+  }
+</style>

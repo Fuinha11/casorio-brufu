@@ -1,0 +1,189 @@
+/* ==========================================================================
+   THEME CONFIGURATION - Casamento Bruna & Marcos
+   Edit this file to change colors, fonts, and spacing across the entire site
+   ========================================================================== */
+
+:root {
+  /* =========================================================================
+     COLOR PALETTE - Romantic & Whimsical
+     Change these values to update colors site-wide
+     ========================================================================= */
+
+  /* PRIMARY COLORS - Marsala (deep wine red) */
+  --color-primary: #955251;           /* Marsala */
+  --color-primary-light: #B06A69;
+  --color-primary-dark: #7A3E3D;
+  --color-primary-rgb: 149, 82, 81;
+
+  /* SECONDARY COLORS - Warm cream tones */
+  --color-secondary: #FAF6F2;         /* Warm cream */
+  --color-secondary-light: #FFFCF9;
+  --color-secondary-dark: #EDE5DB;
+
+  /* ACCENT COLORS - Rose gold */
+  --color-accent: #B76E79;            /* Rose gold */
+  --color-accent-light: #D4919A;
+  --color-accent-dark: #9A5A63;
+
+  /* TEXT COLORS */
+  --color-text: #3D3D3D;              /* Main text - dark gray */
+  --color-text-light: #6B6B6B;        /* Secondary text */
+  --color-text-muted: #999999;        /* Muted/placeholder text */
+  --color-text-inverse: #FFFFFF;      /* Text on dark backgrounds */
+
+  /* BACKGROUND COLORS */
+  --color-background: #FFFFFF;
+  --color-background-alt: #F9F7F4;
+  --color-background-dark: #2C3E50;
+
+  /* DECORATIVE */
+  --color-border: #E5DFD6;
+  --color-border-light: #F0EBE3;
+  --color-shadow: rgba(0, 0, 0, 0.1);
+  --color-overlay: rgba(0, 0, 0, 0.5);
+
+  /* STATUS COLORS */
+  --color-success: #4CAF50;
+  --color-error: #E57373;
+  --color-warning: #FFB74D;
+
+  /* =========================================================================
+     TYPOGRAPHY
+     ========================================================================= */
+
+  /* Font Families */
+  --font-heading: 'Cormorant Garamond', 'Georgia', serif;
+  --font-script: 'Great Vibes', 'Brush Script MT', cursive;
+  --font-body: 'Lato', 'Helvetica Neue', sans-serif;
+
+  /* Font Sizes */
+  --font-size-xs: 0.75rem;      /* 12px */
+  --font-size-sm: 0.875rem;     /* 14px */
+  --font-size-base: 1rem;       /* 16px */
+  --font-size-md: 1.125rem;     /* 18px */
+  --font-size-lg: 1.25rem;      /* 20px */
+  --font-size-xl: 1.5rem;       /* 24px */
+  --font-size-2xl: 2rem;        /* 32px */
+  --font-size-3xl: 2.5rem;      /* 40px */
+  --font-size-4xl: 3rem;        /* 48px */
+  --font-size-5xl: 4rem;        /* 64px */
+  --font-size-hero: 5rem;       /* 80px - for hero text */
+
+  /* Font Weights */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Line Heights */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* Letter Spacing */
+  --letter-spacing-tight: -0.025em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.05em;
+  --letter-spacing-wider: 0.1em;
+  --letter-spacing-widest: 0.2em;
+
+  /* =========================================================================
+     SPACING
+     ========================================================================= */
+
+  --spacing-0: 0;
+  --spacing-1: 0.25rem;    /* 4px */
+  --spacing-2: 0.5rem;     /* 8px */
+  --spacing-3: 0.75rem;    /* 12px */
+  --spacing-4: 1rem;       /* 16px */
+  --spacing-5: 1.25rem;    /* 20px */
+  --spacing-6: 1.5rem;     /* 24px */
+  --spacing-8: 2rem;       /* 32px */
+  --spacing-10: 2.5rem;    /* 40px */
+  --spacing-12: 3rem;      /* 48px */
+  --spacing-16: 4rem;      /* 64px */
+  --spacing-20: 5rem;      /* 80px */
+  --spacing-24: 6rem;      /* 96px */
+  --spacing-32: 8rem;      /* 128px */
+
+  /* Section Spacing */
+  --section-padding-y: var(--spacing-16);
+  --section-padding-x: var(--spacing-6);
+
+  /* =========================================================================
+     LAYOUT
+     ========================================================================= */
+
+  /* Container Widths */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-max: 1440px;
+
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* =========================================================================
+     EFFECTS
+     ========================================================================= */
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 var(--color-shadow);
+  --shadow-md: 0 4px 6px -1px var(--color-shadow), 0 2px 4px -1px var(--color-shadow);
+  --shadow-lg: 0 10px 15px -3px var(--color-shadow), 0 4px 6px -2px var(--color-shadow);
+  --shadow-xl: 0 20px 25px -5px var(--color-shadow), 0 10px 10px -5px var(--color-shadow);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 300ms ease;
+  --transition-slow: 500ms ease;
+
+  /* Z-Index Scale */
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-fixed: 300;
+  --z-modal-backdrop: 400;
+  --z-modal: 500;
+  --z-tooltip: 600;
+}
+
+/* ==========================================================================
+   ALTERNATIVE COLOR PALETTES
+   Uncomment one of these sections to switch the entire color scheme
+   ========================================================================== */
+
+/*
+:root {
+  --color-primary: #D4A5A5;
+  --color-primary-light: #E5C4C4;
+  --color-primary-dark: #B88888;
+  --color-secondary: #F9F3F0;
+  --color-accent: #8B7355;
+}
+*/
+
+/*
+:root {
+  --color-primary: #2C3E50;
+  --color-primary-light: #34495E;
+  --color-primary-dark: #1A252F;
+  --color-secondary: #F8F6F0;
+  --color-accent: #D4AF37;
+}
+*/
+
+/*
+:root {
+  --color-primary: #9B8AA5;
+  --color-primary-light: #B8AAC0;
+  --color-primary-dark: #7E6B8A;
+  --color-secondary: #F5F3F7;
+  --color-accent: #C9A962;
+}
+*/

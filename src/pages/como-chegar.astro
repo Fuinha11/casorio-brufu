@@ -1,0 +1,537 @@
+---
+import ProtectedLayout from '@/layouts/ProtectedLayout.astro';
+
+const vanSchedule = [
+  { time: '18:30', location: 'Metro Pinheiros', notes: 'Ponto de encontro na saida da estacao' },
+  { time: '19:00', location: 'Metro Faria Lima', notes: 'Ponto de encontro na Av. Faria Lima' },
+  { time: '19:30', location: 'Metro Vila Madalena', notes: 'Ponto de encontro na praca' },
+];
+
+const returnSchedule = [
+  { time: '01:00', destination: 'Metro Pinheiros' },
+  { time: '02:00', destination: 'Metro Pinheiros' },
+  { time: '03:00', destination: 'Metro Pinheiros' },
+];
+---
+
+<ProtectedLayout title="Como Chegar">
+  <section class="page-hero">
+    <div class="container text-center">
+      <p class="section-subtitle">Transporte</p>
+      <h1 class="page-title">Como Chegar</h1>
+    </div>
+  </section>
+
+  <section class="section directions-section">
+    <div class="container">
+      <!-- Weather Forecast -->
+      <div class="weather-section">
+        <h2 class="section-title-sm">Previsao do Tempo</h2>
+        <div class="weather-card" id="weatherCard">
+          <div class="weather-date">
+            <span class="weather-day">10</span>
+            <span class="weather-month">Abril 2026</span>
+          </div>
+          <div class="weather-info">
+            <div class="weather-icon" id="weatherIcon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="5"></circle>
+                <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+              </svg>
+            </div>
+            <div class="weather-temp">
+              <span class="temp-value" id="weatherTemp">22</span>
+              <span class="temp-unit">°C</span>
+            </div>
+            <div class="weather-details">
+              <p class="weather-condition" id="weatherCondition">Parcialmente nublado</p>
+              <p class="weather-note">
+                Previsao baseada em medias historicas para Sao Paulo em abril.
+                Sera atualizada mais perto da data.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Address & Map -->
+      <div class="location-section">
+        <h2 class="section-title-sm">Endereco</h2>
+        <div class="location-card">
+          <div class="location-info">
+            <h3 class="location-name script-font">Botanico Quintal</h3>
+            <p class="location-address">
+              Av. Imperatriz Leopoldina, 681<br/>
+              Alto de Pinheiros - Sao Paulo/SP
+            </p>
+            <div class="location-actions">
+              <a
+                href="https://www.google.com/maps/dir/?api=1&destination=Av.+Imperatriz+Leopoldina,+681,+Alto+de+Pinheiros,+Sao+Paulo"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-primary"
+              >
+                Google Maps
+              </a>
+              <a
+                href="https://www.waze.com/ul?q=Botanico%20Quintal%20Av%20Imperatriz%20Leopoldina%20681%20Sao%20Paulo&navigate=yes"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-secondary"
+              >
+                Waze
+              </a>
+            </div>
+          </div>
+          <div class="location-map">
+            <iframe
+              src="https://www.google.com/maps?q=Botanico+Quintal,+Av.+Imperatriz+Leopoldina,+681,+Alto+de+Pinheiros,+Sao+Paulo,+SP&output=embed"
+              width="100%"
+              height="300"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Mapa do local"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+
+      <!-- Van Schedule -->
+      <div class="van-section">
+        <h2 class="section-title-sm">Transporte (Vans)</h2>
+        <p class="van-intro">
+          Disponibilizaremos vans para levar e trazer os convidados.
+          Confira os horarios e pontos de encontro abaixo.
+        </p>
+
+        <div class="van-grid">
+          <!-- Ida -->
+          <div class="van-card">
+            <div class="van-card-header">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M13 17h8m0 0l-4-4m4 4l-4 4M3 7h8m0 0L7 3m4 4L7 11"></path>
+              </svg>
+              <h3>Ida para o Evento</h3>
+            </div>
+            <table class="van-table">
+              <thead>
+                <tr>
+                  <th>Horario</th>
+                  <th>Local</th>
+                </tr>
+              </thead>
+              <tbody>
+                {vanSchedule.map((item) => (
+                  <tr>
+                    <td class="van-time">{item.time}</td>
+                    <td>
+                      <span class="van-location">{item.location}</span>
+                      <span class="van-notes">{item.notes}</span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Volta -->
+          <div class="van-card">
+            <div class="van-card-header">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M11 17H3m0 0l4 4m-4-4l4-4M21 7h-8m0 0l4-4m-4 4l4 4"></path>
+              </svg>
+              <h3>Volta para Casa</h3>
+            </div>
+            <table class="van-table">
+              <thead>
+                <tr>
+                  <th>Horario</th>
+                  <th>Destino</th>
+                </tr>
+              </thead>
+              <tbody>
+                {returnSchedule.map((item) => (
+                  <tr>
+                    <td class="van-time">{item.time}</td>
+                    <td>{item.destination}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <p class="van-note">
+          * Os horarios de volta podem sofrer alteracoes de acordo com o andamento da festa.
+        </p>
+      </div>
+
+      <!-- Parking & Rideshare -->
+      <div class="transport-alternatives">
+        <h2 class="section-title-sm">Outras Opcoes</h2>
+        <div class="alternatives-grid">
+          <div class="alternative-card">
+            <div class="alternative-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="1" y="6" width="22" height="12" rx="2" ry="2"></rect>
+                <path d="M1 10h22"></path>
+              </svg>
+            </div>
+            <h4>Estacionamento</h4>
+            <p>O local possui estacionamento proprio com manobrista gratuito.</p>
+          </div>
+
+          <div class="alternative-card">
+            <div class="alternative-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"></path>
+                <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                <path d="M9 14l2 2 4-4"></path>
+              </svg>
+            </div>
+            <h4>Uber / 99</h4>
+            <p>Aplicativos de transporte sao uma otima opcao. Lembre-se de considerar o preco dinamico!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ProtectedLayout>
+
+<style>
+  .page-hero {
+    padding: var(--spacing-24) var(--spacing-6) var(--spacing-16);
+    background: linear-gradient(135deg, var(--color-secondary-light) 0%, var(--color-secondary) 100%);
+  }
+
+  .page-title {
+    font-family: var(--font-script);
+    font-size: var(--font-size-4xl);
+    color: var(--color-primary);
+    margin-bottom: 0;
+  }
+
+  .directions-section {
+    background-color: var(--color-background);
+  }
+
+  .section-title-sm {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-2xl);
+    color: var(--color-text);
+    text-align: center;
+    margin-bottom: var(--spacing-6);
+  }
+
+  /* Weather Section */
+  .weather-section {
+    margin-bottom: var(--spacing-12);
+  }
+
+  .weather-card {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-8);
+    background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary) 100%);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-8);
+    color: var(--color-text-inverse);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .weather-date {
+    text-align: center;
+    padding-right: var(--spacing-8);
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .weather-day {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    line-height: 1;
+  }
+
+  .weather-month {
+    display: block;
+    font-size: var(--font-size-sm);
+    opacity: 0.9;
+  }
+
+  .weather-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+    flex: 1;
+  }
+
+  .weather-icon svg {
+    width: 48px;
+    height: 48px;
+  }
+
+  .weather-temp {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .temp-value {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    line-height: 1;
+  }
+
+  .temp-unit {
+    font-size: var(--font-size-lg);
+    margin-top: var(--spacing-1);
+  }
+
+  .weather-details {
+    flex: 1;
+  }
+
+  .weather-condition {
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--spacing-1);
+  }
+
+  .weather-note {
+    font-size: var(--font-size-xs);
+    opacity: 0.8;
+    margin-bottom: 0;
+  }
+
+  /* Location Section */
+  .location-section {
+    margin-bottom: var(--spacing-12);
+  }
+
+  .location-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-6);
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+  }
+
+  .location-info {
+    padding: var(--spacing-8);
+  }
+
+  .location-name {
+    font-family: var(--font-script);
+    font-size: var(--font-size-2xl);
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-3);
+  }
+
+  .location-address {
+    font-size: var(--font-size-base);
+    color: var(--color-text-light);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--spacing-6);
+  }
+
+  .location-actions {
+    display: flex;
+    gap: var(--spacing-3);
+    flex-wrap: wrap;
+  }
+
+  .location-map {
+    min-height: 300px;
+  }
+
+  .location-map iframe {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* Van Section */
+  .van-section {
+    margin-bottom: var(--spacing-12);
+  }
+
+  .van-intro {
+    text-align: center;
+    font-size: var(--font-size-base);
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-8);
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .van-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-6);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .van-card {
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+  }
+
+  .van-card-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    padding: var(--spacing-4) var(--spacing-6);
+    background-color: var(--color-secondary);
+  }
+
+  .van-card-header svg {
+    width: 24px;
+    height: 24px;
+    color: var(--color-primary);
+  }
+
+  .van-card-header h3 {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-lg);
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  .van-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .van-table th,
+  .van-table td {
+    padding: var(--spacing-3) var(--spacing-6);
+    text-align: left;
+  }
+
+  .van-table th {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .van-table td {
+    border-bottom: 1px solid var(--color-border-light);
+  }
+
+  .van-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .van-time {
+    font-family: var(--font-heading);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary);
+  }
+
+  .van-location {
+    display: block;
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+  }
+
+  .van-notes {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+
+  .van-note {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    text-align: center;
+    font-style: italic;
+  }
+
+  /* Transport Alternatives */
+  .transport-alternatives {
+    margin-bottom: var(--spacing-8);
+  }
+
+  .alternatives-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-6);
+  }
+
+  .alternative-card {
+    background-color: var(--color-background-alt);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-6);
+    text-align: center;
+  }
+
+  .alternative-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto var(--spacing-4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+  }
+
+  .alternative-icon svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .alternative-card h4 {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-lg);
+    color: var(--color-text);
+    margin-bottom: var(--spacing-2);
+  }
+
+  .alternative-card p {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 768px) {
+    .weather-card {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .weather-date {
+      padding-right: 0;
+      padding-bottom: var(--spacing-4);
+      border-right: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .weather-info {
+      flex-direction: column;
+    }
+
+    .location-card {
+      grid-template-columns: 1fr;
+    }
+
+    .location-map {
+      min-height: 250px;
+    }
+
+    .van-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

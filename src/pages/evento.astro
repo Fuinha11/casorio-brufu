@@ -1,0 +1,342 @@
+---
+import ProtectedLayout from '@/layouts/ProtectedLayout.astro';
+import AddToCalendar from '@/components/AddToCalendar.astro';
+
+const eventDetails = {
+  title: 'Casamento Bruna & Marcos',
+  description: 'Celebracao do casamento de Bruna e Marcos no Botanico Quintal, Sao Paulo.',
+  startDate: '2026-04-10T20:00:00',
+  endDate: '2026-04-11T02:00:00',
+  location: 'Botanico Quintal - Av. Imperatriz Leopoldina, 681, Alto de Pinheiros, Sao Paulo/SP',
+};
+---
+
+<ProtectedLayout title="O Evento">
+  <section class="page-hero">
+    <div class="container text-center">
+      <p class="section-subtitle">Informacoes</p>
+      <h1 class="page-title">O Evento</h1>
+    </div>
+  </section>
+
+  <section class="section event-section">
+    <div class="container">
+      <div class="event-grid">
+        <!-- Date & Time Card -->
+        <div class="event-card">
+          <div class="event-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          <h3 class="event-card-title">Data e Horario</h3>
+          <p class="event-card-date script-font">10 de Abril de 2026</p>
+          <p class="event-card-time">Sexta-feira, as 20h00</p>
+
+          <AddToCalendar
+            title={eventDetails.title}
+            description={eventDetails.description}
+            startDate={eventDetails.startDate}
+            endDate={eventDetails.endDate}
+            location={eventDetails.location}
+          />
+        </div>
+
+        <!-- Location Card -->
+        <div class="event-card">
+          <div class="event-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+              <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+          </div>
+          <h3 class="event-card-title">Local</h3>
+          <p class="event-card-venue script-font">Botanico Quintal</p>
+          <p class="event-card-address">
+            Av. Imperatriz Leopoldina, 681<br/>
+            Alto de Pinheiros - Sao Paulo/SP
+          </p>
+          <a href="https://instagram.com/botanicoquintal" target="_blank" rel="noopener noreferrer" class="event-card-link">
+            @botanicoquintal
+          </a>
+        </div>
+
+        <!-- Dress Code Card -->
+        <div class="event-card">
+          <div class="event-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+            </svg>
+          </div>
+          <h3 class="event-card-title">Dress Code</h3>
+          <p class="event-card-dresscode">Traje Esporte Fino</p>
+          <p class="event-card-dresscode-note">
+            Sugerimos cores claras e neutras.<br/>
+            Evite branco (reservado para a noiva).
+          </p>
+        </div>
+      </div>
+
+      <!-- Map Section -->
+      <div class="map-section">
+        <h3 class="map-title">Localizacao</h3>
+        <div class="map-container">
+          <iframe
+            src="https://www.google.com/maps?q=Botanico+Quintal,+Av.+Imperatriz+Leopoldina,+681,+Alto+de+Pinheiros,+Sao+Paulo,+SP&output=embed"
+            width="100%"
+            height="400"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Localizacao do Botanico Quintal"
+          ></iframe>
+        </div>
+        <div class="map-actions">
+          <a
+            href="https://www.google.com/maps/dir/?api=1&destination=Av.+Imperatriz+Leopoldina,+681,+Alto+de+Pinheiros,+Sao+Paulo"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary"
+          >
+            Abrir no Google Maps
+          </a>
+          <a
+            href="https://www.waze.com/ul?q=Botanico%20Quintal%20Av%20Imperatriz%20Leopoldina%20681%20Sao%20Paulo&navigate=yes"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-secondary"
+          >
+            Abrir no Waze
+          </a>
+        </div>
+      </div>
+
+      <!-- Schedule Section -->
+      <div class="schedule-section">
+        <h3 class="schedule-title">Programacao</h3>
+        <div class="schedule-timeline">
+          <div class="schedule-item">
+            <span class="schedule-time">20:00</span>
+            <span class="schedule-event">Recepcao dos Convidados</span>
+          </div>
+          <div class="schedule-item">
+            <span class="schedule-time">20:30</span>
+            <span class="schedule-event">Cerimonia</span>
+          </div>
+          <div class="schedule-item">
+            <span class="schedule-time">21:30</span>
+            <span class="schedule-event">Coquetel</span>
+          </div>
+          <div class="schedule-item">
+            <span class="schedule-time">22:30</span>
+            <span class="schedule-event">Jantar</span>
+          </div>
+          <div class="schedule-item">
+            <span class="schedule-time">00:00</span>
+            <span class="schedule-event">Festa</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ProtectedLayout>
+
+<style>
+  .page-hero {
+    padding: var(--spacing-24) var(--spacing-6) var(--spacing-16);
+    background: linear-gradient(135deg, var(--color-secondary-light) 0%, var(--color-secondary) 100%);
+  }
+
+  .page-title {
+    font-family: var(--font-script);
+    font-size: var(--font-size-4xl);
+    color: var(--color-primary);
+    margin-bottom: 0;
+  }
+
+  .event-section {
+    background-color: var(--color-background);
+  }
+
+  .event-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-6);
+    margin-bottom: var(--spacing-16);
+  }
+
+  .event-card {
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-8);
+    text-align: center;
+    transition: all var(--transition-normal);
+  }
+
+  .event-card:hover {
+    border-color: var(--color-primary-light);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .event-card-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto var(--spacing-4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-secondary);
+    border-radius: var(--radius-full);
+  }
+
+  .event-card-icon svg {
+    width: 28px;
+    height: 28px;
+    color: var(--color-primary);
+  }
+
+  .event-card-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-lg);
+    color: var(--color-text);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .event-card-date {
+    font-family: var(--font-script);
+    font-size: var(--font-size-2xl);
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-2);
+  }
+
+  .event-card-time {
+    font-size: var(--font-size-md);
+    color: var(--color-text-light);
+    margin-bottom: 0;
+  }
+
+  .event-card-venue {
+    font-family: var(--font-script);
+    font-size: var(--font-size-2xl);
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-2);
+  }
+
+  .event-card-address {
+    font-size: var(--font-size-base);
+    color: var(--color-text-light);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--spacing-2);
+  }
+
+  .event-card-link {
+    font-size: var(--font-size-sm);
+    color: var(--color-accent);
+  }
+
+  .event-card-dresscode {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-xl);
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-3);
+  }
+
+  .event-card-dresscode-note {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: 0;
+  }
+
+  /* Map Section */
+  .map-section {
+    margin-bottom: var(--spacing-16);
+  }
+
+  .map-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-2xl);
+    color: var(--color-text);
+    text-align: center;
+    margin-bottom: var(--spacing-6);
+  }
+
+  .map-container {
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    margin-bottom: var(--spacing-6);
+  }
+
+  .map-container iframe {
+    display: block;
+  }
+
+  .map-actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-4);
+    flex-wrap: wrap;
+  }
+
+  /* Schedule Section */
+  .schedule-section {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .schedule-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-2xl);
+    color: var(--color-text);
+    text-align: center;
+    margin-bottom: var(--spacing-8);
+  }
+
+  .schedule-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+  }
+
+  .schedule-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-6);
+    padding: var(--spacing-4) var(--spacing-6);
+    background-color: var(--color-secondary);
+    border-radius: var(--radius-lg);
+  }
+
+  .schedule-time {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary);
+    min-width: 60px;
+  }
+
+  .schedule-event {
+    font-size: var(--font-size-md);
+    color: var(--color-text);
+  }
+
+  @media (max-width: 768px) {
+    .event-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .map-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .schedule-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--spacing-2);
+    }
+  }
+</style>

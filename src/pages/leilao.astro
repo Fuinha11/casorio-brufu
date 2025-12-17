@@ -1,0 +1,354 @@
+---
+import ProtectedLayout from '@/layouts/ProtectedLayout.astro';
+
+const auctionItems = [
+  {
+    id: 'primeira-musica',
+    name: 'Primeira Musica',
+    description: 'Escolha a primeira musica que tocara na festa! O vencedor tera a honra de dar inicio a pista de danca.',
+    minBid: 100,
+    icon: '🎵'
+  },
+  {
+    id: 'brinde-noivos',
+    name: 'Brinde dos Noivos',
+    description: 'Faca o brinde oficial da noite! Levante sua taca e diga algumas palavras para os noivos.',
+    minBid: 150,
+    icon: '🥂'
+  },
+  {
+    id: 'danca-especial',
+    name: 'Danca Especial',
+    description: 'Ganhe uma danca exclusiva com a noiva ou o noivo durante a festa.',
+    minBid: 200,
+    icon: '💃'
+  },
+  {
+    id: 'primeira-foto',
+    name: 'Primeira Foto',
+    description: 'Seja a primeira pessoa a tirar uma foto oficial com os recem-casados.',
+    minBid: 100,
+    icon: '📸'
+  },
+  {
+    id: 'karaoke',
+    name: 'Escolha do Karaoke',
+    description: 'Escolha uma musica para cantar no karaoke (e convoque quem quiser para cantar junto!)',
+    minBid: 80,
+    icon: '🎤'
+  },
+];
+---
+
+<ProtectedLayout title="Leilao">
+  <section class="page-hero">
+    <div class="container text-center">
+      <p class="section-subtitle">Diversao</p>
+      <h1 class="page-title">Leilao Beneficente</h1>
+    </div>
+  </section>
+
+  <section class="section auction-section">
+    <div class="container">
+      <div class="auction-intro text-center">
+        <p class="auction-intro-text">
+          Participe do nosso leilao divertido! Os valores arrecadados serao
+          destinados a nossa lua de mel. Faca seus lances e garanta experiencias
+          unicas no nosso casamento!
+        </p>
+        <p class="auction-update-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          Os lances sao atualizados a cada poucos minutos
+        </p>
+      </div>
+
+      <div class="auction-grid">
+        {auctionItems.map((item) => (
+          <div class="auction-card" data-auction={item.id}>
+            <div class="auction-icon">{item.icon}</div>
+            <h3 class="auction-title">{item.name}</h3>
+            <p class="auction-description">{item.description}</p>
+
+            <div class="auction-status">
+              <div class="auction-current">
+                <span class="auction-label">Lance atual</span>
+                <span class="auction-value bid">Carregando...</span>
+              </div>
+              <div class="auction-leader">
+                <span class="auction-label">Lider</span>
+                <span class="auction-value winner">Carregando...</span>
+              </div>
+            </div>
+
+            <p class="auction-min">Lance minimo: R$ {item.minBid}</p>
+
+            <a
+              href="YOUR_AUCTION_FORM_URL"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-accent auction-bid-btn"
+            >
+              Fazer Lance
+            </a>
+          </div>
+        ))}
+      </div>
+
+      <div class="auction-rules">
+        <h3 class="auction-rules-title">Como funciona</h3>
+        <ol class="auction-rules-list">
+          <li>Escolha o item que deseja arrematar</li>
+          <li>Clique em "Fazer Lance" e preencha o formulario</li>
+          <li>Seu lance deve ser maior que o lance atual</li>
+          <li>O vencedor sera anunciado no dia do casamento</li>
+          <li>O pagamento sera feito diretamente aos noivos</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+</ProtectedLayout>
+
+<style>
+  .page-hero {
+    padding: var(--spacing-24) var(--spacing-6) var(--spacing-16);
+    background: linear-gradient(135deg, var(--color-accent-light) 0%, var(--color-accent) 100%);
+  }
+
+  .page-title {
+    font-family: var(--font-script);
+    font-size: var(--font-size-4xl);
+    color: var(--color-text-inverse);
+    margin-bottom: 0;
+  }
+
+  .page-hero .section-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .auction-section {
+    background-color: var(--color-background);
+  }
+
+  .auction-intro {
+    margin-bottom: var(--spacing-12);
+  }
+
+  .auction-intro-text {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-light);
+    line-height: var(--line-height-relaxed);
+    max-width: 600px;
+    margin: 0 auto var(--spacing-4);
+  }
+
+  .auction-update-note {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-bottom: 0;
+  }
+
+  .auction-update-note svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .auction-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-6);
+    margin-bottom: var(--spacing-12);
+  }
+
+  .auction-card {
+    background-color: var(--color-background);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-6);
+    text-align: center;
+    transition: all var(--transition-normal);
+  }
+
+  .auction-card:hover {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .auction-icon {
+    font-size: var(--font-size-4xl);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .auction-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-xl);
+    color: var(--color-text);
+    margin-bottom: var(--spacing-3);
+  }
+
+  .auction-description {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--spacing-6);
+  }
+
+  .auction-status {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-4);
+    padding: var(--spacing-4);
+    background-color: var(--color-secondary);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .auction-current,
+  .auction-leader {
+    text-align: center;
+  }
+
+  .auction-label {
+    display: block;
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    margin-bottom: var(--spacing-1);
+  }
+
+  .auction-value {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .auction-value.bid {
+    color: var(--color-accent);
+  }
+
+  .auction-value.winner {
+    color: var(--color-primary);
+  }
+
+  .auction-min {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .auction-bid-btn {
+    width: 100%;
+  }
+
+  .auction-rules {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: var(--spacing-8);
+    background-color: var(--color-background-alt);
+    border-radius: var(--radius-xl);
+  }
+
+  .auction-rules-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-xl);
+    color: var(--color-text);
+    text-align: center;
+    margin-bottom: var(--spacing-6);
+  }
+
+  .auction-rules-list {
+    margin: 0;
+    padding-left: var(--spacing-6);
+  }
+
+  .auction-rules-list li {
+    margin-bottom: var(--spacing-3);
+    color: var(--color-text-light);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .auction-rules-list li:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 768px) {
+    .auction-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  // Auction data fetching from Google Sheets
+  // Replace YOUR_PUBLISHED_SHEET_CSV_URL with your actual URL
+  const AUCTION_URL = 'YOUR_PUBLISHED_SHEET_CSV_URL';
+
+  async function fetchAuctionData() {
+    try {
+      const response = await fetch(AUCTION_URL);
+      if (!response.ok) return [];
+
+      const csv = await response.text();
+      const rows = csv.split('\n').slice(1); // Skip header
+
+      return rows.map(row => {
+        const [item, winner, bid] = row.split(',');
+        return {
+          item: item?.trim(),
+          winner: winner?.trim(),
+          bid: parseFloat(bid) || 0
+        };
+      }).filter(r => r.item);
+    } catch {
+      return [];
+    }
+  }
+
+  async function updateAuctionDisplay() {
+    const data = await fetchAuctionData();
+
+    data.forEach(auction => {
+      const card = document.querySelector(`[data-auction="${auction.item}"]`);
+      if (!card) return;
+
+      const bidEl = card.querySelector('.bid');
+      const winnerEl = card.querySelector('.winner');
+
+      if (bidEl) {
+        bidEl.textContent = auction.bid
+          ? `R$ ${auction.bid.toFixed(2)}`
+          : 'Nenhum lance';
+      }
+
+      if (winnerEl) {
+        winnerEl.textContent = auction.winner || 'Seja o primeiro!';
+      }
+    });
+  }
+
+  function initAuction() {
+    // Initial display (show placeholder)
+    document.querySelectorAll('.auction-card').forEach(card => {
+      const bidEl = card.querySelector('.bid');
+      const winnerEl = card.querySelector('.winner');
+
+      if (bidEl) bidEl.textContent = 'Nenhum lance';
+      if (winnerEl) winnerEl.textContent = 'Seja o primeiro!';
+    });
+
+    // Try to fetch real data
+    updateAuctionDisplay();
+
+    // Update every 30 seconds
+    setInterval(updateAuctionDisplay, 30000);
+  }
+
+  document.addEventListener('DOMContentLoaded', initAuction);
+  document.addEventListener('astro:page-load', initAuction);
+</script>
