@@ -2,14 +2,88 @@
 import ProtectedLayout from '@/layouts/ProtectedLayout.astro';
 import HeroDecoration from '@/components/HeroDecoration.astro';
 
-const giftIdeas = [
-  { id: 1, name: 'Jogo de Panelas', description: 'Para preparar nossas receitas favoritas' },
-  { id: 2, name: 'Jogo de Cama', description: 'Conforto para nosso lar' },
-  { id: 3, name: 'Eletrodomésticos', description: 'Para facilitar o dia a dia' },
-  { id: 4, name: 'Utensílios de Cozinha', description: 'Para nossas aventuras culinárias' },
-  { id: 5, name: 'Decoração', description: 'Para deixar nossa casa mais aconchegante' },
-  { id: 6, name: 'Experiências', description: 'Viagens e momentos especiais' },
+const gifts = [
+  {
+    id: 'workshop-name',
+    name: 'Seu nome na oficina',
+    description: 'Grave seu nome em uma plaquinha especial na nossa oficina de marcenaria',
+    value: 50,
+    icon: 'hammer'
+  },
+  {
+    id: 'bathroom-color',
+    name: 'Escolha a cor do banheiro',
+    description: 'Você decide a cor da pintura do nosso lavabo! Venha com sugestões criativas',
+    value: 150,
+    icon: 'paint'
+  },
+  {
+    id: 'garden-plant',
+    name: 'Planta no jardim',
+    description: 'Escolha uma planta ou árvore que plantaremos no jardim com seu nome',
+    value: 80,
+    icon: 'plant'
+  },
+  {
+    id: 'recipe-book',
+    name: 'Receita no livro da família',
+    description: 'Sua receita favorita entrará para o nosso livro de receitas da família',
+    value: 30,
+    icon: 'book'
+  },
+  {
+    id: 'movie-night',
+    name: 'Noite de cinema',
+    description: 'Escolha um filme que assistiremos juntos e pensaremos em você',
+    value: 40,
+    icon: 'film'
+  },
+  {
+    id: 'honeymoon-dinner',
+    name: 'Jantar na lua de mel',
+    description: 'Presenteie um jantar especial durante nossa lua de mel',
+    value: 200,
+    icon: 'dinner'
+  },
+  {
+    id: 'honeymoon-adventure',
+    name: 'Aventura na lua de mel',
+    description: 'Contribua para um passeio ou experiência inesquecível na viagem',
+    value: 300,
+    icon: 'adventure'
+  },
+  {
+    id: 'honeymoon-night',
+    name: 'Noite na lua de mel',
+    description: 'Ajude a custear uma noite de hospedagem na nossa viagem',
+    value: 500,
+    icon: 'hotel'
+  },
+  {
+    id: 'kitchen-item',
+    name: 'Item de cozinha',
+    description: 'Contribua para equipar nossa cozinha com utensílios de qualidade',
+    value: 100,
+    icon: 'kitchen'
+  },
+  {
+    id: 'living-decor',
+    name: 'Decoração da sala',
+    description: 'Ajude a deixar nossa sala mais aconchegante e bonita',
+    value: 150,
+    icon: 'decor'
+  },
+  {
+    id: 'surprise',
+    name: 'Presente surpresa',
+    description: 'Escolha o valor e deixe uma mensagem especial para nós',
+    value: 0,
+    icon: 'gift',
+    customValue: true
+  },
 ];
+
+const giftsJson = JSON.stringify(gifts);
 ---
 
 <ProtectedLayout title="Lista de Presentes">
@@ -22,77 +96,196 @@ const giftIdeas = [
   </section>
 
   <section class="section gifts-section">
-    <div class="container container-narrow">
+    <div class="container">
       <div class="gifts-intro text-center">
         <p class="gifts-intro-text">
           Sua presença é o maior presente que poderíamos receber!
           Mas se desejar nos presentear, preparamos algumas sugestões
-          que nos ajudarão a montar nosso novo lar.
+          criativas e especiais que farão parte da nossa história.
         </p>
       </div>
 
-      <!-- PIX Section -->
-      <div class="pix-section">
-        <div class="pix-card">
-          <div class="pix-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-          </div>
-          <h3 class="pix-title">Presente via PIX</h3>
-          <p class="pix-text">
-            Se preferir, você pode contribuir com qualquer valor
-            através do PIX. Será usado para nossa lua de mel!
-          </p>
-          <div class="pix-key">
-            <span class="pix-key-label">Chave PIX:</span>
-            <code class="pix-key-value" id="pixKey">email@exemplo.com</code>
-            <button class="pix-copy-btn" id="copyPixBtn" title="Copiar chave">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path>
-              </svg>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Gift Ideas -->
-      <div class="gift-ideas">
-        <h3 class="gift-ideas-title text-center">Sugestões de Presentes</h3>
-        <div class="gift-ideas-grid">
-          {giftIdeas.map((gift) => (
-            <div class="gift-idea-card">
-              <div class="gift-idea-icon">
+      <!-- Gift Grid -->
+      <div class="gift-grid">
+        {gifts.map((gift) => (
+          <button
+            class="gift-card"
+            data-gift-id={gift.id}
+            data-gift-name={gift.name}
+            data-gift-value={gift.value}
+            data-custom-value={gift.customValue || false}
+          >
+            <div class="gift-icon" data-icon={gift.icon}>
+              {gift.icon === 'hammer' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                </svg>
+              )}
+              {gift.icon === 'paint' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M19 11h-6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2z"></path>
+                  <path d="M12 11V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-1"></path>
+                  <path d="M7 19H5a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2h4"></path>
+                </svg>
+              )}
+              {gift.icon === 'plant' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M12 22v-7"></path>
+                  <path d="M9 22h6"></path>
+                  <path d="M12 15c-3.5 0-7-2-7-6 2 0 4.5.5 7 3 2.5-2.5 5-3 7-3 0 4-3.5 6-7 6z"></path>
+                </svg>
+              )}
+              {gift.icon === 'book' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+              )}
+              {gift.icon === 'film' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+                  <line x1="7" y1="2" x2="7" y2="22"></line>
+                  <line x1="17" y1="2" x2="17" y2="22"></line>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                  <line x1="2" y1="7" x2="7" y2="7"></line>
+                  <line x1="2" y1="17" x2="7" y2="17"></line>
+                  <line x1="17" y1="17" x2="22" y2="17"></line>
+                  <line x1="17" y1="7" x2="22" y2="7"></line>
+                </svg>
+              )}
+              {gift.icon === 'dinner' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path>
+                  <path d="M7 2v20"></path>
+                  <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path>
+                </svg>
+              )}
+              {gift.icon === 'adventure' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
+                </svg>
+              )}
+              {gift.icon === 'hotel' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3 21h18"></path>
+                  <path d="M5 21V7l8-4v18"></path>
+                  <path d="M19 21V11l-6-4"></path>
+                  <path d="M9 9h1"></path>
+                  <path d="M9 13h1"></path>
+                  <path d="M9 17h1"></path>
+                </svg>
+              )}
+              {gift.icon === 'kitchen' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path>
+                  <path d="M7 2v20"></path>
+                  <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path>
+                </svg>
+              )}
+              {gift.icon === 'decor' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M12 3l1.912 5.813a2 2 0 0 0 1.272 1.272L21 12l-5.813 1.912a2 2 0 0 0-1.272 1.272L12 21l-1.912-5.813a2 2 0 0 0-1.272-1.272L3 12l5.813-1.912a2 2 0 0 0 1.272-1.272L12 3z"></path>
+                </svg>
+              )}
+              {gift.icon === 'gift' && (
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                   <path d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path>
                 </svg>
-              </div>
-              <h4 class="gift-idea-name">{gift.name}</h4>
-              <p class="gift-idea-description">{gift.description}</p>
+              )}
             </div>
-          ))}
-        </div>
+            <h4 class="gift-name">{gift.name}</h4>
+            <p class="gift-description">{gift.description}</p>
+            <p class="gift-value">
+              {gift.customValue ? 'Valor livre' : `R$ ${gift.value}`}
+            </p>
+          </button>
+        ))}
       </div>
 
-      <!-- Gift Confirmation Form -->
-      <div class="gift-form-section">
-        <h3 class="gift-form-title text-center">Confirmar seu Presente</h3>
-        <p class="gift-form-text text-center">
-          Já comprou ou transferiu seu presente? Confirme aqui para podermos agradecer pessoalmente!
-        </p>
-        <div class="gift-form-cta text-center">
-          <a href="YOUR_GOOGLE_FORM_URL" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">
-            Confirmar Presente
-          </a>
-        </div>
-        <p class="gift-form-note text-center">
-          Você será redirecionado para um formulário onde poderá
-          informar seu presente e anexar o comprovante.
-        </p>
-      </div>
     </div>
   </section>
+
+  <!-- Gift Modal -->
+  <div class="gift-modal" id="giftModal">
+    <div class="gift-modal-overlay"></div>
+    <div class="gift-modal-content">
+      <button class="gift-modal-close" id="closeModal">&times;</button>
+
+      <h2 class="gift-modal-title">Confirmar Presente</h2>
+      <p class="gift-modal-subtitle" id="selectedGiftName"></p>
+
+      <!-- QR Code Section -->
+      <div class="plox-qr-section" id="ploxQrSection">
+        <div class="plox-qr-code" id="ploxQrCode"></div>
+        <p class="plox-qr-value">Valor: <strong id="ploxQrValue">R$ 0</strong></p>
+        <p class="plox-qr-hint">Escaneie o QR Code com o app do seu banco</p>
+        <button type="button" class="plox-copy-code-btn" id="copyPloxCode">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path>
+          </svg>
+          Copiar código
+        </button>
+      </div>
+
+      <div class="modal-divider">
+        <span>Após o pagamento, confirme abaixo</span>
+      </div>
+
+      <form id="giftForm" class="gift-form">
+        <input type="hidden" id="giftId" name="giftId" />
+        <input type="hidden" id="guestCode" name="guestCode" />
+        <input type="hidden" id="ploxCode" name="ploxCode" />
+
+        <div class="form-group">
+          <label for="guestName">Seu nome</label>
+          <input type="text" id="guestName" name="guestName" required readonly />
+        </div>
+
+        <div class="form-group">
+          <label for="giftValue">Valor (R$)</label>
+          <input type="number" id="giftValue" name="giftValue" min="1" required />
+        </div>
+
+        <div class="form-group">
+          <label for="message">Mensagem (opcional)</label>
+          <textarea id="message" name="message" rows="3" placeholder="Deixe uma mensagem especial para os noivos"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="receipt">Comprovante de transferência</label>
+          <div class="file-upload" id="fileUpload">
+            <input type="file" id="receipt" name="receipt" accept="image/*,.pdf" />
+            <div class="file-upload-content">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17,8 12,3 7,8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+              <span class="file-upload-text">Clique ou arraste o arquivo</span>
+              <span class="file-upload-hint">PNG, JPG ou PDF (máx. 5MB)</span>
+            </div>
+            <div class="file-preview" id="filePreview" style="display: none;">
+              <span class="file-name" id="fileName"></span>
+              <button type="button" class="file-remove" id="removeFile">&times;</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-message" id="formMessage"></div>
+
+        <button type="submit" class="btn btn-primary btn-lg btn-block" id="submitBtn">
+          <span class="btn-text">Enviar Confirmação</span>
+          <span class="btn-loading" style="display: none;">
+            <svg class="spinner" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="30 70"></circle>
+            </svg>
+            Enviando...
+          </span>
+        </button>
+      </form>
+    </div>
+  </div>
 </ProtectedLayout>
 
 <style>
@@ -126,224 +319,766 @@ const giftIdeas = [
     margin: 0 auto;
   }
 
-  /* PIX Section */
-  .pix-section {
+  /* Gift Grid */
+  .gift-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--spacing-6);
     margin-bottom: var(--spacing-12);
   }
 
-  .pix-card {
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  .gift-card {
+    background-color: var(--color-background);
+    border: 2px solid var(--color-border);
     border-radius: var(--radius-xl);
-    padding: var(--spacing-10);
+    padding: var(--spacing-8);
     text-align: center;
-    color: var(--color-text-inverse);
+    cursor: pointer;
+    transition: all var(--transition-normal);
   }
 
-  .pix-icon {
-    width: 60px;
-    height: 60px;
+  .gift-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .gift-icon {
+    width: 64px;
+    height: 64px;
     margin: 0 auto var(--spacing-4);
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: var(--radius-full);
-  }
-
-  .pix-icon svg {
-    width: 32px;
-    height: 32px;
-  }
-
-  .pix-title {
-    font-family: var(--font-heading);
-    font-size: var(--font-size-2xl);
-    margin-bottom: var(--spacing-3);
-  }
-
-  .pix-text {
-    font-size: var(--font-size-base);
-    opacity: 0.9;
-    margin-bottom: var(--spacing-6);
-    max-width: 400px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .pix-key {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--spacing-3);
-    background-color: rgba(255, 255, 255, 0.15);
-    padding: var(--spacing-3) var(--spacing-4);
-    border-radius: var(--radius-lg);
-  }
-
-  .pix-key-label {
-    font-size: var(--font-size-sm);
-    opacity: 0.8;
-  }
-
-  .pix-key-value {
-    font-family: monospace;
-    font-size: var(--font-size-base);
-    background: none;
-    padding: 0;
-  }
-
-  .pix-copy-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    background-color: rgba(255, 255, 255, 0.2);
-    border: none;
-    border-radius: var(--radius-md);
-    color: white;
-    cursor: pointer;
-    transition: background var(--transition-fast);
-  }
-
-  .pix-copy-btn:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-  }
-
-  .pix-copy-btn svg {
-    width: 16px;
-    height: 16px;
-  }
-
-  /* Gift Ideas */
-  .gift-ideas {
-    margin-bottom: var(--spacing-12);
-  }
-
-  .gift-ideas-title {
-    font-family: var(--font-heading);
-    font-size: var(--font-size-2xl);
-    color: var(--color-text);
-    margin-bottom: var(--spacing-8);
-  }
-
-  .gift-ideas-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: var(--spacing-4);
-  }
-
-  .gift-idea-card {
     background-color: var(--color-secondary);
-    border-radius: var(--radius-lg);
-    padding: var(--spacing-6);
-    text-align: center;
+    border-radius: var(--radius-full);
+    color: var(--color-primary);
     transition: all var(--transition-normal);
   }
 
-  .gift-idea-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
+  .gift-card:hover .gift-icon {
+    background-color: var(--color-primary);
+    color: var(--color-text-inverse);
   }
 
-  .gift-idea-icon {
-    width: 48px;
-    height: 48px;
-    margin: 0 auto var(--spacing-3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-primary);
-  }
-
-  .gift-idea-icon svg {
+  .gift-icon svg {
     width: 32px;
     height: 32px;
   }
 
-  .gift-idea-name {
+  .gift-name {
     font-family: var(--font-heading);
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-lg);
     color: var(--color-text);
     margin-bottom: var(--spacing-2);
   }
 
-  .gift-idea-description {
+  .gift-description {
     font-size: var(--font-size-sm);
     color: var(--color-text-light);
+    margin-bottom: var(--spacing-4);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .gift-value {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary);
     margin-bottom: 0;
   }
 
-  /* Gift Form Section */
-  .gift-form-section {
-    background-color: var(--color-background-alt);
-    border-radius: var(--radius-xl);
-    padding: var(--spacing-10);
+  /* Modal */
+  .gift-modal {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-modal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-4);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-normal);
   }
 
-  .gift-form-title {
+  .gift-modal.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .gift-modal-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+  }
+
+  .gift-modal-content {
+    position: relative;
+    background-color: var(--color-background);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-8);
+    max-width: 500px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    transform: translateY(20px);
+    transition: transform var(--transition-normal);
+  }
+
+  .gift-modal.active .gift-modal-content {
+    transform: translateY(0);
+  }
+
+  .gift-modal-close {
+    position: absolute;
+    top: var(--spacing-4);
+    right: var(--spacing-4);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: var(--color-text-light);
+    cursor: pointer;
+    transition: color var(--transition-fast);
+  }
+
+  .gift-modal-close:hover {
+    color: var(--color-text);
+  }
+
+  .gift-modal-title {
     font-family: var(--font-heading);
     font-size: var(--font-size-2xl);
     color: var(--color-text);
-    margin-bottom: var(--spacing-3);
+    margin-bottom: var(--spacing-1);
   }
 
-  .gift-form-text {
+  .gift-modal-subtitle {
     font-size: var(--font-size-base);
-    color: var(--color-text-light);
+    color: var(--color-primary);
     margin-bottom: var(--spacing-6);
   }
 
-  .gift-form-cta {
+  /* QR Code */
+  .plox-qr-section {
+    text-align: center;
+    padding: var(--spacing-6);
+    background-color: var(--color-secondary);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-6);
+  }
+
+  .plox-qr-code {
+    display: inline-block;
+    padding: var(--spacing-3);
+    background-color: white;
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-3);
+  }
+
+  .plox-qr-code img {
+    display: block;
+    width: 180px;
+    height: 180px;
+  }
+
+  .plox-qr-value {
+    font-size: var(--font-size-lg);
+    color: var(--color-text);
+    margin-bottom: var(--spacing-1);
+  }
+
+  .plox-qr-value strong {
+    color: var(--color-primary);
+    font-size: var(--font-size-xl);
+  }
+
+  .plox-qr-hint {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
     margin-bottom: var(--spacing-4);
   }
 
-  .gift-form-note {
+  .plox-copy-code-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    padding: var(--spacing-2) var(--spacing-4);
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .plox-copy-code-btn:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  .plox-copy-code-btn.copied {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: white;
+  }
+
+  .modal-divider {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+    margin-bottom: var(--spacing-6);
+  }
+
+  .modal-divider::before,
+  .modal-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: var(--color-border);
+  }
+
+  .modal-divider span {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    white-space: nowrap;
+  }
+
+  /* Form */
+  .gift-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-5);
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+
+  .form-group label {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+  }
+
+  .form-group input,
+  .form-group textarea {
+    padding: var(--spacing-3) var(--spacing-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-base);
+    transition: border-color var(--transition-fast);
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+  }
+
+  .form-group input[readonly] {
+    background-color: var(--color-secondary);
+  }
+
+  /* File Upload */
+  .file-upload {
+    position: relative;
+    border: 2px dashed var(--color-border);
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-fast);
+  }
+
+  .file-upload:hover,
+  .file-upload.dragover {
+    border-color: var(--color-primary);
+    background-color: var(--color-secondary);
+  }
+
+  .file-upload input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .file-upload-content {
+    padding: var(--spacing-6);
+    text-align: center;
+    color: var(--color-text-light);
+  }
+
+  .file-upload-content svg {
+    width: 40px;
+    height: 40px;
+    margin-bottom: var(--spacing-2);
+    color: var(--color-primary);
+  }
+
+  .file-upload-text {
+    display: block;
+    font-size: var(--font-size-base);
+    margin-bottom: var(--spacing-1);
+  }
+
+  .file-upload-hint {
+    display: block;
     font-size: var(--font-size-sm);
     color: var(--color-text-muted);
-    margin-bottom: 0;
+  }
+
+  .file-preview {
+    padding: var(--spacing-4);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--color-secondary);
+    border-radius: var(--radius-md);
+  }
+
+  .file-name {
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .file-remove {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-error);
+    color: white;
+    border: none;
+    border-radius: var(--radius-full);
+    font-size: 16px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  /* Form Message */
+  .form-message {
+    padding: var(--spacing-3) var(--spacing-4);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    display: none;
+  }
+
+  .form-message.success {
+    display: block;
+    background-color: #d4edda;
+    color: #155724;
+  }
+
+  .form-message.error {
+    display: block;
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+
+  /* Button */
+  .btn-block {
+    width: 100%;
+  }
+
+  .btn-text,
+  .btn-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-2);
+  }
+
+  .spinner {
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
   }
 
   @media (max-width: 768px) {
-    .pix-key {
-      flex-direction: column;
-      gap: var(--spacing-2);
+    .gift-grid {
+      grid-template-columns: 1fr;
     }
 
-    .gift-ideas-grid {
-      grid-template-columns: repeat(2, 1fr);
+    .gift-modal-content {
+      padding: var(--spacing-6);
     }
   }
 </style>
 
 <script>
-  function initGiftsPage() {
-    const copyBtn = document.getElementById('copyPixBtn');
-    const pixKey = document.getElementById('pixKey');
+  import { getGuestCode, getGuestName } from '@/scripts/auth';
 
-    copyBtn?.addEventListener('click', async () => {
-      const text = pixKey?.textContent || '';
+  // Google Apps Script Web App URL - Replace with your deployed script URL
+  const SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL';
+
+  // Payment Configuration
+  const PLOX_CONFIG = {
+    key: '42566463883',
+    name: 'BRUNA E MARCOS',
+    city: 'SAO PAULO',
+  };
+
+  // Normalize text (remove accents, uppercase, limit characters)
+  function normalizePloxText(text: string, maxLength: number = 25): string {
+    return text
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '') // Remove accents
+      .toUpperCase()
+      .replace(/[^A-Z0-9 ]/g, '') // Only allow letters, numbers, spaces
+      .substring(0, maxLength)
+      .trim();
+  }
+
+  // Generate EMV Payload with description
+  function generatePloxPayload(value: number, txId: string, giftName?: string, guestCode?: string): string {
+    const formatField = (id: string, value: string) => {
+      const len = value.length.toString().padStart(2, '0');
+      return `${id}${len}${value}`;
+    };
+
+    // Build description from gift name and guest code
+    let description = '';
+    if (giftName || guestCode) {
+      const parts = [];
+      if (giftName) parts.push(normalizePloxText(giftName, 30));
+      if (guestCode) parts.push(normalizePloxText(guestCode, 15));
+      description = parts.join(' - ').substring(0, 50);
+    }
+
+    // Merchant Account Info (ID 26)
+    const gui = formatField('00', 'br.gov.bcb.pix');
+    const ploxKey = formatField('01', PLOX_CONFIG.key);
+    const descField = description ? formatField('02', description) : '';
+    const merchantAccount = formatField('26', gui + ploxKey + descField);
+
+    // Build payload without CRC
+    let payload = '';
+    payload += formatField('00', '01'); // Payload Format Indicator
+    payload += merchantAccount; // Merchant Account
+    payload += formatField('52', '0000'); // Merchant Category Code
+    payload += formatField('53', '986'); // Currency (BRL)
+
+    if (value > 0) {
+      payload += formatField('54', value.toFixed(2)); // Transaction Amount
+    }
+
+    payload += formatField('58', 'BR'); // Country Code
+    payload += formatField('59', PLOX_CONFIG.name); // Merchant Name
+    payload += formatField('60', PLOX_CONFIG.city); // Merchant City
+
+    // Additional Data (ID 62) with Transaction ID
+    const txIdField = formatField('05', txId.substring(0, 25));
+    payload += formatField('62', txIdField);
+
+    // CRC placeholder
+    payload += '6304';
+
+    // Calculate CRC16
+    const crc = crc16(payload);
+    payload = payload.slice(0, -4) + formatField('63', crc);
+
+    return payload;
+  }
+
+  // CRC16-CCITT calculation for PIX
+  function crc16(str: string): string {
+    let crc = 0xFFFF;
+    for (let i = 0; i < str.length; i++) {
+      crc ^= str.charCodeAt(i) << 8;
+      for (let j = 0; j < 8; j++) {
+        if (crc & 0x8000) {
+          crc = (crc << 1) ^ 0x1021;
+        } else {
+          crc <<= 1;
+        }
+      }
+    }
+    return (crc & 0xFFFF).toString(16).toUpperCase().padStart(4, '0');
+  }
+
+  // Generate QR Code URL using QR Server API
+  function getQrCodeUrl(data: string, size: number = 200): string {
+    return `https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodeURIComponent(data)}&format=svg`;
+  }
+
+  // Store current code for copying
+  let currentPloxCode = '';
+
+  function initGiftsPage() {
+    const modal = document.getElementById('giftModal');
+    const closeBtn = document.getElementById('closeModal');
+    const overlay = modal?.querySelector('.gift-modal-overlay');
+    const form = document.getElementById('giftForm') as HTMLFormElement;
+    const giftCards = document.querySelectorAll('.gift-card');
+    const fileInput = document.getElementById('receipt') as HTMLInputElement;
+    const fileUpload = document.getElementById('fileUpload');
+    const filePreview = document.getElementById('filePreview');
+    const fileName = document.getElementById('fileName');
+    const removeFileBtn = document.getElementById('removeFile');
+    const copyPloxCodeBtn = document.getElementById('copyPloxCode');
+    const ploxQrCode = document.getElementById('ploxQrCode');
+    const ploxQrValue = document.getElementById('ploxQrValue');
+    const ploxCodeInput = document.getElementById('ploxCode') as HTMLInputElement;
+
+    // Pre-fill guest info
+    const guestCodeInput = document.getElementById('guestCode') as HTMLInputElement;
+    const guestNameInput = document.getElementById('guestName') as HTMLInputElement;
+
+    if (guestCodeInput) guestCodeInput.value = getGuestCode() || '';
+    if (guestNameInput) guestNameInput.value = getGuestName() || '';
+
+    // Generate and display QR Code
+    function updatePloxQrCode(value: number, giftId: string, giftName?: string) {
+      const txId = `${giftId.toUpperCase().replace(/-/g, '')}${Date.now().toString().slice(-6)}`;
+      const guestCode = getGuestCode() || '';
+      currentPloxCode = generatePloxPayload(value, txId, giftName, guestCode);
+
+      if (ploxQrCode) {
+        const qrUrl = getQrCodeUrl(currentPloxCode, 180);
+        ploxQrCode.innerHTML = `<img src="${qrUrl}" alt="QR Code" onerror="this.parentElement.innerHTML='<p style=\\'padding:20px;color:var(--color-text-light)\\'>Erro ao carregar QR Code. Use o código abaixo.</p>'" />`;
+      }
+
+      if (ploxQrValue) {
+        ploxQrValue.textContent = `R$ ${value.toFixed(2)}`;
+      }
+
+      if (ploxCodeInput) {
+        ploxCodeInput.value = currentPloxCode;
+      }
+    }
+
+    // Open modal when clicking a gift card
+    giftCards.forEach((card) => {
+      card.addEventListener('click', () => {
+        const giftId = card.getAttribute('data-gift-id') || '';
+        const giftName = card.getAttribute('data-gift-name');
+        const giftValue = parseFloat(card.getAttribute('data-gift-value') || '0');
+        const customValue = card.getAttribute('data-custom-value') === 'true';
+
+        const giftIdInput = document.getElementById('giftId') as HTMLInputElement;
+        const giftValueInput = document.getElementById('giftValue') as HTMLInputElement;
+        const selectedGiftName = document.getElementById('selectedGiftName');
+
+        if (giftIdInput) giftIdInput.value = giftId;
+        if (giftValueInput) {
+          giftValueInput.value = customValue ? '' : giftValue.toString();
+          giftValueInput.readOnly = !customValue;
+        }
+        if (selectedGiftName) selectedGiftName.textContent = giftName || '';
+
+        // Generate QR Code
+        if (!customValue && giftValue > 0) {
+          updatePloxQrCode(giftValue, giftId, giftName || undefined);
+        } else {
+          // For custom value, show placeholder
+          if (ploxQrCode) ploxQrCode.innerHTML = '<p style="padding: 40px; color: var(--color-text-light);">Digite o valor para gerar o QR Code</p>';
+          if (ploxQrValue) ploxQrValue.textContent = 'R$ --';
+        }
+
+        modal?.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    // Update QR code when custom value changes
+    const giftValueInput = document.getElementById('giftValue') as HTMLInputElement;
+    giftValueInput?.addEventListener('input', () => {
+      const value = parseFloat(giftValueInput.value) || 0;
+      const giftId = (document.getElementById('giftId') as HTMLInputElement)?.value || 'custom';
+      const giftName = document.getElementById('selectedGiftName')?.textContent || undefined;
+      if (value > 0) {
+        updatePloxQrCode(value, giftId, giftName);
+      }
+    });
+
+    // Copy code
+    copyPloxCodeBtn?.addEventListener('click', async () => {
+      if (!currentPloxCode) return;
 
       try {
-        await navigator.clipboard.writeText(text);
-
-        // Visual feedback
-        const originalSvg = copyBtn.innerHTML;
-        copyBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <polyline points="20,6 9,17 4,12"></polyline>
-        </svg>`;
-
+        await navigator.clipboard.writeText(currentPloxCode);
+        copyPloxCodeBtn.classList.add('copied');
+        copyPloxCodeBtn.innerHTML = `
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <polyline points="20,6 9,17 4,12"></polyline>
+          </svg>
+          Copiado!
+        `;
         setTimeout(() => {
-          copyBtn.innerHTML = originalSvg;
+          copyPloxCodeBtn.classList.remove('copied');
+          copyPloxCodeBtn.innerHTML = `
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path>
+            </svg>
+            Copiar código
+          `;
         }, 2000);
       } catch {
-        // Fallback for older browsers
+        // Fallback
         const textArea = document.createElement('textarea');
-        textArea.value = text;
+        textArea.value = currentPloxCode;
         document.body.appendChild(textArea);
         textArea.select();
         document.execCommand('copy');
         document.body.removeChild(textArea);
       }
+    });
+
+    // Close modal
+    function closeModal() {
+      modal?.classList.remove('active');
+      document.body.style.overflow = '';
+      form?.reset();
+      resetFileUpload();
+      // Re-fill guest info after reset
+      if (guestCodeInput) guestCodeInput.value = getGuestCode() || '';
+      if (guestNameInput) guestNameInput.value = getGuestName() || '';
+    }
+
+    closeBtn?.addEventListener('click', closeModal);
+    overlay?.addEventListener('click', closeModal);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // File upload handling
+    function resetFileUpload() {
+      if (fileInput) fileInput.value = '';
+      if (filePreview) filePreview.style.display = 'none';
+      if (fileUpload) {
+        const content = fileUpload.querySelector('.file-upload-content') as HTMLElement;
+        if (content) content.style.display = 'block';
+      }
+    }
+
+    fileInput?.addEventListener('change', () => {
+      const file = fileInput.files?.[0];
+      if (file) {
+        if (fileName) fileName.textContent = file.name;
+        if (filePreview) filePreview.style.display = 'flex';
+        const content = fileUpload?.querySelector('.file-upload-content') as HTMLElement;
+        if (content) content.style.display = 'none';
+      }
+    });
+
+    removeFileBtn?.addEventListener('click', resetFileUpload);
+
+    // Drag and drop
+    fileUpload?.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      fileUpload.classList.add('dragover');
+    });
+
+    fileUpload?.addEventListener('dragleave', () => {
+      fileUpload.classList.remove('dragover');
+    });
+
+    fileUpload?.addEventListener('drop', (e) => {
+      e.preventDefault();
+      fileUpload.classList.remove('dragover');
+      const files = (e as DragEvent).dataTransfer?.files;
+      if (files && files[0] && fileInput) {
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(files[0]);
+        fileInput.files = dataTransfer.files;
+        fileInput.dispatchEvent(new Event('change'));
+      }
+    });
+
+    // Form submission
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement;
+      const btnText = submitBtn?.querySelector('.btn-text') as HTMLElement;
+      const btnLoading = submitBtn?.querySelector('.btn-loading') as HTMLElement;
+      const formMessage = document.getElementById('formMessage');
+
+      // Show loading
+      if (submitBtn) submitBtn.disabled = true;
+      if (btnText) btnText.style.display = 'none';
+      if (btnLoading) btnLoading.style.display = 'flex';
+      if (formMessage) {
+        formMessage.className = 'form-message';
+        formMessage.textContent = '';
+      }
+
+      try {
+        const formData = new FormData(form);
+
+        // Convert file to base64 if present
+        const file = fileInput?.files?.[0];
+        if (file) {
+          const base64 = await fileToBase64(file);
+          formData.set('receiptBase64', base64);
+          formData.set('receiptName', file.name);
+          formData.set('receiptType', file.type);
+        }
+
+        // Send to Google Apps Script
+        const response = await fetch(SCRIPT_URL, {
+          method: 'POST',
+          body: formData,
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          if (formMessage) {
+            formMessage.className = 'form-message success';
+            formMessage.textContent = 'Presente confirmado com sucesso! Muito obrigado!';
+          }
+          setTimeout(() => {
+            closeModal();
+          }, 2000);
+        } else {
+          throw new Error(result.error || 'Erro ao enviar');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        if (formMessage) {
+          formMessage.className = 'form-message error';
+          formMessage.textContent = 'Erro ao enviar. Por favor, tente novamente.';
+        }
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+        if (btnText) btnText.style.display = 'flex';
+        if (btnLoading) btnLoading.style.display = 'none';
+      }
+    });
+
+  }
+
+  // Convert file to base64
+  function fileToBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const result = reader.result as string;
+        // Remove data URL prefix (e.g., "data:image/png;base64,")
+        const base64 = result.split(',')[1];
+        resolve(base64);
+      };
+      reader.onerror = (error) => reject(error);
     });
   }
 
