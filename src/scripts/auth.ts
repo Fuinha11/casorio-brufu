@@ -3,20 +3,32 @@
  * Handles login, validation, and session management for wedding website
  */
 
+// Google Apps Script API URL
+const API_URL = 'https://script.google.com/macros/s/AKfycbwc_-5VTNA5E0CuQXUwPwqJxRdtGUSAVF8Hg-A6q_46biVHTipP2wb2LY_Ch1PeDVL7/exec';
+
 interface Guest {
   name: string;
   code: string;
+  isPlusOne: boolean;
 }
 
 interface AuthState {
   isAuthenticated: boolean;
   guestName: string | null;
   guestCode: string | null;
+  isPlusOne: boolean;
+}
+
+interface LoginResponse {
+  success: boolean;
+  guest?: Guest;
+  error?: string;
 }
 
 const STORAGE_KEYS = {
   GUEST_NAME: 'guestName',
   GUEST_CODE: 'guestCode',
+  IS_PLUS_ONE: 'isPlusOne',
   IS_AUTHENTICATED: 'isAuthenticated'
 } as const;
 
@@ -24,7 +36,6 @@ const STORAGE_KEYS = {
  * Get the base path for the site (handles GitHub Pages subdirectory)
  */
 function getBasePath(): string {
-  // Check if we're on GitHub Pages
   if (typeof window !== 'undefined' && window.location.pathname.startsWith('/casorio-brufu')) {
     return '/casorio-brufu';
   }
@@ -32,31 +43,21 @@ function getBasePath(): string {
 }
 
 /**
- * Fetch the guest list from the JSON file
- */
-async function fetchGuestList(): Promise<Guest[]> {
-  try {
-    const basePath = getBasePath();
-    const response = await fetch(`${basePath}/data/guests.json`);
-    if (!response.ok) {
-      throw new Error('Failed to fetch guest list');
-    }
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching guest list:', error);
-    return [];
-  }
-}
-
-/**
- * Validate a guest code against the guest list
+ * Validate a guest code against Google Sheets via Apps Script
  */
 export async function validateGuestCode(code: string): Promise<Guest | null> {
-  const guests = await fetchGuestList();
-  const normalizedCode = code.toLowerCase().trim();
+  try {
+    const response = await fetch(`${API_URL}?action=login&code=${encodeURIComponent(code)}`);
+    const data: LoginResponse = await response.json();
 
-  const guest = guests.find(g => g.code.toLowerCase() === normalizedCode);
-  return guest || null;
+    if (data.success && data.guest) {
+      return data.guest;
+    }
+    return null;
+  } catch (error) {
+    console.error('Error validating guest code:', error);
+    return null;
+  }
 }
 
 /**
@@ -67,6 +68,7 @@ export function loginGuest(guest: Guest): void {
 
   localStorage.setItem(STORAGE_KEYS.GUEST_NAME, guest.name);
   localStorage.setItem(STORAGE_KEYS.GUEST_CODE, guest.code);
+  localStorage.setItem(STORAGE_KEYS.IS_PLUS_ONE, guest.isPlusOne ? 'true' : 'false');
   localStorage.setItem(STORAGE_KEYS.IS_AUTHENTICATED, 'true');
 }
 
@@ -78,6 +80,7 @@ export function logoutGuest(): void {
 
   localStorage.removeItem(STORAGE_KEYS.GUEST_NAME);
   localStorage.removeItem(STORAGE_KEYS.GUEST_CODE);
+  localStorage.removeItem(STORAGE_KEYS.IS_PLUS_ONE);
   localStorage.removeItem(STORAGE_KEYS.IS_AUTHENTICATED);
 }
 
@@ -89,18 +92,21 @@ export function getAuthState(): AuthState {
     return {
       isAuthenticated: false,
       guestName: null,
-      guestCode: null
+      guestCode: null,
+      isPlusOne: false
     };
   }
 
   const isAuthenticated = localStorage.getItem(STORAGE_KEYS.IS_AUTHENTICATED) === 'true';
   const guestName = localStorage.getItem(STORAGE_KEYS.GUEST_NAME);
   const guestCode = localStorage.getItem(STORAGE_KEYS.GUEST_CODE);
+  const isPlusOne = localStorage.getItem(STORAGE_KEYS.IS_PLUS_ONE) === 'true';
 
   return {
-    isAuthenticated: isAuthenticated && !!guestName && !!guestCode,
+    isAuthenticated: isAuthenticated && !!guestCode,
     guestName,
-    guestCode
+    guestCode,
+    isPlusOne
   };
 }
 
@@ -123,6 +129,13 @@ export function getGuestName(): string | null {
  */
 export function getGuestCode(): string | null {
   return getAuthState().guestCode;
+}
+
+/**
+ * Check if current guest is a plus one
+ */
+export function isPlusOne(): boolean {
+  return getAuthState().isPlusOne;
 }
 
 /**
@@ -167,10 +180,14 @@ export async function handleLogin(code: string): Promise<{ success: boolean; err
 }
 
 /**
+ * Get the API URL for making requests
+ */
+export function getApiUrl(): string {
+  return API_URL;
+}
+
+/**
  * Build a form URL with pre-filled guest info
- * @param baseUrl The base URL of the Google Form
- * @param codeFieldId The entry ID for the code field (e.g., "entry.123456")
- * @param nameFieldId The entry ID for the name field (e.g., "entry.789012")
  */
 export function buildFormUrl(
   baseUrl: string,

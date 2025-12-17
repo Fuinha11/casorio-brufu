@@ -4,47 +4,49 @@ import ProtectedLayout from '@/layouts/ProtectedLayout.astro';
 const auctionItems = [
   {
     id: 'primeira-musica',
-    name: 'Primeira Musica',
-    description: 'Escolha a primeira musica que tocara na festa! O vencedor tera a honra de dar inicio a pista de danca.',
+    name: 'Primeira Música',
+    description: 'Escolha a primeira música que tocará na festa! O vencedor terá a honra de dar início à pista de dança.',
     minBid: 100,
     icon: '🎵'
   },
   {
     id: 'brinde-noivos',
     name: 'Brinde dos Noivos',
-    description: 'Faca o brinde oficial da noite! Levante sua taca e diga algumas palavras para os noivos.',
+    description: 'Faça o brinde oficial da noite! Levante sua taça e diga algumas palavras para os noivos.',
     minBid: 150,
     icon: '🥂'
   },
   {
     id: 'danca-especial',
-    name: 'Danca Especial',
-    description: 'Ganhe uma danca exclusiva com a noiva ou o noivo durante a festa.',
+    name: 'Dança Especial',
+    description: 'Ganhe uma dança exclusiva com a noiva ou o noivo durante a festa.',
     minBid: 200,
     icon: '💃'
   },
   {
     id: 'primeira-foto',
     name: 'Primeira Foto',
-    description: 'Seja a primeira pessoa a tirar uma foto oficial com os recem-casados.',
+    description: 'Seja a primeira pessoa a tirar uma foto oficial com os recém-casados.',
     minBid: 100,
     icon: '📸'
   },
   {
     id: 'karaoke',
-    name: 'Escolha do Karaoke',
-    description: 'Escolha uma musica para cantar no karaoke (e convoque quem quiser para cantar junto!)',
+    name: 'Escolha do Karaokê',
+    description: 'Escolha uma música para cantar no karaokê (e convoque quem quiser para cantar junto!)',
     minBid: 80,
     icon: '🎤'
   },
 ];
+
+const auctionItemsJson = JSON.stringify(auctionItems);
 ---
 
-<ProtectedLayout title="Leilao">
+<ProtectedLayout title="Leilão">
   <section class="page-hero">
     <div class="container text-center">
-      <p class="section-subtitle">Diversao</p>
-      <h1 class="page-title">Leilao Beneficente</h1>
+      <p class="section-subtitle">Diversão</p>
+      <h1 class="page-title">Leilão Beneficente</h1>
     </div>
   </section>
 
@@ -52,9 +54,9 @@ const auctionItems = [
     <div class="container">
       <div class="auction-intro text-center">
         <p class="auction-intro-text">
-          Participe do nosso leilao divertido! Os valores arrecadados serao
-          destinados a nossa lua de mel. Faca seus lances e garanta experiencias
-          unicas no nosso casamento!
+          Participe do nosso leilão divertido! Os valores arrecadados serão
+          destinados à nossa lua de mel. Faça seus lances e garanta experiências
+          únicas no nosso casamento!
         </p>
         <p class="auction-update-note">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -82,18 +84,76 @@ const auctionItems = [
               </div>
             </div>
 
-            <p class="auction-min">Lance minimo: R$ {item.minBid}</p>
+            <p class="auction-min">Lance mínimo: R$ {item.minBid}</p>
 
-            <a
-              href="YOUR_AUCTION_FORM_URL"
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              type="button"
               class="btn btn-accent auction-bid-btn"
+              data-item-id={item.id}
+              data-item-name={item.name}
+              data-min-bid={item.minBid}
             >
               Fazer Lance
-            </a>
+            </button>
           </div>
         ))}
+      </div>
+
+      <!-- Bid Modal -->
+      <div id="bidModal" class="bid-modal">
+        <div class="bid-modal-backdrop"></div>
+        <div class="bid-modal-content">
+          <button type="button" class="bid-modal-close" id="closeModal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+
+          <div class="bid-modal-header">
+            <span class="bid-modal-icon" id="modalIcon"></span>
+            <h3 class="bid-modal-title" id="modalTitle">Fazer Lance</h3>
+          </div>
+
+          <form id="bidForm" class="bid-form">
+            <input type="hidden" id="guestCode" name="guestCode" />
+            <input type="hidden" id="guestName" name="guestName" />
+            <input type="hidden" id="itemId" name="itemId" />
+            <input type="hidden" id="itemName" name="itemName" />
+
+            <div class="bid-form-info">
+              <div class="bid-info-row">
+                <span class="bid-info-label">Lance atual:</span>
+                <span class="bid-info-value" id="modalCurrentBid">R$ 0</span>
+              </div>
+              <div class="bid-info-row">
+                <span class="bid-info-label">Lider:</span>
+                <span class="bid-info-value" id="modalCurrentWinner">Nenhum</span>
+              </div>
+            </div>
+
+            <div class="bid-form-group">
+              <label for="bidAmount" class="bid-form-label">Seu lance (R$)</label>
+              <input
+                type="number"
+                id="bidAmount"
+                name="bidAmount"
+                class="bid-form-input"
+                placeholder="0"
+                min="1"
+                step="1"
+                required
+              />
+              <span class="bid-form-hint" id="minBidHint">Lance mínimo: R$ 100</span>
+            </div>
+
+            <div id="bidMessage" class="bid-message"></div>
+
+            <div class="bid-form-actions">
+              <button type="button" class="btn btn-secondary" id="cancelBid">Cancelar</button>
+              <button type="submit" class="btn btn-accent" id="submitBid">Confirmar Lance</button>
+            </div>
+          </form>
+        </div>
       </div>
 
       <div class="auction-rules">
@@ -282,38 +342,262 @@ const auctionItems = [
       grid-template-columns: 1fr;
     }
   }
+
+  /* Modal Styles */
+  .bid-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-4);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+  }
+
+  .bid-modal.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .bid-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  .bid-modal-content {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    background: var(--color-background);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-8);
+    box-shadow: var(--shadow-xl);
+    transform: scale(0.95);
+    transition: transform 0.3s;
+  }
+
+  .bid-modal.open .bid-modal-content {
+    transform: scale(1);
+  }
+
+  .bid-modal-close {
+    position: absolute;
+    top: var(--spacing-4);
+    right: var(--spacing-4);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-text-muted);
+    transition: color 0.2s;
+  }
+
+  .bid-modal-close:hover {
+    color: var(--color-text);
+  }
+
+  .bid-modal-close svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .bid-modal-header {
+    text-align: center;
+    margin-bottom: var(--spacing-6);
+  }
+
+  .bid-modal-icon {
+    display: block;
+    font-size: 3rem;
+    margin-bottom: var(--spacing-3);
+  }
+
+  .bid-modal-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-xl);
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  .bid-form-info {
+    background: var(--color-secondary);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-4);
+    margin-bottom: var(--spacing-6);
+  }
+
+  .bid-info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-2) 0;
+  }
+
+  .bid-info-row:first-child {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .bid-info-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+
+  .bid-info-value {
+    font-family: var(--font-heading);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-accent);
+  }
+
+  .bid-form-group {
+    margin-bottom: var(--spacing-4);
+  }
+
+  .bid-form-label {
+    display: block;
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--spacing-2);
+    color: var(--color-text);
+  }
+
+  .bid-form-input {
+    width: 100%;
+    padding: var(--spacing-4);
+    font-family: var(--font-body);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    text-align: center;
+    color: var(--color-text);
+    background: var(--color-background);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    transition: border-color 0.2s;
+  }
+
+  .bid-form-input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+
+  .bid-form-hint {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    text-align: center;
+    margin-top: var(--spacing-2);
+  }
+
+  .bid-message {
+    margin-bottom: var(--spacing-4);
+    border-radius: var(--radius-md);
+    text-align: center;
+    font-weight: var(--font-weight-medium);
+  }
+
+  .bid-message.success {
+    padding: var(--spacing-3);
+    background: rgba(76, 175, 80, 0.1);
+    border: 1px solid #4caf50;
+    color: #2e7d32;
+  }
+
+  .bid-message.error {
+    padding: var(--spacing-3);
+    background: rgba(229, 115, 115, 0.1);
+    border: 1px solid #e57373;
+    color: #c62828;
+  }
+
+  .bid-form-actions {
+    display: flex;
+    gap: var(--spacing-3);
+  }
+
+  .bid-form-actions .btn {
+    flex: 1;
+  }
 </style>
 
 <script>
-  // Auction data fetching from Google Sheets
-  // Replace YOUR_PUBLISHED_SHEET_CSV_URL with your actual URL
-  const AUCTION_URL = 'YOUR_PUBLISHED_SHEET_CSV_URL';
+  import { getAuthState, getApiUrl } from '@/scripts/auth';
+
+  interface AuctionItem {
+    id: string;
+    name: string;
+    minBid: number;
+    icon: string;
+  }
+
+  interface AuctionData {
+    item: string;
+    bidder: string;
+    amount: number;
+  }
+
+  const API_URL = getApiUrl();
+  let auctionData: AuctionData[] = [];
+  let currentItem: AuctionItem | null = null;
+
+  // Item data for icons
+  const itemIcons: Record<string, string> = {
+    'primeira-musica': '🎵',
+    'brinde-noivos': '🥂',
+    'danca-especial': '💃',
+    'primeira-foto': '📸',
+    'karaoke': '🎤'
+  };
+
+  function init() {
+    const { guestCode, guestName } = getAuthState();
+
+    // Set hidden fields
+    const codeInput = document.getElementById('guestCode') as HTMLInputElement;
+    const nameInput = document.getElementById('guestName') as HTMLInputElement;
+    if (codeInput && guestCode) codeInput.value = guestCode;
+    if (nameInput && guestName) nameInput.value = guestName;
+
+    // Initial display (show placeholder)
+    document.querySelectorAll('.auction-card').forEach(card => {
+      const bidEl = card.querySelector('.bid');
+      const winnerEl = card.querySelector('.winner');
+      if (bidEl) bidEl.textContent = 'Nenhum lance';
+      if (winnerEl) winnerEl.textContent = 'Seja o primeiro!';
+    });
+
+    // Fetch real data
+    fetchAuctionData();
+
+    // Update every 30 seconds
+    setInterval(fetchAuctionData, 30000);
+
+    // Setup event listeners
+    setupModalListeners();
+  }
 
   async function fetchAuctionData() {
     try {
-      const response = await fetch(AUCTION_URL);
-      if (!response.ok) return [];
+      const res = await fetch(`${API_URL}?action=getAuction`);
+      const data = await res.json();
 
-      const csv = await response.text();
-      const rows = csv.split('\n').slice(1); // Skip header
-
-      return rows.map(row => {
-        const [item, winner, bid] = row.split(',');
-        return {
-          item: item?.trim(),
-          winner: winner?.trim(),
-          bid: parseFloat(bid) || 0
-        };
-      }).filter(r => r.item);
+      if (data.success && data.auctions) {
+        auctionData = data.auctions;
+        updateAuctionDisplay();
+      }
     } catch {
-      return [];
+      // Silently fail
     }
   }
 
-  async function updateAuctionDisplay() {
-    const data = await fetchAuctionData();
-
-    data.forEach(auction => {
+  function updateAuctionDisplay() {
+    auctionData.forEach(auction => {
+      // Match by item id (e.g., 'primeira-musica')
       const card = document.querySelector(`[data-auction="${auction.item}"]`);
       if (!card) return;
 
@@ -321,34 +605,206 @@ const auctionItems = [
       const winnerEl = card.querySelector('.winner');
 
       if (bidEl) {
-        bidEl.textContent = auction.bid
-          ? `R$ ${auction.bid.toFixed(2)}`
+        bidEl.textContent = auction.amount
+          ? `R$ ${auction.amount.toFixed(0)}`
           : 'Nenhum lance';
       }
 
       if (winnerEl) {
-        winnerEl.textContent = auction.winner || 'Seja o primeiro!';
+        winnerEl.textContent = auction.bidder || 'Seja o primeiro!';
       }
     });
   }
 
-  function initAuction() {
-    // Initial display (show placeholder)
-    document.querySelectorAll('.auction-card').forEach(card => {
-      const bidEl = card.querySelector('.bid');
-      const winnerEl = card.querySelector('.winner');
+  function setupModalListeners() {
+    const modal = document.getElementById('bidModal');
+    const backdrop = modal?.querySelector('.bid-modal-backdrop');
+    const closeBtn = document.getElementById('closeModal');
+    const cancelBtn = document.getElementById('cancelBid');
+    const bidForm = document.getElementById('bidForm');
 
-      if (bidEl) bidEl.textContent = 'Nenhum lance';
-      if (winnerEl) winnerEl.textContent = 'Seja o primeiro!';
+    // Open modal when clicking bid buttons
+    document.querySelectorAll('.auction-bid-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const itemId = btn.getAttribute('data-item-id');
+        const itemName = btn.getAttribute('data-item-name');
+        const minBid = parseInt(btn.getAttribute('data-min-bid') || '0');
+
+        openModal({
+          id: itemId || '',
+          name: itemName || '',
+          minBid,
+          icon: itemIcons[itemId || ''] || '🎁'
+        });
+      });
     });
 
-    // Try to fetch real data
-    updateAuctionDisplay();
+    // Close modal
+    closeBtn?.addEventListener('click', closeModal);
+    cancelBtn?.addEventListener('click', closeModal);
+    backdrop?.addEventListener('click', closeModal);
 
-    // Update every 30 seconds
-    setInterval(updateAuctionDisplay, 30000);
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // Submit bid
+    bidForm?.addEventListener('submit', handleBidSubmit);
   }
 
-  document.addEventListener('DOMContentLoaded', initAuction);
-  document.addEventListener('astro:page-load', initAuction);
+  function openModal(item: AuctionItem) {
+    currentItem = item;
+    const modal = document.getElementById('bidModal');
+    const modalIcon = document.getElementById('modalIcon');
+    const modalTitle = document.getElementById('modalTitle');
+    const itemIdInput = document.getElementById('itemId') as HTMLInputElement;
+    const itemNameInput = document.getElementById('itemName') as HTMLInputElement;
+    const bidAmountInput = document.getElementById('bidAmount') as HTMLInputElement;
+    const minBidHint = document.getElementById('minBidHint');
+    const modalCurrentBid = document.getElementById('modalCurrentBid');
+    const modalCurrentWinner = document.getElementById('modalCurrentWinner');
+    const bidMessage = document.getElementById('bidMessage');
+
+    // Set modal content
+    if (modalIcon) modalIcon.textContent = item.icon;
+    if (modalTitle) modalTitle.textContent = item.name;
+    if (itemIdInput) itemIdInput.value = item.id;
+    if (itemNameInput) itemNameInput.value = item.name;
+
+    // Get current bid for this item
+    const currentAuction = auctionData.find(a => a.item === item.id);
+    const currentBid = currentAuction?.amount || 0;
+    const currentWinner = currentAuction?.bidder || 'Nenhum';
+
+    // Calculate minimum bid (current bid + 1, or minBid if no bids)
+    const minRequired = currentBid > 0 ? currentBid + 1 : item.minBid;
+
+    if (modalCurrentBid) modalCurrentBid.textContent = currentBid > 0 ? `R$ ${currentBid}` : 'R$ 0';
+    if (modalCurrentWinner) modalCurrentWinner.textContent = currentWinner;
+    if (bidAmountInput) {
+      bidAmountInput.min = String(minRequired);
+      bidAmountInput.value = String(minRequired);
+    }
+    if (minBidHint) minBidHint.textContent = `Lance mínimo: R$ ${minRequired}`;
+    if (bidMessage) {
+      bidMessage.textContent = '';
+      bidMessage.className = 'bid-message';
+    }
+
+    // Open modal
+    modal?.classList.add('open');
+    document.body.style.overflow = 'hidden';
+
+    // Focus input
+    setTimeout(() => bidAmountInput?.focus(), 100);
+  }
+
+  function closeModal() {
+    const modal = document.getElementById('bidModal');
+    modal?.classList.remove('open');
+    document.body.style.overflow = '';
+    currentItem = null;
+  }
+
+  async function handleBidSubmit(e: Event) {
+    e.preventDefault();
+
+    const { guestCode, guestName } = getAuthState();
+    const itemIdInput = document.getElementById('itemId') as HTMLInputElement;
+    const bidAmountInput = document.getElementById('bidAmount') as HTMLInputElement;
+    const submitBtn = document.getElementById('submitBid') as HTMLButtonElement;
+    const bidMessage = document.getElementById('bidMessage');
+
+    const itemId = itemIdInput?.value;
+    const bidAmount = parseInt(bidAmountInput?.value || '0');
+
+    if (!guestCode || !guestName) {
+      if (bidMessage) {
+        bidMessage.textContent = 'Erro de autenticação. Faça login novamente.';
+        bidMessage.className = 'bid-message error';
+      }
+      return;
+    }
+
+    if (!bidAmount || bidAmount < 1) {
+      if (bidMessage) {
+        bidMessage.textContent = 'Digite um valor válido para o lance.';
+        bidMessage.className = 'bid-message error';
+      }
+      return;
+    }
+
+    // Validate minimum bid
+    const currentAuction = auctionData.find(a => a.item === itemId);
+    const currentBid = currentAuction?.amount || 0;
+    const minRequired = currentBid > 0 ? currentBid + 1 : (currentItem?.minBid || 0);
+
+    if (bidAmount < minRequired) {
+      if (bidMessage) {
+        bidMessage.textContent = `O lance deve ser de pelo menos R$ ${minRequired}.`;
+        bidMessage.className = 'bid-message error';
+      }
+      return;
+    }
+
+    // Disable button
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Enviando...';
+    }
+
+    try {
+      const res = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify({
+          action: 'submitBid',
+          guestCode,
+          guestName,
+          item: itemId,
+          amount: bidAmount
+        })
+      });
+
+      const result = await res.json();
+
+      if (result.success) {
+        if (bidMessage) {
+          bidMessage.textContent = 'Lance enviado com sucesso!';
+          bidMessage.className = 'bid-message success';
+        }
+
+        // Update local data
+        const existingIndex = auctionData.findIndex(a => a.item === itemId);
+        if (existingIndex >= 0) {
+          auctionData[existingIndex] = { item: itemId, bidder: guestName || '', amount: bidAmount };
+        } else {
+          auctionData.push({ item: itemId, bidder: guestName || '', amount: bidAmount });
+        }
+        updateAuctionDisplay();
+
+        // Close modal after delay
+        setTimeout(closeModal, 1500);
+      } else {
+        if (bidMessage) {
+          bidMessage.textContent = result.error || 'Erro ao enviar lance. Tente novamente.';
+          bidMessage.className = 'bid-message error';
+        }
+      }
+    } catch {
+      if (bidMessage) {
+        bidMessage.textContent = 'Erro de conexão. Tente novamente.';
+        bidMessage.className = 'bid-message error';
+      }
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Confirmar Lance';
+      }
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+  document.addEventListener('astro:page-load', init);
 </script>

@@ -2,209 +2,963 @@
 import ProtectedLayout from '@/layouts/ProtectedLayout.astro';
 ---
 
-<ProtectedLayout title="Confirmar Presenca">
-  <section class="page-hero">
-    <div class="container text-center">
-      <p class="section-subtitle">RSVP</p>
-      <h1 class="page-title">Confirmar Presenca</h1>
+<ProtectedLayout title="Confirmar Presença">
+  <section class="rsvp-hero">
+    <div class="rsvp-hero-content">
+      <span class="rsvp-subtitle">RSVP</span>
+      <h1 class="rsvp-title">Confirmar Presença</h1>
     </div>
   </section>
 
-  <section class="section rsvp-section">
-    <div class="container container-narrow">
-      <div class="rsvp-intro text-center">
-        <p class="rsvp-intro-text">
-          Por favor, confirme sua presenca ate <strong>15 de marco de 2026</strong>.
-          Sua confirmacao e muito importante para organizarmos o evento.
-        </p>
+  <section class="rsvp-main">
+    <div class="rsvp-container">
+      <p class="rsvp-intro">
+        Por favor, confirme sua presença até <strong>15 de março de 2026</strong>.
+      </p>
+
+      <div class="rsvp-alert">
+        <span class="rsvp-alert-icon">!</span>
+        <span>Por favor revise seus dados! Eles serao usados para controle de entrada.</span>
       </div>
 
-      <div class="rsvp-card">
-        <div class="rsvp-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
-        </div>
-
-        <h2 class="rsvp-title">Voce vira?</h2>
-
-        <p class="rsvp-text">
-          Clique no botao abaixo para acessar o formulario de confirmacao.
-          Voce precisara informar:
-        </p>
-
-        <ul class="rsvp-checklist">
-          <li>Seu nome e codigo do convite</li>
-          <li>Numero de acompanhantes</li>
-          <li>Restricoes alimentares (se houver)</li>
-          <li>Uma mensagem para os noivos (opcional)</li>
-        </ul>
-
-        <a
-          href="YOUR_GOOGLE_FORM_URL"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="btn btn-primary btn-lg rsvp-btn"
-          id="rsvpBtn"
-        >
-          Confirmar Presenca
-        </a>
-
-        <p class="rsvp-note">
-          Voce sera redirecionado para um formulario do Google Forms.
-        </p>
+      <div id="rsvpLoading" class="rsvp-loading">
+        <div class="rsvp-spinner"></div>
+        <p>Carregando seus dados...</p>
       </div>
 
-      <div class="rsvp-help">
-        <h3 class="rsvp-help-title">Duvidas?</h3>
-        <p class="rsvp-help-text">
-          Se tiver alguma duvida ou problema para confirmar sua presenca,
-          entre em contato conosco diretamente.
-        </p>
-      </div>
+      <form id="rsvpForm" class="rsvp-form" style="display: none;">
+        <div id="guestsList"></div>
+
+        <button type="button" id="addGuestBtn" class="rsvp-add-btn">
+          + Adicionar outro convidado
+        </button>
+
+        <div id="formMessage" class="rsvp-message"></div>
+
+        <button type="submit" id="submitBtn" class="rsvp-submit-btn">
+          Confirmar Presença
+        </button>
+      </form>
     </div>
   </section>
+
+  <div id="modal" class="rsvp-modal">
+    <div class="rsvp-modal-overlay"></div>
+    <div class="rsvp-modal-box">
+      <button type="button" id="closeModalBtn" class="rsvp-modal-close">&times;</button>
+      <h3 class="rsvp-modal-title">Adicionar Convidado</h3>
+      <p class="rsvp-modal-text">Digite o código do convite:</p>
+      <input type="text" id="modalCodeInput" class="rsvp-modal-input" placeholder="Ex: maria2026" />
+      <button type="button" id="validateBtn" class="rsvp-modal-btn">Validar</button>
+      <p id="modalError" class="rsvp-modal-error"></p>
+    </div>
+  </div>
 </ProtectedLayout>
 
-<style>
-  .page-hero {
-    padding: var(--spacing-24) var(--spacing-6) var(--spacing-16);
-    background: linear-gradient(135deg, var(--color-secondary-light) 0%, var(--color-secondary) 100%);
-  }
-
-  .page-title {
-    font-family: var(--font-script);
-    font-size: var(--font-size-4xl);
-    color: var(--color-primary);
-    margin-bottom: 0;
-  }
-
-  .rsvp-section {
-    background-color: var(--color-background);
-  }
-
-  .rsvp-intro {
-    margin-bottom: var(--spacing-10);
-  }
-
-  .rsvp-intro-text {
-    font-size: var(--font-size-lg);
-    color: var(--color-text-light);
-    line-height: var(--line-height-relaxed);
-  }
-
-  .rsvp-card {
-    background-color: var(--color-background);
-    border: 2px solid var(--color-border);
-    border-radius: var(--radius-xl);
-    padding: var(--spacing-10);
+<style is:global>
+  /* Hero */
+  .rsvp-hero {
+    padding: 6rem 1.5rem 4rem;
+    background: linear-gradient(135deg, #FFFDF9 0%, #F5F0E8 100%);
     text-align: center;
-    margin-bottom: var(--spacing-10);
+  }
+  .rsvp-hero-content {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .rsvp-subtitle {
+    display: block;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #999;
+    margin-bottom: 0.5rem;
+  }
+  .rsvp-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.5rem;
+    color: #7A6B5A;
+    margin: 0;
   }
 
-  .rsvp-icon {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto var(--spacing-6);
+  /* Main */
+  .rsvp-main {
+    background: #F9F7F4;
+    padding: 3rem 1.5rem;
+    min-height: 60vh;
+  }
+  .rsvp-container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .rsvp-intro {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #666;
+    font-size: 1rem;
+  }
+
+  /* Loading Spinner */
+  .rsvp-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    text-align: center;
+  }
+  .rsvp-loading p {
+    margin-top: 1rem;
+    color: #666;
+    font-size: 0.95rem;
+  }
+  .rsvp-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #e8e8e8;
+    border-top-color: #7A6B5A;
+    border-radius: 50%;
+    animation: rsvp-spin 0.8s linear infinite;
+  }
+  @keyframes rsvp-spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Alert */
+  .rsvp-alert {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    background: rgba(183, 110, 121, 0.15);
+    border-left: 4px solid #B76E79;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    color: #5a2a2a;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  .rsvp-alert-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--color-secondary);
-    border-radius: var(--radius-full);
+    width: 24px;
+    height: 24px;
+    background: #B76E79;
+    color: white;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 0.875rem;
+    flex-shrink: 0;
   }
 
-  .rsvp-icon svg {
-    width: 40px;
-    height: 40px;
-    color: var(--color-primary);
-  }
-
-  .rsvp-title {
-    font-family: var(--font-heading);
-    font-size: var(--font-size-2xl);
-    color: var(--color-text);
-    margin-bottom: var(--spacing-4);
-  }
-
-  .rsvp-text {
-    font-size: var(--font-size-base);
-    color: var(--color-text-light);
-    margin-bottom: var(--spacing-6);
-  }
-
-  .rsvp-checklist {
-    list-style: none;
-    text-align: left;
-    max-width: 350px;
-    margin: 0 auto var(--spacing-8);
-  }
-
-  .rsvp-checklist li {
+  /* Guest Card */
+  .rsvp-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 0;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
     position: relative;
-    padding-left: var(--spacing-6);
-    margin-bottom: var(--spacing-2);
-    color: var(--color-text);
+    overflow: hidden;
   }
-
-  .rsvp-checklist li::before {
-    content: '';
+  .rsvp-card-remove {
     position: absolute;
-    left: 0;
-    top: 8px;
-    width: 8px;
-    height: 8px;
-    background-color: var(--color-primary);
-    border-radius: var(--radius-full);
+    top: 1rem;
+    right: 1rem;
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: #f0f0f0;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.25rem;
+    color: #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    z-index: 1;
+  }
+  .rsvp-card-remove:hover {
+    background: #e74c3c;
+    color: white;
   }
 
-  .rsvp-btn {
-    margin-bottom: var(--spacing-4);
+  /* Card Row */
+  .rsvp-row {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .rsvp-row:last-child {
+    border-bottom: none;
+  }
+  .rsvp-row-label {
+    width: 130px;
+    flex-shrink: 0;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .rsvp-row-content {
+    flex: 1;
+    min-width: 0;
   }
 
-  .rsvp-note {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
-    margin-bottom: 0;
+  /* Code Display */
+  .rsvp-code-display {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .rsvp-code-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #7A6B5A;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .rsvp-status {
+    font-size: 0.65rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 20px;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+  }
+  .rsvp-status.pending {
+    background: #f0f0f0;
+    color: #888;
+  }
+  .rsvp-status.confirmed {
+    background: rgba(76, 175, 80, 0.15);
+    color: #2e7d32;
+  }
+  .rsvp-status.not-going {
+    background: rgba(229, 115, 115, 0.15);
+    color: #c62828;
   }
 
-  .rsvp-help {
+  /* Name Input */
+  .rsvp-name-input {
+    width: 100%;
+    padding: 0.6rem 0.875rem;
+    font-size: 0.95rem;
+    border: 2px solid #e8e8e8;
+    border-radius: 8px;
+    background: #fafafa;
+    color: #333;
+    font-family: inherit;
+    box-sizing: border-box;
+  }
+  .rsvp-name-input:focus {
+    outline: none;
+    border-color: #7A6B5A;
+    background: #fff;
+  }
+
+  /* Attendance */
+  .rsvp-attendance {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .rsvp-attendance-btn {
+    padding: 0.5rem 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 25px;
+    background: #fafafa;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.15s ease;
+  }
+  .rsvp-attendance-btn:hover {
+    background: #f0f0f0;
+  }
+  .rsvp-attendance-btn.yes.active {
+    border-color: #4caf50;
+    background: rgba(76, 175, 80, 0.12);
+    color: #2e7d32;
+  }
+  .rsvp-attendance-btn.no.active {
+    border-color: #e57373;
+    background: rgba(229, 115, 115, 0.12);
+    color: #c62828;
+  }
+
+  /* Dietary */
+  .rsvp-dietary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .rsvp-dietary-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.8rem;
+    background: #fafafa;
+    border: 2px solid #e0e0e0;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: #555;
+    transition: all 0.15s ease;
+  }
+  .rsvp-dietary-item:hover {
+    background: #f0f0f0;
+  }
+  .rsvp-dietary-item.active {
+    border-color: #7A6B5A;
+    background: rgba(122, 107, 90, 0.1);
+  }
+  .rsvp-dietary-item input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+    accent-color: #7A6B5A;
+    margin: 0;
+  }
+
+  /* Allergy Detail */
+  .rsvp-allergy {
+    display: none;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 0.75rem;
+  }
+  .rsvp-allergy.show {
+    display: flex;
+  }
+  .rsvp-allergy-label {
+    font-size: 0.8rem;
+    color: #777;
+    white-space: nowrap;
+  }
+  .rsvp-allergy-input {
+    flex: 1;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    background: #fafafa;
+    font-family: inherit;
+    box-sizing: border-box;
+  }
+  .rsvp-allergy-input:focus {
+    outline: none;
+    border-color: #7A6B5A;
+    background: #fff;
+  }
+
+  /* Add Button */
+  .rsvp-add-btn {
+    width: 100%;
+    padding: 1rem;
+    border: 2px dashed #ccc;
+    border-radius: 12px;
+    background: transparent;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: #888;
+    margin-bottom: 1.5rem;
+    transition: all 0.2s;
+  }
+  .rsvp-add-btn:hover {
+    border-color: #7A6B5A;
+    color: #7A6B5A;
+  }
+
+  /* Submit */
+  .rsvp-submit-btn {
+    width: 100%;
+    padding: 1rem 2rem;
+    background: #7A6B5A;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .rsvp-submit-btn:hover {
+    background: #665a4a;
+  }
+  .rsvp-submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  /* Message */
+  .rsvp-message {
+    margin-bottom: 1rem;
+    border-radius: 8px;
     text-align: center;
-    padding: var(--spacing-8);
-    background-color: var(--color-background-alt);
-    border-radius: var(--radius-lg);
+    font-weight: 500;
+  }
+  .rsvp-message.success {
+    padding: 1rem;
+    background: rgba(76, 175, 80, 0.1);
+    border: 1px solid #4caf50;
+    color: #2e7d32;
+  }
+  .rsvp-message.error {
+    padding: 1rem;
+    background: rgba(229, 115, 115, 0.1);
+    border: 1px solid #e57373;
+    color: #c62828;
   }
 
-  .rsvp-help-title {
-    font-family: var(--font-heading);
-    font-size: var(--font-size-lg);
-    color: var(--color-text);
-    margin-bottom: var(--spacing-2);
+  /* Modal */
+  .rsvp-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  .rsvp-modal.open {
+    display: flex;
+  }
+  .rsvp-modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+  }
+  .rsvp-modal-box {
+    position: relative;
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  }
+  .rsvp-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: #f0f0f0;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+  }
+  .rsvp-modal-close:hover {
+    background: #e74c3c;
+    color: white;
+  }
+  .rsvp-modal-title {
+    margin: 0 0 0.5rem;
+    font-size: 1.25rem;
+    color: #333;
+  }
+  .rsvp-modal-text {
+    margin: 0 0 1rem;
+    color: #666;
+  }
+  .rsvp-modal-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    font-family: inherit;
+    box-sizing: border-box;
+  }
+  .rsvp-modal-input:focus {
+    outline: none;
+    border-color: #7A6B5A;
+  }
+  .rsvp-modal-btn {
+    width: 100%;
+    padding: 0.75rem;
+    background: #7A6B5A;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  .rsvp-modal-btn:hover {
+    background: #665a4a;
+  }
+  .rsvp-modal-btn:disabled {
+    opacity: 0.6;
+  }
+  .rsvp-modal-error {
+    color: #c62828;
+    font-size: 0.875rem;
+    margin: 0.5rem 0 0;
+  }
+  .rsvp-modal-error:empty {
+    display: none;
   }
 
-  .rsvp-help-text {
-    font-size: var(--font-size-base);
-    color: var(--color-text-light);
-    margin-bottom: 0;
+  /* Responsive */
+  @media (max-width: 600px) {
+    .rsvp-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+      padding: 0.875rem 1.25rem;
+    }
+    .rsvp-row-label {
+      width: auto;
+    }
+    .rsvp-row-content {
+      width: 100%;
+    }
+    .rsvp-attendance {
+      width: 100%;
+    }
+    .rsvp-attendance-btn {
+      flex: 1;
+      justify-content: center;
+    }
+    .rsvp-allergy {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.4rem;
+    }
+    .rsvp-allergy-input {
+      width: 100%;
+    }
   }
 </style>
 
 <script>
-  import { getGuestCode, getGuestName, buildFormUrl } from '@/scripts/auth';
+  import { getAuthState, getApiUrl } from '@/scripts/auth';
 
-  function initRSVPPage() {
-    const rsvpBtn = document.getElementById('rsvpBtn') as HTMLAnchorElement;
-    if (!rsvpBtn) return;
-
-    // You'll need to replace these with your actual Google Form field IDs
-    const formUrl = buildFormUrl(
-      'YOUR_GOOGLE_FORM_URL',
-      'entry.CODE_FIELD_ID',  // Replace with actual field ID
-      'entry.NAME_FIELD_ID'   // Replace with actual field ID
-    );
-
-    rsvpBtn.href = formUrl;
+  interface Guest {
+    code: string;
+    name: string;
+    attending: string;
+    dietary: string[];
+    allergyDetails: string;
+    isConfirmed: boolean;
   }
 
-  document.addEventListener('DOMContentLoaded', initRSVPPage);
-  document.addEventListener('astro:page-load', initRSVPPage);
+  const API_URL = getApiUrl();
+  let guests: Guest[] = [];
+
+  function init() {
+    guests = [];
+    loadCurrentUser();
+    setupEventListeners();
+  }
+
+  function setupEventListeners() {
+    document.getElementById('addGuestBtn')?.addEventListener('click', openModal);
+    document.getElementById('closeModalBtn')?.addEventListener('click', closeModal);
+    document.querySelector('.rsvp-modal-overlay')?.addEventListener('click', closeModal);
+    document.getElementById('validateBtn')?.addEventListener('click', validateCode);
+    document.getElementById('modalCodeInput')?.addEventListener('keypress', (e) => {
+      if ((e as KeyboardEvent).key === 'Enter') validateCode();
+    });
+    document.getElementById('rsvpForm')?.addEventListener('submit', handleSubmit);
+  }
+
+  async function loadCurrentUser() {
+    const { guestCode } = getAuthState();
+    if (!guestCode) {
+      hideLoading();
+      return;
+    }
+
+    const rsvpData = await fetchRSVP(guestCode);
+
+    // Load all previously confirmed guests
+    if (rsvpData.length > 0) {
+      rsvpData.forEach((r: any) => {
+        const { dietary, allergyDetails } = parseDietary(r.dietary || '');
+        guests.push({
+          code: r.guestCode,
+          name: r.guestName || '',
+          attending: r.attending || '',
+          dietary,
+          allergyDetails,
+          isConfirmed: true
+        });
+      });
+    }
+
+    // If current user wasn't in the RSVP data, fetch their info and add as pending
+    const currentUserExists = guests.some(g => g.code === guestCode);
+    if (!currentUserExists) {
+      const guestInfo = await fetchGuestInfo(guestCode);
+      guests.push({
+        code: guestCode,
+        name: guestInfo?.name || '',
+        attending: '',
+        dietary: [],
+        allergyDetails: '',
+        isConfirmed: false
+      });
+    }
+
+    hideLoading();
+    render();
+  }
+
+  function hideLoading() {
+    const loading = document.getElementById('rsvpLoading');
+    const form = document.getElementById('rsvpForm');
+    if (loading) loading.style.display = 'none';
+    if (form) form.style.display = 'block';
+  }
+
+  async function fetchGuestInfo(code: string): Promise<{ name: string } | null> {
+    try {
+      const res = await fetch(`${API_URL}?action=getGuest&code=${encodeURIComponent(code)}`);
+      const data = await res.json();
+      return data.success && data.guest ? { name: data.guest.name } : null;
+    } catch {
+      return null;
+    }
+  }
+
+  async function fetchRSVP(code: string): Promise<any[]> {
+    try {
+      const res = await fetch(`${API_URL}?action=getRSVP&code=${encodeURIComponent(code)}`);
+      const data = await res.json();
+      return data.success ? data.responses : [];
+    } catch {
+      return [];
+    }
+  }
+
+  function parseDietary(str: string): { dietary: string[], allergyDetails: string } {
+    if (!str) return { dietary: [], allergyDetails: '' };
+    const parts = str.split(', ');
+    const dietary: string[] = [];
+    let allergyDetails = '';
+    parts.forEach(part => {
+      if (part.startsWith('Alérgico:')) {
+        dietary.push('Alérgico');
+        allergyDetails = part.replace('Alérgico:', '').trim();
+      } else if (part === 'Alérgico') {
+        dietary.push('Alérgico');
+      } else if (part) {
+        dietary.push(part);
+      }
+    });
+    return { dietary, allergyDetails };
+  }
+
+  function getStatus(guest: Guest): { css: string, text: string } {
+    if (!guest.isConfirmed) return { css: 'pending', text: 'Pendente' };
+    if (guest.attending === 'Sim') return { css: 'confirmed', text: 'Confirmado' };
+    return { css: 'not-going', text: 'Não irá' };
+  }
+
+  function saveFormState() {
+    const container = document.getElementById('guestsList');
+    if (!container) return;
+
+    guests.forEach((guest, i) => {
+      const nameInput = container.querySelector(`[name="name-${i}"]`) as HTMLInputElement;
+      const attendingInput = container.querySelector(`[name="attending-${i}"]`) as HTMLInputElement;
+      const dietaryInputs = container.querySelectorAll(`[name="dietary-${i}"]:checked`) as NodeListOf<HTMLInputElement>;
+      const allergyInput = container.querySelector(`[name="allergy-${i}"]`) as HTMLInputElement;
+
+      if (nameInput) guest.name = nameInput.value;
+      if (attendingInput) guest.attending = attendingInput.value;
+
+      // Save dietary selections
+      const dietaryArr: string[] = [];
+      dietaryInputs.forEach(cb => {
+        if (cb.value !== 'Alérgico') {
+          dietaryArr.push(cb.value);
+        }
+      });
+
+      // Check if Alérgico is selected
+      const allergyCheckbox = container.querySelector(`[name="dietary-${i}"][value="Alérgico"]`) as HTMLInputElement;
+      if (allergyCheckbox?.checked) {
+        dietaryArr.push('Alérgico');
+        guest.allergyDetails = allergyInput?.value || '';
+      } else {
+        guest.allergyDetails = '';
+      }
+
+      guest.dietary = dietaryArr;
+    });
+  }
+
+  function render() {
+    const container = document.getElementById('guestsList');
+    if (!container) return;
+
+    container.innerHTML = guests.map((guest, i) => {
+      const status = getStatus(guest);
+      const hasAllergy = guest.dietary.includes('Alérgico');
+
+      return `
+        <div class="rsvp-card">
+          ${i > 0 ? `<button type="button" class="rsvp-card-remove" data-idx="${i}">&times;</button>` : ''}
+
+          <div class="rsvp-row">
+            <span class="rsvp-row-label">Código</span>
+            <div class="rsvp-row-content">
+              <div class="rsvp-code-display">
+                <span class="rsvp-code-text">${guest.code}</span>
+                <span class="rsvp-status ${status.css}">${status.text}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="rsvp-row">
+            <span class="rsvp-row-label">Nome</span>
+            <div class="rsvp-row-content">
+              <input type="text" class="rsvp-name-input" name="name-${i}" value="${guest.name}" placeholder="Nome completo" required />
+            </div>
+          </div>
+
+          <div class="rsvp-row">
+            <span class="rsvp-row-label">Vai comparecer?</span>
+            <div class="rsvp-row-content">
+              <div class="rsvp-attendance">
+                <button type="button" class="rsvp-attendance-btn yes ${guest.attending === 'Sim' ? 'active' : ''}" data-idx="${i}" data-val="Sim">&#10003; Sim</button>
+                <button type="button" class="rsvp-attendance-btn no ${guest.attending === 'Não' ? 'active' : ''}" data-idx="${i}" data-val="Não">&#10007; Não</button>
+              </div>
+              <input type="hidden" name="attending-${i}" value="${guest.attending}" />
+            </div>
+          </div>
+
+          <div class="rsvp-row">
+            <span class="rsvp-row-label">Restrições</span>
+            <div class="rsvp-row-content">
+              <div class="rsvp-dietary">
+                <label class="rsvp-dietary-item ${guest.dietary.includes('Vegetariano') ? 'active' : ''}">
+                  <input type="checkbox" name="dietary-${i}" value="Vegetariano" ${guest.dietary.includes('Vegetariano') ? 'checked' : ''} />
+                  Vegetariano
+                </label>
+                <label class="rsvp-dietary-item ${guest.dietary.includes('Diabetico') ? 'active' : ''}">
+                  <input type="checkbox" name="dietary-${i}" value="Diabetico" ${guest.dietary.includes('Diabetico') ? 'checked' : ''} />
+                  Diabetico
+                </label>
+                <label class="rsvp-dietary-item ${guest.dietary.includes('Alérgico') ? 'active' : ''}">
+                  <input type="checkbox" class="allergy-check" name="dietary-${i}" value="Alérgico" data-idx="${i}" ${hasAllergy ? 'checked' : ''} />
+                  Alérgico
+                </label>
+              </div>
+              <div class="rsvp-allergy ${hasAllergy ? 'show' : ''}" data-allergy-row="${i}">
+                <span class="rsvp-allergy-label">A que?</span>
+                <input type="text" class="rsvp-allergy-input" name="allergy-${i}" value="${guest.allergyDetails}" placeholder="Ex: amendoim, camarao..." />
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    // Remove buttons
+    container.querySelectorAll('.rsvp-card-remove').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        saveFormState();
+        const idx = parseInt((e.currentTarget as HTMLElement).dataset.idx || '0');
+        guests.splice(idx, 1);
+        render();
+      });
+    });
+
+    // Attendance buttons
+    container.querySelectorAll('.rsvp-attendance-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const el = e.currentTarget as HTMLElement;
+        const idx = parseInt(el.dataset.idx || '0');
+        const val = el.dataset.val || '';
+        guests[idx].attending = val;
+        const hidden = container.querySelector(`[name="attending-${idx}"]`) as HTMLInputElement;
+        if (hidden) hidden.value = val;
+        const row = el.closest('.rsvp-attendance');
+        row?.querySelectorAll('.rsvp-attendance-btn').forEach(b => b.classList.remove('active'));
+        el.classList.add('active');
+      });
+    });
+
+    // Allergy checkbox
+    container.querySelectorAll('.allergy-check').forEach(cb => {
+      cb.addEventListener('change', (e) => {
+        const el = e.target as HTMLInputElement;
+        const idx = el.dataset.idx;
+        const allergyRow = container.querySelector(`[data-allergy-row="${idx}"]`);
+        const label = el.closest('.rsvp-dietary-item');
+        if (el.checked) {
+          allergyRow?.classList.add('show');
+          label?.classList.add('active');
+        } else {
+          allergyRow?.classList.remove('show');
+          label?.classList.remove('active');
+          const input = allergyRow?.querySelector('input') as HTMLInputElement;
+          if (input) input.value = '';
+        }
+      });
+    });
+
+    // Dietary checkboxes styling
+    container.querySelectorAll('.rsvp-dietary-item input:not(.allergy-check)').forEach(cb => {
+      cb.addEventListener('change', (e) => {
+        const el = e.target as HTMLInputElement;
+        const label = el.closest('.rsvp-dietary-item');
+        el.checked ? label?.classList.add('active') : label?.classList.remove('active');
+      });
+    });
+  }
+
+  function openModal() {
+    document.getElementById('modal')?.classList.add('open');
+    (document.getElementById('modalCodeInput') as HTMLInputElement)?.focus();
+  }
+
+  function closeModal() {
+    document.getElementById('modal')?.classList.remove('open');
+    (document.getElementById('modalCodeInput') as HTMLInputElement).value = '';
+    (document.getElementById('modalError') as HTMLElement).textContent = '';
+  }
+
+  async function validateCode() {
+    const input = document.getElementById('modalCodeInput') as HTMLInputElement;
+    const errorEl = document.getElementById('modalError') as HTMLElement;
+    const btn = document.getElementById('validateBtn') as HTMLButtonElement;
+    const code = input.value.trim();
+
+    if (!code) { errorEl.textContent = 'Digite um código.'; return; }
+    if (guests.some(g => g.code.toLowerCase() === code.toLowerCase())) {
+      errorEl.textContent = 'Convidado já adicionado.'; return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Validando...';
+
+    try {
+      const res = await fetch(`${API_URL}?action=login&code=${encodeURIComponent(code)}`);
+      const data = await res.json();
+      if (!data.success) { errorEl.textContent = 'Código inválido.'; return; }
+
+      const { guestCode } = getAuthState();
+      const rsvpData = await fetchRSVP(guestCode!);
+      const existing = rsvpData.find((r: any) => r.guestCode === data.guest.code);
+      const { dietary, allergyDetails } = parseDietary(existing?.dietary || '');
+
+      // Save current form state before adding new guest
+      saveFormState();
+
+      guests.push({
+        code: data.guest.code,
+        name: existing?.guestName || data.guest.name || '',
+        attending: existing?.attending || '',
+        dietary,
+        allergyDetails,
+        isConfirmed: !!existing
+      });
+
+      render();
+      closeModal();
+    } catch {
+      errorEl.textContent = 'Erro ao validar.';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Validar';
+    }
+  }
+
+  async function handleSubmit(e: Event) {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement;
+    const messageEl = document.getElementById('formMessage') as HTMLElement;
+
+    const guestsData = guests.map((guest, i) => {
+      const nameInput = form.querySelector(`[name="name-${i}"]`) as HTMLInputElement;
+      const attendingInput = form.querySelector(`[name="attending-${i}"]`) as HTMLInputElement;
+      const dietaryInputs = form.querySelectorAll(`[name="dietary-${i}"]:checked`) as NodeListOf<HTMLInputElement>;
+      const allergyInput = form.querySelector(`[name="allergy-${i}"]`) as HTMLInputElement;
+
+      const dietaryArr = Array.from(dietaryInputs).map(cb => {
+        if (cb.value === 'Alérgico' && allergyInput?.value.trim()) {
+          return `Alérgico: ${allergyInput.value.trim()}`;
+        }
+        return cb.value;
+      });
+
+      return {
+        code: guest.code,
+        name: nameInput?.value.trim() || '',
+        attending: attendingInput?.value || '',
+        dietary: dietaryArr.join(', ')
+      };
+    });
+
+    if (guestsData.some(g => !g.attending)) {
+      messageEl.textContent = 'Selecione se cada convidado vai comparecer.';
+      messageEl.className = 'rsvp-message error';
+      return;
+    }
+    if (guestsData.some(g => !g.name)) {
+      messageEl.textContent = 'Preencha o nome de todos os convidados.';
+      messageEl.className = 'rsvp-message error';
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Enviando...';
+    messageEl.textContent = '';
+    messageEl.className = 'rsvp-message';
+
+    try {
+      const { guestCode } = getAuthState();
+      const res = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify({ action: 'submitRSVP', confirmedBy: guestCode, guests: guestsData })
+      });
+      const result = await res.json();
+
+      if (result.success) {
+        messageEl.textContent = 'Presença confirmada com sucesso!';
+        messageEl.className = 'rsvp-message success';
+        guests.forEach((g, i) => {
+          g.isConfirmed = true;
+          g.name = guestsData[i].name;
+          g.attending = guestsData[i].attending;
+          const parsed = parseDietary(guestsData[i].dietary);
+          g.dietary = parsed.dietary;
+          g.allergyDetails = parsed.allergyDetails;
+        });
+        render();
+      } else {
+        messageEl.textContent = 'Erro ao confirmar. Tente novamente.';
+        messageEl.className = 'rsvp-message error';
+      }
+    } catch {
+      messageEl.textContent = 'Erro de conexão. Tente novamente.';
+      messageEl.className = 'rsvp-message error';
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Confirmar Presença';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+  document.addEventListener('astro:page-load', init);
 </script>

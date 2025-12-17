@@ -13,18 +13,18 @@ import Layout from '@/layouts/Layout.astro';
       <div class="login-card">
         <h2 class="login-card-title">Bem-vindo(a)!</h2>
         <p class="login-card-text">
-          Digite o codigo do seu convite para acessar o site do nosso casamento.
+          Digite o código do seu convite para acessar o site do nosso casamento.
         </p>
 
         <form id="loginForm" class="login-form">
           <div class="form-group">
-            <label for="guestCode" class="form-label">Codigo do Convite</label>
+            <label for="guestCode" class="form-label">Código do Convite</label>
             <input
               type="text"
               id="guestCode"
               name="guestCode"
               class="form-input"
-              placeholder="Digite seu codigo"
+              placeholder="Digite seu código"
               autocomplete="off"
               required
             />
@@ -43,7 +43,7 @@ import Layout from '@/layouts/Layout.astro';
         </form>
 
         <p class="login-help">
-          Nao tem um codigo? Entre em contato conosco.
+          Não tem um código? Entre em contato conosco.
         </p>
       </div>
 
@@ -273,7 +273,7 @@ import Layout from '@/layouts/Layout.astro';
 
       const code = codeInput.value.trim();
       if (!code) {
-        errorMessage.textContent = 'Por favor, digite o codigo do convite.';
+        errorMessage.textContent = 'Por favor, digite o código do convite.';
         return;
       }
 
@@ -291,10 +291,10 @@ import Layout from '@/layouts/Layout.astro';
           const basePath = import.meta.env.BASE_URL || '';
           window.location.href = `${basePath}/`;
         } else {
-          errorMessage.textContent = result.error || 'Codigo invalido.';
+          errorMessage.textContent = result.error || 'Código inválido.';
         }
       } catch {
-        errorMessage.textContent = 'Erro ao verificar codigo. Tente novamente.';
+        errorMessage.textContent = 'Erro ao verificar código. Tente novamente.';
       } finally {
         // Reset loading state
         submitBtn.disabled = false;

@@ -42,5 +42,95 @@ const basePath = import.meta.env.BASE_URL || '';
   </head>
   <body>
     <slot />
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Voltar ao topo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 15l-6-6-6 6"></path>
+      </svg>
+    </button>
+
+    <style>
+      .back-to-top {
+        position: fixed;
+        bottom: var(--spacing-6);
+        right: var(--spacing-6);
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--color-primary);
+        color: var(--color-text-inverse);
+        border: none;
+        border-radius: var(--radius-full);
+        cursor: pointer;
+        box-shadow: var(--shadow-lg);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(20px);
+        transition: all var(--transition-normal);
+        z-index: var(--z-fixed);
+      }
+
+      .back-to-top:hover {
+        background-color: var(--color-primary-dark);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-xl);
+      }
+
+      .back-to-top.visible {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      .back-to-top svg {
+        width: 24px;
+        height: 24px;
+      }
+
+      @media (max-width: 768px) {
+        .back-to-top {
+          bottom: var(--spacing-4);
+          right: var(--spacing-4);
+          width: 44px;
+          height: 44px;
+        }
+      }
+    </style>
+
+    <script>
+      function initBackToTop() {
+        const button = document.getElementById('backToTop');
+        if (!button) return;
+
+        // Show/hide button based on scroll position
+        function toggleButton() {
+          if (window.scrollY > 300) {
+            button.classList.add('visible');
+          } else {
+            button.classList.remove('visible');
+          }
+        }
+
+        // Scroll to top when clicked
+        button.addEventListener('click', () => {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        });
+
+        // Listen for scroll
+        window.addEventListener('scroll', toggleButton, { passive: true });
+
+        // Initial check
+        toggleButton();
+      }
+
+      document.addEventListener('DOMContentLoaded', initBackToTop);
+      document.addEventListener('astro:page-load', initBackToTop);
+    </script>
   </body>
 </html>

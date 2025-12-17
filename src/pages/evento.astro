@@ -4,17 +4,17 @@ import AddToCalendar from '@/components/AddToCalendar.astro';
 
 const eventDetails = {
   title: 'Casamento Bruna & Marcos',
-  description: 'Celebracao do casamento de Bruna e Marcos no Botanico Quintal, Sao Paulo.',
+  description: 'Celebração do casamento de Bruna e Marcos no Botânico Quintal, São Paulo.',
   startDate: '2026-04-10T20:00:00',
   endDate: '2026-04-11T02:00:00',
-  location: 'Botanico Quintal - Av. Imperatriz Leopoldina, 681, Alto de Pinheiros, Sao Paulo/SP',
+  location: 'Botânico Quintal - Av. Imperatriz Leopoldina, 681, Alto de Pinheiros, São Paulo/SP',
 };
 ---
 
 <ProtectedLayout title="O Evento">
   <section class="page-hero">
     <div class="container text-center">
-      <p class="section-subtitle">Informacoes</p>
+      <p class="section-subtitle">Informações</p>
       <h1 class="page-title">O Evento</h1>
     </div>
   </section>
@@ -29,9 +29,9 @@ const eventDetails = {
               <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
             </svg>
           </div>
-          <h3 class="event-card-title">Data e Horario</h3>
+          <h3 class="event-card-title">Data e Horário</h3>
           <p class="event-card-date script-font">10 de Abril de 2026</p>
-          <p class="event-card-time">Sexta-feira, as 20h00</p>
+          <p class="event-card-time">Sexta-feira, às 20h00</p>
 
           <AddToCalendar
             title={eventDetails.title}
@@ -51,10 +51,10 @@ const eventDetails = {
             </svg>
           </div>
           <h3 class="event-card-title">Local</h3>
-          <p class="event-card-venue script-font">Botanico Quintal</p>
+          <p class="event-card-venue script-font">Botânico Quintal</p>
           <p class="event-card-address">
             Av. Imperatriz Leopoldina, 681<br/>
-            Alto de Pinheiros - Sao Paulo/SP
+            Alto de Pinheiros - São Paulo/SP
           </p>
           <a href="https://instagram.com/botanicoquintal" target="_blank" rel="noopener noreferrer" class="event-card-link">
             @botanicoquintal
@@ -79,7 +79,7 @@ const eventDetails = {
 
       <!-- Map Section -->
       <div class="map-section">
-        <h3 class="map-title">Localizacao</h3>
+        <h3 class="map-title">Localização</h3>
         <div class="map-container">
           <iframe
             src="https://www.google.com/maps?q=Botanico+Quintal,+Av.+Imperatriz+Leopoldina,+681,+Alto+de+Pinheiros,+Sao+Paulo,+SP&output=embed"
@@ -89,7 +89,7 @@ const eventDetails = {
             allowfullscreen=""
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
-            title="Localizacao do Botanico Quintal"
+            title="Localização do Botânico Quintal"
           ></iframe>
         </div>
         <div class="map-actions">
@@ -114,15 +114,15 @@ const eventDetails = {
 
       <!-- Schedule Section -->
       <div class="schedule-section">
-        <h3 class="schedule-title">Programacao</h3>
+        <h3 class="schedule-title">Programação</h3>
         <div class="schedule-timeline">
           <div class="schedule-item">
             <span class="schedule-time">20:00</span>
-            <span class="schedule-event">Recepcao dos Convidados</span>
+            <span class="schedule-event">Recepção dos Convidados</span>
           </div>
           <div class="schedule-item">
             <span class="schedule-time">20:30</span>
-            <span class="schedule-event">Cerimonia</span>
+            <span class="schedule-event">Cerimônia</span>
           </div>
           <div class="schedule-item">
             <span class="schedule-time">21:30</span>

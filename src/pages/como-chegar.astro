@@ -2,15 +2,15 @@
 import ProtectedLayout from '@/layouts/ProtectedLayout.astro';
 
 const vanSchedule = [
-  { time: '18:30', location: 'Metro Pinheiros', notes: 'Ponto de encontro na saida da estacao' },
-  { time: '19:00', location: 'Metro Faria Lima', notes: 'Ponto de encontro na Av. Faria Lima' },
-  { time: '19:30', location: 'Metro Vila Madalena', notes: 'Ponto de encontro na praca' },
+  { time: '18:30', location: 'Metrô Pinheiros', notes: 'Ponto de encontro na saída da estação' },
+  { time: '19:00', location: 'Metrô Faria Lima', notes: 'Ponto de encontro na Av. Faria Lima' },
+  { time: '19:30', location: 'Metrô Vila Madalena', notes: 'Ponto de encontro na praça' },
 ];
 
 const returnSchedule = [
-  { time: '01:00', destination: 'Metro Pinheiros' },
-  { time: '02:00', destination: 'Metro Pinheiros' },
-  { time: '03:00', destination: 'Metro Pinheiros' },
+  { time: '01:00', destination: 'Metrô Pinheiros' },
+  { time: '02:00', destination: 'Metrô Pinheiros' },
+  { time: '03:00', destination: 'Metrô Pinheiros' },
 ];
 ---
 
@@ -26,7 +26,7 @@ const returnSchedule = [
     <div class="container">
       <!-- Weather Forecast -->
       <div class="weather-section">
-        <h2 class="section-title-sm">Previsao do Tempo</h2>
+        <h2 class="section-title-sm">Previsão do Tempo</h2>
         <div class="weather-card" id="weatherCard">
           <div class="weather-date">
             <span class="weather-day">10</span>
@@ -46,8 +46,8 @@ const returnSchedule = [
             <div class="weather-details">
               <p class="weather-condition" id="weatherCondition">Parcialmente nublado</p>
               <p class="weather-note">
-                Previsao baseada em medias historicas para Sao Paulo em abril.
-                Sera atualizada mais perto da data.
+                Previsão baseada em médias históricas para São Paulo em abril.
+                Será atualizada mais perto da data.
               </p>
             </div>
           </div>
@@ -56,13 +56,13 @@ const returnSchedule = [
 
       <!-- Address & Map -->
       <div class="location-section">
-        <h2 class="section-title-sm">Endereco</h2>
+        <h2 class="section-title-sm">Endereço</h2>
         <div class="location-card">
           <div class="location-info">
-            <h3 class="location-name script-font">Botanico Quintal</h3>
+            <h3 class="location-name script-font">Botânico Quintal</h3>
             <p class="location-address">
               Av. Imperatriz Leopoldina, 681<br/>
-              Alto de Pinheiros - Sao Paulo/SP
+              Alto de Pinheiros - São Paulo/SP
             </p>
             <div class="location-actions">
               <a
@@ -103,7 +103,7 @@ const returnSchedule = [
         <h2 class="section-title-sm">Transporte (Vans)</h2>
         <p class="van-intro">
           Disponibilizaremos vans para levar e trazer os convidados.
-          Confira os horarios e pontos de encontro abaixo.
+          Confira os horários e pontos de encontro abaixo.
         </p>
 
         <div class="van-grid">
@@ -118,7 +118,7 @@ const returnSchedule = [
             <table class="van-table">
               <thead>
                 <tr>
-                  <th>Horario</th>
+                  <th>Horário</th>
                   <th>Local</th>
                 </tr>
               </thead>
@@ -147,7 +147,7 @@ const returnSchedule = [
             <table class="van-table">
               <thead>
                 <tr>
-                  <th>Horario</th>
+                  <th>Horário</th>
                   <th>Destino</th>
                 </tr>
               </thead>
@@ -164,13 +164,13 @@ const returnSchedule = [
         </div>
 
         <p class="van-note">
-          * Os horarios de volta podem sofrer alteracoes de acordo com o andamento da festa.
+          * Os horários de volta podem sofrer alterações de acordo com o andamento da festa.
         </p>
       </div>
 
       <!-- Parking & Rideshare -->
       <div class="transport-alternatives">
-        <h2 class="section-title-sm">Outras Opcoes</h2>
+        <h2 class="section-title-sm">Outras Opções</h2>
         <div class="alternatives-grid">
           <div class="alternative-card">
             <div class="alternative-icon">
@@ -180,7 +180,7 @@ const returnSchedule = [
               </svg>
             </div>
             <h4>Estacionamento</h4>
-            <p>O local possui estacionamento proprio com manobrista gratuito.</p>
+            <p>O local possui estacionamento próprio com manobrista gratuito.</p>
           </div>
 
           <div class="alternative-card">
@@ -192,7 +192,7 @@ const returnSchedule = [
               </svg>
             </div>
             <h4>Uber / 99</h4>
-            <p>Aplicativos de transporte sao uma otima opcao. Lembre-se de considerar o preco dinamico!</p>
+            <p>Aplicativos de transporte são uma ótima opção. Lembre-se de considerar o preço dinâmico!</p>
           </div>
         </div>
       </div>

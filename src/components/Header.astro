@@ -2,14 +2,14 @@
 const basePath = import.meta.env.BASE_URL || '';
 
 const navLinks = [
-  { href: '/', label: 'Inicio' },
-  { href: '/nossa-historia', label: 'Nossa Historia' },
+  { href: '/', label: 'Início' },
+  { href: '/nossa-historia', label: 'Nossa História' },
   { href: '/evento', label: 'O Evento' },
   { href: '/galeria', label: 'Galeria' },
   { href: '/presentes', label: 'Presentes' },
   { href: '/confirmar-presenca', label: 'RSVP' },
-  { href: '/musicas', label: 'Musicas' },
-  { href: '/leilao', label: 'Leilao' },
+  { href: '/musicas', label: 'Músicas' },
+  { href: '/leilao', label: 'Leilão' },
   { href: '/como-chegar', label: 'Como Chegar' },
 ];
 ---
@@ -308,7 +308,7 @@ const navLinks = [
     // Show guest greeting
     if (greetingEl && guestName) {
       const firstName = guestName.split(' ')[0];
-      greetingEl.textContent = `Ola, ${firstName}!`;
+      greetingEl.textContent = `Olá, ${firstName}!`;
     }
 
     // Logout functionality
