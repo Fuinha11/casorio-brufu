@@ -32,6 +32,9 @@ jobs:
 
       - name: Build website
         run: npm run build
+        env:
+          PUBLIC_API_URL: ${{ secrets.PUBLIC_API_URL }}
+          PUBLIC_PLOX_KEY: ${{ secrets.PUBLIC_PLOX_KEY }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

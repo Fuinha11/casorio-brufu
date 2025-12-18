@@ -3,8 +3,8 @@
  * Handles login, validation, and session management for wedding website
  */
 
-// Google Apps Script API URL
-const API_URL = 'https://script.google.com/macros/s/AKfycbwc_-5VTNA5E0CuQXUwPwqJxRdtGUSAVF8Hg-A6q_46biVHTipP2wb2LY_Ch1PeDVL7/exec';
+// Google Apps Script API URL (from environment variable)
+const API_URL = import.meta.env.PUBLIC_API_URL || '';
 
 interface Guest {
   name: string;
