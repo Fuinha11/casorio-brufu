@@ -58,11 +58,11 @@ const { targetDate, showLabels = true } = Astro.props;
   }
 
   .countdown-value {
-    background: rgba(255, 255, 255, 0.15);
+    background: var(--color-white-alpha-15);
     backdrop-filter: blur(10px);
     border-radius: var(--radius-lg);
     padding: var(--spacing-4) var(--spacing-5);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--color-white-alpha-20);
   }
 
   .countdown-number {
@@ -79,7 +79,7 @@ const { targetDate, showLabels = true } = Astro.props;
     margin-top: var(--spacing-2);
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-medium);
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--color-white-alpha-80);
     text-transform: uppercase;
     letter-spacing: var(--letter-spacing-wider);
   }
@@ -87,7 +87,7 @@ const { targetDate, showLabels = true } = Astro.props;
   .countdown-separator {
     font-family: var(--font-heading);
     font-size: var(--font-size-3xl);
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--color-white-alpha-60);
     padding-bottom: var(--spacing-8);
   }
 

@@ -11,7 +11,9 @@ A beautiful, romantic wedding website built with Astro, featuring guest authenti
 - **Gift Registry** - Creative gift ideas with automatic payment QR code generation
 - **Music Suggestions** - Guests can suggest songs for the party
 - **Event Details** - Ceremony info, venue location, and directions
-- **Photo Gallery** - Showcase couple photos
+- **Photo Gallery** - Showcase couple photos loaded from Google Drive
+- **Guest Photo Upload** - Guests can upload their own photos (full quality)
+- **Wedding Day Photos** - Dedicated gallery for post-wedding photos
 - **Countdown Timer** - Live countdown to the wedding day
 - **Responsive Design** - Works on all devices
 
@@ -70,15 +72,29 @@ npm install
 
 ### 3. Set Up Google Drive
 
-1. Create a folder in Google Drive for receipt uploads
-2. Copy the folder ID from the URL: `drive.google.com/drive/folders/XXXXX`
+Create 4 folders in Google Drive:
+
+| Folder | Purpose |
+|--------|---------|
+| **Receipts** | Gift payment receipts (uploaded by guests) |
+| **Gallery** | Approved couple photos (displayed on site) |
+| **Uploads** | Guest photo submissions (for your review) |
+| **Wedding Photos** | Wedding day photos (displayed after event) |
+
+Copy each folder ID from the URL: `drive.google.com/drive/folders/XXXXX`
 
 ### 4. Deploy Google Apps Script
 
 1. Go to [script.google.com](https://script.google.com)
 2. Create a new project
 3. Copy the contents of `google/script.gs` into the editor
-4. Update `RECEIPTS_FOLDER_ID` with your Drive folder ID
+4. Update the folder IDs at the top of the script:
+   ```javascript
+   const RECEIPTS_FOLDER_ID = 'your-receipts-folder-id';
+   const GALLERY_FOLDER_ID = 'your-gallery-folder-id';
+   const UPLOADS_FOLDER_ID = 'your-uploads-folder-id';
+   const WEDDING_PHOTOS_FOLDER_ID = 'your-wedding-photos-folder-id';
+   ```
 5. Click **Settings** (gear icon) > Check **"Show appsscript.json manifest file"**
 6. Update `appsscript.json`:
 

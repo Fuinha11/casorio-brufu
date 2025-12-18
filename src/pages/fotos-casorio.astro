@@ -1,0 +1,467 @@
+---
+import ProtectedLayout from '@/layouts/ProtectedLayout.astro';
+import HeroDecoration from '@/components/HeroDecoration.astro';
+---
+
+<ProtectedLayout title="Fotos do Casório">
+  <section class="page-hero">
+    <HeroDecoration variant="light" />
+    <div class="container text-center">
+      <p class="section-subtitle">Momentos Especiais</p>
+      <h1 class="page-title">Fotos do Casório</h1>
+    </div>
+  </section>
+
+  <section class="section gallery-section">
+    <div class="container">
+      <div class="gallery-loading" id="galleryLoading">
+        <div class="gallery-spinner"></div>
+        <p>Carregando fotos...</p>
+      </div>
+
+      <div class="gallery-grid" id="galleryGrid"></div>
+
+      <div class="empty-state" id="galleryEmpty">
+        <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <circle cx="8.5" cy="8.5" r="1.5"></circle>
+          <polyline points="21,15 16,10 5,21"></polyline>
+        </svg>
+        <h3>Em breve!</h3>
+        <p>As fotos do grande dia serão compartilhadas aqui após o casamento.</p>
+        <p class="date-hint">10 de Abril de 2026</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Fechar">&times;</button>
+    <button class="lightbox-prev" id="lightboxPrev" aria-label="Anterior">&#8249;</button>
+    <button class="lightbox-next" id="lightboxNext" aria-label="Próximo">&#8250;</button>
+    <div class="lightbox-body">
+      <div class="lightbox-spinner" id="lightboxSpinner"></div>
+      <img id="lightboxImage" src="" alt="" />
+    </div>
+  </div>
+</ProtectedLayout>
+
+<style is:global>
+  /* Page Hero */
+  .page-hero {
+    position: relative;
+    overflow: hidden;
+    padding: var(--spacing-24) var(--spacing-6) var(--spacing-16);
+    background: linear-gradient(135deg, var(--color-secondary-light) 0%, var(--color-secondary) 100%);
+  }
+
+  .page-title {
+    font-family: var(--font-script);
+    font-size: var(--font-size-4xl);
+    color: var(--color-primary);
+    margin-bottom: 0;
+  }
+
+  /* Gallery Section */
+  .gallery-section {
+    background-color: var(--color-background);
+    min-height: 50vh;
+  }
+
+  .gallery-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-4);
+    padding: var(--spacing-12);
+    color: var(--color-text-light);
+  }
+
+  .gallery-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--color-border);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: gallerySpin 1s linear infinite;
+  }
+
+  @keyframes gallerySpin {
+    to { transform: rotate(360deg); }
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--spacing-4);
+    margin-bottom: var(--spacing-8);
+  }
+
+  /* Gallery Item - dynamically created */
+  .gallery-item {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    cursor: pointer;
+    background-color: var(--color-secondary);
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .gallery-item:hover img {
+    transform: scale(1.05);
+  }
+
+  .gallery-item .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color-overlay);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .gallery-item:hover .overlay {
+    opacity: 1;
+  }
+
+  .gallery-item .overlay-icon {
+    width: 32px;
+    height: 32px;
+    color: var(--color-white);
+    stroke-width: 2;
+  }
+
+  /* Empty State */
+  .empty-state {
+    display: none;
+    text-align: center;
+    padding: var(--spacing-16) var(--spacing-6);
+    color: var(--color-text-light);
+  }
+
+  .empty-icon {
+    width: 80px;
+    height: 80px;
+    color: var(--color-primary);
+    opacity: 0.6;
+    margin-bottom: var(--spacing-6);
+  }
+
+  .empty-state h3 {
+    font-family: var(--font-script);
+    font-size: var(--font-size-3xl);
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-2);
+  }
+
+  .empty-state p {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-2);
+  }
+
+  .empty-state .date-hint {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-xl);
+    color: var(--color-accent);
+    font-weight: 500;
+  }
+
+  /* Lightbox */
+  .lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    background-color: var(--color-overlay-dark);
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lightbox.active {
+    display: flex;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    background: none;
+    border: none;
+    color: var(--color-white);
+    font-size: 40px;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+    line-height: 1;
+  }
+
+  .lightbox-close:hover {
+    opacity: 1;
+  }
+
+  .lightbox-prev,
+  .lightbox-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 60px;
+    height: 60px;
+    background: var(--color-white-alpha-10);
+    border: none;
+    border-radius: 50%;
+    color: var(--color-white);
+    font-size: 36px;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.2s, background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+
+  .lightbox-prev:hover,
+  .lightbox-next:hover {
+    opacity: 1;
+    background: var(--color-white-alpha-20);
+  }
+
+  .lightbox-prev {
+    left: 20px;
+  }
+
+  .lightbox-next {
+    right: 20px;
+  }
+
+  .lightbox-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 90vw;
+    max-height: 90vh;
+  }
+
+  .lightbox-body img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .lightbox-body img.loaded {
+    opacity: 1;
+  }
+
+  .lightbox-spinner {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border: 4px solid var(--color-white-alpha-30);
+    border-top-color: var(--color-white);
+    border-radius: 50%;
+    animation: gallerySpin 1s linear infinite;
+  }
+
+  .lightbox-spinner.hidden {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .gallery-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--spacing-2);
+    }
+
+    .lightbox-prev,
+    .lightbox-next {
+      width: 44px;
+      height: 44px;
+      font-size: 28px;
+    }
+
+    .lightbox-prev {
+      left: 10px;
+    }
+
+    .lightbox-next {
+      right: 10px;
+    }
+
+    .empty-icon {
+      width: 60px;
+      height: 60px;
+    }
+  }
+</style>
+
+<script>
+  import { getApiUrl } from '@/scripts/auth';
+
+  interface GalleryImage {
+    id: string;
+    name: string;
+    url: string;
+    thumbnail: string;
+  }
+
+  let images: GalleryImage[] = [];
+  let currentIndex = 0;
+
+  async function loadGallery() {
+    const loading = document.getElementById('galleryLoading');
+    const grid = document.getElementById('galleryGrid');
+    const empty = document.getElementById('galleryEmpty');
+
+    try {
+      const response = await fetch(`${getApiUrl()}?action=getWeddingPhotos`);
+      const data = await response.json();
+
+      if (loading) loading.style.display = 'none';
+
+      if (data.success && data.images && data.images.length > 0) {
+        images = data.images;
+        renderGallery();
+      } else {
+        if (empty) empty.style.display = 'block';
+      }
+    } catch (error) {
+      console.error('Error loading gallery:', error);
+      if (loading) loading.style.display = 'none';
+      if (empty) empty.style.display = 'block';
+    }
+  }
+
+  function renderGallery() {
+    const grid = document.getElementById('galleryGrid');
+    if (!grid) return;
+
+    grid.innerHTML = images.map((img, index) => `
+      <div class="gallery-item" data-index="${index}">
+        <img src="${img.thumbnail}" alt="${img.name}" />
+        <div class="overlay">
+          <svg class="overlay-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="M21 21l-4.35-4.35"></path>
+          </svg>
+        </div>
+      </div>
+    `).join('');
+
+    grid.querySelectorAll('.gallery-item').forEach((item) => {
+      item.addEventListener('click', () => {
+        const index = parseInt(item.getAttribute('data-index') || '0');
+        openLightbox(index);
+      });
+    });
+  }
+
+  function openLightbox(index: number) {
+    currentIndex = index;
+    const lightbox = document.getElementById('lightbox');
+
+    if (lightbox) {
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      loadLightboxImage(index);
+    }
+  }
+
+  function closeLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    const img = document.getElementById('lightboxImage') as HTMLImageElement;
+
+    if (lightbox) {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    if (img) {
+      img.classList.remove('loaded');
+      img.src = '';
+    }
+  }
+
+  function loadLightboxImage(index: number) {
+    const img = document.getElementById('lightboxImage') as HTMLImageElement;
+    const spinner = document.getElementById('lightboxSpinner');
+
+    if (!img || !images[index]) return;
+
+    // Reset state
+    img.classList.remove('loaded');
+    if (spinner) spinner.classList.remove('hidden');
+
+    // Set up load handlers on the actual image element
+    img.onload = () => {
+      img.classList.add('loaded');
+      if (spinner) spinner.classList.add('hidden');
+    };
+    img.onerror = () => {
+      // Show anyway even if error
+      img.classList.add('loaded');
+      if (spinner) spinner.classList.add('hidden');
+    };
+
+    // Set the source - use thumbnail with larger size (avoids forbidden on direct URL)
+    img.alt = images[index].name;
+    img.src = images[index].thumbnail.replace('sz=w400', 'sz=w1600');
+  }
+
+  function showPrev() {
+    if (images.length === 0) return;
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    loadLightboxImage(currentIndex);
+  }
+
+  function showNext() {
+    if (images.length === 0) return;
+    currentIndex = (currentIndex + 1) % images.length;
+    loadLightboxImage(currentIndex);
+  }
+
+  function init() {
+    loadGallery();
+
+    const lightbox = document.getElementById('lightbox');
+    const closeBtn = document.getElementById('lightboxClose');
+    const prevBtn = document.getElementById('lightboxPrev');
+    const nextBtn = document.getElementById('lightboxNext');
+
+    closeBtn?.addEventListener('click', closeLightbox);
+    prevBtn?.addEventListener('click', showPrev);
+    nextBtn?.addEventListener('click', showNext);
+
+    lightbox?.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox?.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') showPrev();
+      if (e.key === 'ArrowRight') showNext();
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+  document.addEventListener('astro:page-load', init);
+</script>

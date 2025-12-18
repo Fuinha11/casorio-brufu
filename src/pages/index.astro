@@ -11,6 +11,7 @@ const basePath = import.meta.env.BASE_URL || '';
 <ProtectedLayout title="Início">
   <!-- Hero Section -->
   <section class="hero">
+    <div class="hero-bg" id="heroBg" style={`background-image: url('${basePath}/images/home.jpg')`}></div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <div class="hero-text animate-fade-in-down">
@@ -122,14 +123,22 @@ const basePath = import.meta.env.BASE_URL || '';
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
     overflow: hidden;
     padding: var(--spacing-6);
   }
 
-  /* Custom hero decorations - twice as big, one high one low */
+  .hero-bg {
+    position: absolute;
+    inset: -50px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    will-change: transform;
+  }
+
+  /* Custom hero decorations - 25% smaller than before */
   .hero :global(.hero-deco) {
-    height: 400px;
+    height: 300px;
   }
 
   .hero :global(.hero-deco-left) {
@@ -164,9 +173,11 @@ const basePath = import.meta.env.BASE_URL || '';
   .hero-overlay {
     position: absolute;
     inset: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
-    background-size: 20px 20px;
-    opacity: 0.5;
+    background: linear-gradient(
+      135deg,
+      var(--color-hero-overlay-start) 0%,
+      var(--color-hero-overlay-end) 100%
+    );
   }
 
   .hero-content {
@@ -182,7 +193,7 @@ const basePath = import.meta.env.BASE_URL || '';
 
   .hero-subtitle {
     font-size: var(--font-size-lg);
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--color-white-alpha-90);
     letter-spacing: var(--letter-spacing-wide);
     margin-bottom: var(--spacing-4);
     text-transform: uppercase;
@@ -206,7 +217,7 @@ const basePath = import.meta.env.BASE_URL || '';
 
   .hero-venue {
     font-size: var(--font-size-md);
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--color-white-alpha-80);
     margin-bottom: 0;
   }
 
@@ -219,7 +230,7 @@ const basePath = import.meta.env.BASE_URL || '';
     flex-direction: column;
     align-items: center;
     gap: var(--spacing-2);
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--color-white-alpha-80);
     text-decoration: none;
     transition: all var(--transition-normal);
   }
@@ -370,7 +381,7 @@ const basePath = import.meta.env.BASE_URL || '';
     }
 
     .hero :global(.hero-deco) {
-      height: 200px;
+      height: 150px;
     }
 
     .hero :global(.hero-deco-left) {
@@ -388,3 +399,34 @@ const basePath = import.meta.env.BASE_URL || '';
     }
   }
 </style>
+
+<script>
+  function initParallax() {
+    const heroBg = document.getElementById('heroBg');
+    if (!heroBg) return;
+
+    let ticking = false;
+
+    function updateParallax() {
+      const scrollY = window.scrollY;
+      const heroHeight = window.innerHeight;
+
+      // Only apply parallax while hero is visible
+      if (scrollY < heroHeight) {
+        const yOffset = scrollY * 0.4; // Adjust speed (0.3-0.5 works well)
+        heroBg.style.transform = `translateY(${yOffset}px)`;
+      }
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+
+  document.addEventListener('DOMContentLoaded', initParallax);
+  document.addEventListener('astro:page-load', initParallax);
+</script>

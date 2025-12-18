@@ -80,7 +80,7 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
     position: relative;
     overflow: hidden;
     padding: 6rem 1.5rem 4rem;
-    background: linear-gradient(135deg, #FFFDF9 0%, #F5F0E8 100%);
+    background: linear-gradient(135deg, var(--color-secondary-light) 0%, var(--color-secondary-dark) 100%);
     text-align: center;
   }
   .music-hero-content {
@@ -92,18 +92,18 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
     font-size: 0.875rem;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    color: #999;
+    color: var(--color-text-muted);
     margin-bottom: 0.5rem;
   }
   .music-title {
-    font-family: 'Great Vibes', cursive;
+    font-family: var(--font-script);
     font-size: 2.5rem;
-    color: #7A6B5A;
+    color: var(--color-primary);
     margin: 0;
   }
 
   .music-main {
-    background: #F9F7F4;
+    background: var(--color-background-alt);
     padding: 3rem 1.5rem;
     min-height: 60vh;
   }
@@ -123,34 +123,34 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #F5F0E8;
+    background: var(--color-secondary-dark);
     border-radius: 50%;
   }
   .music-icon svg {
     width: 40px;
     height: 40px;
-    color: #7A6B5A;
+    color: var(--color-primary);
   }
   .music-intro-title {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--font-heading);
     font-size: 1.5rem;
-    color: #333;
+    color: var(--color-text);
     margin: 0 0 0.75rem;
   }
   .music-intro-text {
     font-size: 1rem;
-    color: #666;
+    color: var(--color-text-light);
     line-height: 1.6;
     max-width: 450px;
     margin: 0 auto;
   }
 
   .music-card {
-    background: #fff;
+    background: var(--color-background);
     border-radius: 16px;
     padding: 0;
     margin-bottom: 1.5rem;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 20px var(--color-shadow-md);
     overflow: hidden;
   }
 
@@ -158,7 +158,7 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
     display: flex;
     align-items: center;
     padding: 1rem 1.5rem;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid var(--color-input-disabled);
   }
   .music-row:last-child {
     border-bottom: none;
@@ -168,7 +168,7 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
     flex-shrink: 0;
     font-size: 0.8rem;
     font-weight: 700;
-    color: #666;
+    color: var(--color-text-light);
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
@@ -181,22 +181,22 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
     width: 100%;
     padding: 0.6rem 0.875rem;
     font-size: 0.95rem;
-    border: 2px solid #e8e8e8;
+    border: 2px solid var(--color-input-border-dark);
     border-radius: 8px;
-    background: #fafafa;
-    color: #333;
+    background: var(--color-input-bg);
+    color: var(--color-text);
     font-family: inherit;
     box-sizing: border-box;
     transition: border-color 0.2s, background 0.2s;
   }
   .music-input:focus {
     outline: none;
-    border-color: #7A6B5A;
-    background: #fff;
+    border-color: var(--color-primary);
+    background: var(--color-background);
   }
   .music-input[readonly] {
-    background: #f0f0f0;
-    color: #666;
+    background: var(--color-input-disabled);
+    color: var(--color-text-light);
     cursor: not-allowed;
   }
 
@@ -204,10 +204,10 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
     width: 100%;
     padding: 0.6rem 0.875rem;
     font-size: 0.95rem;
-    border: 2px solid #e8e8e8;
+    border: 2px solid var(--color-input-border-dark);
     border-radius: 8px;
-    background: #fafafa;
-    color: #333;
+    background: var(--color-input-bg);
+    color: var(--color-text);
     font-family: inherit;
     box-sizing: border-box;
     resize: vertical;
@@ -216,8 +216,8 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
   }
   .music-textarea:focus {
     outline: none;
-    border-color: #7A6B5A;
-    background: #fff;
+    border-color: var(--color-primary);
+    background: var(--color-background);
   }
 
   .music-message {
@@ -228,22 +228,22 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
   }
   .music-message.success {
     padding: 1rem;
-    background: rgba(76, 175, 80, 0.1);
-    border: 1px solid #4caf50;
-    color: #2e7d32;
+    background: var(--color-success-bg);
+    border: 1px solid var(--color-success);
+    color: var(--color-success-dark);
   }
   .music-message.error {
     padding: 1rem;
-    background: rgba(229, 115, 115, 0.1);
-    border: 1px solid #e57373;
-    color: #c62828;
+    background: var(--color-error-bg);
+    border: 1px solid var(--color-error);
+    color: var(--color-error-dark);
   }
 
   .music-submit-btn {
     width: 100%;
     padding: 1rem 2rem;
-    background: #7A6B5A;
-    color: white;
+    background: var(--color-primary);
+    color: var(--color-white);
     border: none;
     border-radius: 8px;
     font-size: 1rem;
@@ -252,7 +252,7 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
     transition: background 0.2s;
   }
   .music-submit-btn:hover {
-    background: #665a4a;
+    background: var(--color-primary-dark);
   }
   .music-submit-btn:disabled {
     opacity: 0.6;
@@ -264,18 +264,18 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
     margin-top: 2rem;
   }
   .suggestions-title {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--font-heading);
     font-size: 1.25rem;
-    color: #333;
+    color: var(--color-text);
     margin: 0 0 1rem;
     text-align: center;
   }
   .suggestion-item {
-    background: #fff;
+    background: var(--color-background);
     border-radius: 12px;
     padding: 1rem 1.25rem;
     margin-bottom: 0.75rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    box-shadow: 0 2px 8px var(--color-shadow);
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -283,7 +283,7 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
   .suggestion-icon {
     width: 40px;
     height: 40px;
-    background: #F5F0E8;
+    background: var(--color-secondary-dark);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -297,7 +297,7 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
   }
   .suggestion-song {
     font-weight: 600;
-    color: #333;
+    color: var(--color-text);
     margin: 0 0 0.25rem;
     white-space: nowrap;
     overflow: hidden;
@@ -305,20 +305,20 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
   }
   .suggestion-artist {
     font-size: 0.875rem;
-    color: #888;
+    color: var(--color-input-placeholder);
     margin: 0;
   }
 
   .music-tips {
-    background: #fff;
+    background: var(--color-background);
     border-radius: 12px;
     padding: 1.5rem;
     margin-top: 2rem;
   }
   .music-tips-title {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--font-heading);
     font-size: 1.1rem;
-    color: #333;
+    color: var(--color-text);
     margin: 0 0 1rem;
   }
   .music-tips-list {
@@ -330,7 +330,7 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
     position: relative;
     padding-left: 1.75rem;
     margin-bottom: 0.5rem;
-    color: #666;
+    color: var(--color-text-light);
     font-size: 0.9rem;
   }
   .music-tips-list li:last-child {

@@ -410,7 +410,7 @@ const giftsJson = JSON.stringify(gifts);
   .gift-modal-overlay {
     position: absolute;
     inset: 0;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: var(--color-overlay-backdrop);
     backdrop-filter: blur(4px);
   }
 
@@ -677,14 +677,14 @@ const giftsJson = JSON.stringify(gifts);
 
   .form-message.success {
     display: block;
-    background-color: #d4edda;
-    color: #155724;
+    background-color: var(--color-success-bg-light);
+    color: var(--color-success-dark);
   }
 
   .form-message.error {
     display: block;
-    background-color: #f8d7da;
-    color: #721c24;
+    background-color: var(--color-error-bg-light);
+    color: var(--color-error-dark);
   }
 
   /* Button */

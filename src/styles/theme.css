@@ -5,47 +5,118 @@
 
 :root {
   /* =========================================================================
-     COLOR PALETTE - Romantic & Whimsical
-     Change these values to update colors site-wide
+     COLOR PALETTE - Elegant & Sophisticated
+
+     Base colors:
+     - Burgundy clássico: #5B0A1E
+     - Verde oliva elegante: #556B4E
+     - Roxo ametista: #5A3A6E
+     - Dourado envelhecido (principal): #B49A5F
+     - Rose gold (pontual): #C48A8A
      ========================================================================= */
 
-  /* PRIMARY COLORS - Marsala (deep wine red) */
-  --color-primary: #955251;           /* Marsala */
-  --color-primary-light: #B06A69;
-  --color-primary-dark: #7A3E3D;
-  --color-primary-rgb: 149, 82, 81;
+  /* PRIMARY COLORS - Burgundy clássico */
+  --color-primary: #5B0A1E;
+  --color-primary-light: #7A2E42;
+  --color-primary-dark: #3D0614;
+  --color-primary-rgb: 91, 10, 30;
+  --color-primary-dark-rgb: 61, 6, 20;
 
-  /* SECONDARY COLORS - Warm cream tones */
-  --color-secondary: #FAF6F2;         /* Warm cream */
-  --color-secondary-light: #FFFCF9;
-  --color-secondary-dark: #EDE5DB;
+  /* SECONDARY COLORS - Warm cream with gold undertones */
+  --color-secondary: #FAF7F2;
+  --color-secondary-light: #FFFCF8;
+  --color-secondary-dark: #F0E8DC;
 
-  /* ACCENT COLORS - Rose gold */
-  --color-accent: #B76E79;            /* Rose gold */
-  --color-accent-light: #D4919A;
-  --color-accent-dark: #9A5A63;
+  /* ACCENT COLORS - Dourado envelhecido (principal) */
+  --color-accent: #B49A5F;
+  --color-accent-light: #C9B37F;
+  --color-accent-dark: #9A8249;
+
+  /* ADDITIONAL ACCENT COLORS */
+  --color-primary-alt: #556B4E;              /* Verde oliva elegante */
+  --color-primary-alt-light: #6E8565;
+  --color-primary-alt-dark: #3E5038;
+  --color-primary-alt-rgb: 85, 107, 78;
+  --color-primary-alt-bg: rgba(85, 107, 78, 0.1);
+  --color-primary-alt-bg-light: rgba(85, 107, 78, 0.05);
+
+  --color-amethyst: #5A3A6E;                 /* Roxo ametista */
+  --color-amethyst-light: #7A5A8E;
+  --color-amethyst-dark: #3D2549;
+
+  --color-rose-gold: #C48A8A;
+  --color-rose-gold-light: #D4A8A8;
+  --color-rose-gold-dark: #A96E6E;
 
   /* TEXT COLORS */
-  --color-text: #3D3D3D;              /* Main text - dark gray */
-  --color-text-light: #6B6B6B;        /* Secondary text */
-  --color-text-muted: #999999;        /* Muted/placeholder text */
+  --color-text: #2D2D2D;              /* Main text - deep charcoal */
+  --color-text-light: #5A5A5A;        /* Secondary text */
+  --color-text-muted: #8A8A8A;        /* Muted/placeholder text */
   --color-text-inverse: #FFFFFF;      /* Text on dark backgrounds */
 
   /* BACKGROUND COLORS */
   --color-background: #FFFFFF;
-  --color-background-alt: #F9F7F4;
-  --color-background-dark: #2C3E50;
+  --color-background-alt: #FAF8F5;
+  --color-background-dark: #5B0A1E;   /* Burgundy for dark sections */
 
   /* DECORATIVE */
-  --color-border: #E5DFD6;
-  --color-border-light: #F0EBE3;
-  --color-shadow: rgba(0, 0, 0, 0.1);
-  --color-overlay: rgba(0, 0, 0, 0.5);
+  --color-border: #E8E2D9;
+  --color-border-light: #F2EDE6;
+  --color-shadow: rgba(var(--color-primary-rgb), 0.08);
+  --color-shadow-md: rgba(var(--color-primary-rgb), 0.06);
+  --color-shadow-lg: rgba(var(--color-primary-rgb), 0.15);
 
-  /* STATUS COLORS */
-  --color-success: #4CAF50;
-  --color-error: #E57373;
-  --color-warning: #FFB74D;
+  /* OVERLAYS - Uses primary-alt (olive green) with transparency */
+  --color-overlay: rgba(var(--color-primary-alt-rgb), 0.5);
+  --color-overlay-light: rgba(var(--color-primary-alt-rgb), 0.4);
+  --color-overlay-dark: rgba(var(--color-primary-alt-rgb), 0.95);
+  --color-overlay-backdrop: rgba(var(--color-primary-alt-rgb), 0.85);
+
+  /* HERO OVERLAY - Primary (Burgundy) */
+  --color-hero-overlay-start: rgba(var(--color-primary-rgb), 0.85);
+  --color-hero-overlay-end: rgba(var(--color-primary-dark-rgb), 0.9);
+
+  /* WHITE WITH TRANSPARENCY */
+  --color-white: #FFFFFF;
+  --color-white-alpha-10: rgba(255, 255, 255, 0.1);
+  --color-white-alpha-15: rgba(255, 255, 255, 0.15);
+  --color-white-alpha-20: rgba(255, 255, 255, 0.2);
+  --color-white-alpha-30: rgba(255, 255, 255, 0.3);
+  --color-white-alpha-60: rgba(255, 255, 255, 0.6);
+  --color-white-alpha-80: rgba(255, 255, 255, 0.8);
+  --color-white-alpha-90: rgba(255, 255, 255, 0.9);
+  --color-white-alpha-95: rgba(255, 255, 255, 0.95);
+  --color-white-alpha-98: rgba(255, 255, 255, 0.98);
+
+  /* BLACK WITH TRANSPARENCY */
+  --color-black-alpha-70: rgba(0, 0, 0, 0.7);
+
+  /* STATUS COLORS - Harmonized with palette */
+  --color-success: #556B4E;           /* Verde oliva */
+  --color-success-dark: #3E5038;
+  --color-success-bg: rgba(85, 107, 78, 0.1);
+  --color-success-bg-hover: rgba(85, 107, 78, 0.12);
+  --color-success-bg-light: rgba(85, 107, 78, 0.15);
+  --color-error: #C48A8A;             /* Rose gold for softer errors */
+  --color-error-dark: #A96E6E;
+  --color-error-bg: rgba(196, 138, 138, 0.1);
+  --color-error-bg-hover: rgba(196, 138, 138, 0.12);
+  --color-error-bg-light: rgba(196, 138, 138, 0.15);
+  --color-warning: #B49A5F;           /* Dourado envelhecido */
+  --color-warning-light: #F9F5ED;
+  --color-warning-dark: #9A8249;
+  --color-danger: #5B0A1E;            /* Burgundy */
+
+  /* ACCENT BACKGROUND (gold based) */
+  --color-accent-bg: rgba(180, 154, 95, 0.15);
+  --color-accent-text-dark: #5B0A1E;
+
+  /* FORM/INPUT COLORS */
+  --color-input-bg: #FAFAFA;
+  --color-input-border: #E0E0E0;
+  --color-input-border-dark: #E8E8E8;
+  --color-input-disabled: #F0F0F0;
+  --color-input-placeholder: #888888;
 
   /* =========================================================================
      TYPOGRAPHY
@@ -153,37 +224,3 @@
   --z-tooltip: 600;
 }
 
-/* ==========================================================================
-   ALTERNATIVE COLOR PALETTES
-   Uncomment one of these sections to switch the entire color scheme
-   ========================================================================== */
-
-/*
-:root {
-  --color-primary: #D4A5A5;
-  --color-primary-light: #E5C4C4;
-  --color-primary-dark: #B88888;
-  --color-secondary: #F9F3F0;
-  --color-accent: #8B7355;
-}
-*/
-
-/*
-:root {
-  --color-primary: #2C3E50;
-  --color-primary-light: #34495E;
-  --color-primary-dark: #1A252F;
-  --color-secondary: #F8F6F0;
-  --color-accent: #D4AF37;
-}
-*/
-
-/*
-:root {
-  --color-primary: #9B8AA5;
-  --color-primary-light: #B8AAC0;
-  --color-primary-dark: #7E6B8A;
-  --color-secondary: #F5F3F7;
-  --color-accent: #C9A962;
-}
-*/

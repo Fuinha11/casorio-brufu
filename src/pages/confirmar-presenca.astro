@@ -63,7 +63,7 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
     position: relative;
     overflow: hidden;
     padding: 6rem 1.5rem 4rem;
-    background: linear-gradient(135deg, #FFFDF9 0%, #F5F0E8 100%);
+    background: linear-gradient(135deg, var(--color-secondary-light) 0%, var(--color-secondary-dark) 100%);
     text-align: center;
   }
   .rsvp-hero-content {
@@ -75,19 +75,19 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
     font-size: 0.875rem;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    color: #999;
+    color: var(--color-text-muted);
     margin-bottom: 0.5rem;
   }
   .rsvp-title {
-    font-family: 'Great Vibes', cursive;
+    font-family: var(--font-script);
     font-size: 2.5rem;
-    color: #7A6B5A;
+    color: var(--color-primary);
     margin: 0;
   }
 
   /* Main */
   .rsvp-main {
-    background: #F9F7F4;
+    background: var(--color-background-alt);
     padding: 3rem 1.5rem;
     min-height: 60vh;
   }
@@ -98,7 +98,7 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
   .rsvp-intro {
     text-align: center;
     margin-bottom: 1.5rem;
-    color: #666;
+    color: var(--color-text-light);
     font-size: 1rem;
   }
 
@@ -113,14 +113,14 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
   }
   .rsvp-loading p {
     margin-top: 1rem;
-    color: #666;
+    color: var(--color-text-light);
     font-size: 0.95rem;
   }
   .rsvp-spinner {
     width: 40px;
     height: 40px;
-    border: 3px solid #e8e8e8;
-    border-top-color: #7A6B5A;
+    border: 3px solid var(--color-input-border-dark);
+    border-top-color: var(--color-primary);
     border-radius: 50%;
     animation: rsvp-spin 0.8s linear infinite;
   }
@@ -134,11 +134,11 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
     align-items: center;
     gap: 0.75rem;
     padding: 1rem 1.25rem;
-    background: rgba(183, 110, 121, 0.15);
-    border-left: 4px solid #B76E79;
+    background: var(--color-accent-bg);
+    border-left: 4px solid var(--color-accent);
     border-radius: 8px;
     margin-bottom: 2rem;
-    color: #5a2a2a;
+    color: var(--color-accent-text-dark);
     font-size: 0.9rem;
     font-weight: 600;
   }
@@ -148,8 +148,8 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
     justify-content: center;
     width: 24px;
     height: 24px;
-    background: #B76E79;
-    color: white;
+    background: var(--color-accent);
+    color: var(--color-white);
     border-radius: 50%;
     font-weight: bold;
     font-size: 0.875rem;
@@ -158,11 +158,11 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
 
   /* Guest Card */
   .rsvp-card {
-    background: #fff;
+    background: var(--color-background);
     border-radius: 16px;
     padding: 0;
     margin-bottom: 1.5rem;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 20px var(--color-shadow-md);
     position: relative;
     overflow: hidden;
   }
@@ -173,11 +173,11 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
     width: 28px;
     height: 28px;
     border: none;
-    background: #f0f0f0;
+    background: var(--color-input-disabled);
     border-radius: 50%;
     cursor: pointer;
     font-size: 1.25rem;
-    color: #999;
+    color: var(--color-text-muted);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -185,8 +185,8 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
     z-index: 1;
   }
   .rsvp-card-remove:hover {
-    background: #e74c3c;
-    color: white;
+    background: var(--color-danger);
+    color: var(--color-white);
   }
 
   /* Card Row */
@@ -194,7 +194,7 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
     display: flex;
     align-items: center;
     padding: 1rem 1.5rem;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid var(--color-input-disabled);
   }
   .rsvp-row:last-child {
     border-bottom: none;
@@ -204,7 +204,7 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
     flex-shrink: 0;
     font-size: 0.8rem;
     font-weight: 700;
-    color: #666;
+    color: var(--color-text-light);
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
@@ -220,10 +220,10 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
     gap: 0.75rem;
   }
   .rsvp-code-text {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--font-heading);
     font-size: 1.1rem;
     font-weight: 700;
-    color: #7A6B5A;
+    color: var(--color-primary);
     text-transform: uppercase;
     letter-spacing: 0.1em;
   }
@@ -236,16 +236,16 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
     letter-spacing: 0.03em;
   }
   .rsvp-status.pending {
-    background: #f0f0f0;
-    color: #888;
+    background: var(--color-input-disabled);
+    color: var(--color-input-placeholder);
   }
   .rsvp-status.confirmed {
-    background: rgba(76, 175, 80, 0.15);
-    color: #2e7d32;
+    background: var(--color-success-bg-light);
+    color: var(--color-success-dark);
   }
   .rsvp-status.not-going {
-    background: rgba(229, 115, 115, 0.15);
-    color: #c62828;
+    background: var(--color-error-bg-light);
+    color: var(--color-error-dark);
   }
 
   /* Name Input */
@@ -253,17 +253,17 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
     width: 100%;
     padding: 0.6rem 0.875rem;
     font-size: 0.95rem;
-    border: 2px solid #e8e8e8;
+    border: 2px solid var(--color-input-border-dark);
     border-radius: 8px;
-    background: #fafafa;
-    color: #333;
+    background: var(--color-input-bg);
+    color: var(--color-text);
     font-family: inherit;
     box-sizing: border-box;
   }
   .rsvp-name-input:focus {
     outline: none;
-    border-color: #7A6B5A;
-    background: #fff;
+    border-color: var(--color-primary);
+    background: var(--color-background);
   }
 
   /* Attendance */
@@ -273,30 +273,30 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
   }
   .rsvp-attendance-btn {
     padding: 0.5rem 1rem;
-    border: 2px solid #e0e0e0;
+    border: 2px solid var(--color-input-border);
     border-radius: 25px;
-    background: #fafafa;
+    background: var(--color-input-bg);
     cursor: pointer;
     font-size: 0.875rem;
     font-weight: 500;
-    color: #666;
+    color: var(--color-text-light);
     display: flex;
     align-items: center;
     gap: 0.4rem;
     transition: all 0.15s ease;
   }
   .rsvp-attendance-btn:hover {
-    background: #f0f0f0;
+    background: var(--color-input-disabled);
   }
   .rsvp-attendance-btn.yes.active {
-    border-color: #4caf50;
-    background: rgba(76, 175, 80, 0.12);
-    color: #2e7d32;
+    border-color: var(--color-success);
+    background: var(--color-success-bg-hover);
+    color: var(--color-success-dark);
   }
   .rsvp-attendance-btn.no.active {
-    border-color: #e57373;
-    background: rgba(229, 115, 115, 0.12);
-    color: #c62828;
+    border-color: var(--color-error);
+    background: var(--color-error-bg-hover);
+    color: var(--color-error-dark);
   }
 
   /* Dietary */
@@ -310,25 +310,25 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
     align-items: center;
     gap: 0.4rem;
     padding: 0.4rem 0.8rem;
-    background: #fafafa;
-    border: 2px solid #e0e0e0;
+    background: var(--color-input-bg);
+    border: 2px solid var(--color-input-border);
     border-radius: 25px;
     cursor: pointer;
     font-size: 0.8rem;
-    color: #555;
+    color: var(--color-text-light);
     transition: all 0.15s ease;
   }
   .rsvp-dietary-item:hover {
-    background: #f0f0f0;
+    background: var(--color-input-disabled);
   }
   .rsvp-dietary-item.active {
-    border-color: #7A6B5A;
-    background: rgba(122, 107, 90, 0.1);
+    border-color: var(--color-primary);
+    background: rgba(var(--color-primary-rgb), 0.1);
   }
   .rsvp-dietary-item input[type="checkbox"] {
     width: 14px;
     height: 14px;
-    accent-color: #7A6B5A;
+    accent-color: var(--color-primary);
     margin: 0;
   }
 
@@ -344,49 +344,49 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
   }
   .rsvp-allergy-label {
     font-size: 0.8rem;
-    color: #777;
+    color: var(--color-text-light);
     white-space: nowrap;
   }
   .rsvp-allergy-input {
     flex: 1;
     padding: 0.5rem 0.75rem;
     font-size: 0.85rem;
-    border: 2px solid #e0e0e0;
+    border: 2px solid var(--color-input-border);
     border-radius: 6px;
-    background: #fafafa;
+    background: var(--color-input-bg);
     font-family: inherit;
     box-sizing: border-box;
   }
   .rsvp-allergy-input:focus {
     outline: none;
-    border-color: #7A6B5A;
-    background: #fff;
+    border-color: var(--color-primary);
+    background: var(--color-background);
   }
 
   /* Add Button */
   .rsvp-add-btn {
     width: 100%;
     padding: 1rem;
-    border: 2px dashed #ccc;
+    border: 2px dashed var(--color-border);
     border-radius: 12px;
     background: transparent;
     cursor: pointer;
     font-size: 0.95rem;
-    color: #888;
+    color: var(--color-input-placeholder);
     margin-bottom: 1.5rem;
     transition: all 0.2s;
   }
   .rsvp-add-btn:hover {
-    border-color: #7A6B5A;
-    color: #7A6B5A;
+    border-color: var(--color-primary);
+    color: var(--color-primary);
   }
 
   /* Submit */
   .rsvp-submit-btn {
     width: 100%;
     padding: 1rem 2rem;
-    background: #7A6B5A;
-    color: white;
+    background: var(--color-primary);
+    color: var(--color-white);
     border: none;
     border-radius: 8px;
     font-size: 1rem;
@@ -395,7 +395,7 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
     transition: background 0.2s;
   }
   .rsvp-submit-btn:hover {
-    background: #665a4a;
+    background: var(--color-primary-dark);
   }
   .rsvp-submit-btn:disabled {
     opacity: 0.6;
@@ -411,15 +411,15 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
   }
   .rsvp-message.success {
     padding: 1rem;
-    background: rgba(76, 175, 80, 0.1);
-    border: 1px solid #4caf50;
-    color: #2e7d32;
+    background: var(--color-success-bg);
+    border: 1px solid var(--color-success);
+    color: var(--color-success-dark);
   }
   .rsvp-message.error {
     padding: 1rem;
-    background: rgba(229, 115, 115, 0.1);
-    border: 1px solid #e57373;
-    color: #c62828;
+    background: var(--color-error-bg);
+    border: 1px solid var(--color-error);
+    color: var(--color-error-dark);
   }
 
   /* Modal */
@@ -438,16 +438,16 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
   .rsvp-modal-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: var(--color-overlay);
   }
   .rsvp-modal-box {
     position: relative;
-    background: white;
+    background: var(--color-background);
     border-radius: 12px;
     padding: 2rem;
     max-width: 400px;
     width: 100%;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 40px var(--color-shadow-lg);
   }
   .rsvp-modal-close {
     position: absolute;
@@ -456,32 +456,32 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
     width: 32px;
     height: 32px;
     border: none;
-    background: #f0f0f0;
+    background: var(--color-input-disabled);
     border-radius: 50%;
     font-size: 1.5rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #666;
+    color: var(--color-text-light);
   }
   .rsvp-modal-close:hover {
-    background: #e74c3c;
-    color: white;
+    background: var(--color-danger);
+    color: var(--color-white);
   }
   .rsvp-modal-title {
     margin: 0 0 0.5rem;
     font-size: 1.25rem;
-    color: #333;
+    color: var(--color-text);
   }
   .rsvp-modal-text {
     margin: 0 0 1rem;
-    color: #666;
+    color: var(--color-text-light);
   }
   .rsvp-modal-input {
     width: 100%;
     padding: 0.75rem;
-    border: 2px solid #e0e0e0;
+    border: 2px solid var(--color-input-border);
     border-radius: 8px;
     font-size: 1rem;
     margin-bottom: 1rem;
@@ -490,26 +490,26 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
   }
   .rsvp-modal-input:focus {
     outline: none;
-    border-color: #7A6B5A;
+    border-color: var(--color-primary);
   }
   .rsvp-modal-btn {
     width: 100%;
     padding: 0.75rem;
-    background: #7A6B5A;
-    color: white;
+    background: var(--color-primary);
+    color: var(--color-white);
     border: none;
     border-radius: 8px;
     font-size: 1rem;
     cursor: pointer;
   }
   .rsvp-modal-btn:hover {
-    background: #665a4a;
+    background: var(--color-primary-dark);
   }
   .rsvp-modal-btn:disabled {
     opacity: 0.6;
   }
   .rsvp-modal-error {
-    color: #c62828;
+    color: var(--color-error-dark);
     font-size: 0.875rem;
     margin: 0.5rem 0 0;
   }

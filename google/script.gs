@@ -2,10 +2,12 @@
   // CASAMENTO BRUFU - Google Apps Script
   // ============================================
 
-  // ID da pasta no Drive para salvar comprovantes
-  // Crie uma pasta no Drive e cole o ID aqui (da URL: /folders/XXXXX)
-  // NOTA: Este ID não é sensível - acesso requer permissão no Drive
+  // IDs das pastas no Drive (da URL: /folders/XXXXX)
+  // NOTA: Estes IDs não são sensíveis - acesso requer permissão no Drive
   const RECEIPTS_FOLDER_ID = '1FeH4dpsz_ohe27Gse6RfQkhMI1TCyqZu';
+  const GALLERY_FOLDER_ID = '1SstLV94dcewEIw-Rpi1ZuVkr0ZnonwrX';  // Fotos aprovadas (aparecem no site)
+  const UPLOADS_FOLDER_ID = '11VUS6YrwppxvXFjuVpjWaz-fQ4Zx1Uzz';  // Fotos dos convidados (para validação)
+  const WEDDING_PHOTOS_FOLDER_ID = '18Xzf0UYB345iXubk8sAdXCeLRBeXwJ0y';  // Fotos do casório (após o evento)
 
   // Handle GET requests (login, fetch data)
   function doGet(e) {
@@ -21,6 +23,10 @@
           return getRSVPStatus(e.parameter.code);
         case 'getAuction':
           return getAuctionStatus();
+        case 'getGallery':
+          return getGalleryImages();
+        case 'getWeddingPhotos':
+          return getWeddingPhotos();
         default:
           return jsonResponse({ error: 'Invalid action' }, 400);
       }
@@ -44,6 +50,8 @@
           return submitGift(data);
         case 'submitBid':
           return submitBid(data);
+        case 'uploadPhoto':
+          return uploadGuestPhoto(data);
         default:
           return jsonResponse({ error: 'Invalid action' }, 400);
       }
@@ -312,6 +320,92 @@
     ]);
 
     return jsonResponse({ success: true });
+  }
+
+  // ============================================
+  // GALLERY
+  // ============================================
+
+  function getGalleryImages() {
+    try {
+      const folder = DriveApp.getFolderById(GALLERY_FOLDER_ID);
+      const files = folder.getFiles();
+      const images = [];
+
+      while (files.hasNext()) {
+        const file = files.next();
+        if (file.getMimeType().startsWith('image/')) {
+          images.push({
+            id: file.getId(),
+            name: file.getName(),
+            url: `https://drive.google.com/uc?export=view&id=${file.getId()}`,
+            thumbnail: `https://drive.google.com/thumbnail?id=${file.getId()}&sz=w400`
+          });
+        }
+      }
+
+      // Sort by name
+      images.sort((a, b) => a.name.localeCompare(b.name));
+
+      return jsonResponse({ success: true, images: images });
+    } catch (e) {
+      return jsonResponse({ success: false, error: e.message });
+    }
+  }
+
+  function getWeddingPhotos() {
+    try {
+      const folder = DriveApp.getFolderById(WEDDING_PHOTOS_FOLDER_ID);
+      const files = folder.getFiles();
+      const images = [];
+
+      while (files.hasNext()) {
+        const file = files.next();
+        if (file.getMimeType().startsWith('image/')) {
+          images.push({
+            id: file.getId(),
+            name: file.getName(),
+            url: `https://drive.google.com/uc?export=view&id=${file.getId()}`,
+            thumbnail: `https://drive.google.com/thumbnail?id=${file.getId()}&sz=w400`
+          });
+        }
+      }
+
+      // Sort by name
+      images.sort((a, b) => a.name.localeCompare(b.name));
+
+      return jsonResponse({ success: true, images: images });
+    } catch (e) {
+      return jsonResponse({ success: false, error: e.message });
+    }
+  }
+
+  function uploadGuestPhoto(data) {
+    const guestsSheet = getSheet('Guests');
+
+    // Validate guest code
+    if (!isValidCode(guestsSheet, data.guestCode)) {
+      return jsonResponse({ success: false, error: 'Invalid code' });
+    }
+
+    if (!data.photoBase64 || !data.photoName) {
+      return jsonResponse({ success: false, error: 'No photo provided' });
+    }
+
+    try {
+      const folder = DriveApp.getFolderById(UPLOADS_FOLDER_ID);
+
+      // Decode base64 (full quality - no compression)
+      const decodedData = Utilities.base64Decode(data.photoBase64);
+      const blob = Utilities.newBlob(decodedData, data.photoType || 'image/jpeg', data.photoName);
+
+      const file = folder.createFile(blob);
+      const fileUrl = file.getUrl();
+
+      return jsonResponse({ success: true, fileUrl: fileUrl });
+    } catch (e) {
+      return jsonResponse({ success: false, error: 'Upload failed: ' + e.message });
+    }
   }
 
   // ============================================
