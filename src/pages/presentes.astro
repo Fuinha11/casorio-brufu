@@ -25,32 +25,18 @@ const gifts = [
     icon: 'plant'
   },
   {
-    id: 'recipe-book',
-    name: 'Receita no livro da família',
-    description: 'Sua receita favorita entrará para o nosso livro de receitas da família',
+    id: 'land-sqm',
+    name: '1m² do nosso terreno',
+    description: 'Adote um pedacinho do nosso terreno e ajude a construir nosso lar',
+    value: 100,
+    icon: 'grass'
+  },
+  {
+    id: 'pomegranate-bag',
+    name: 'Saco de romãs',
+    description: 'Presenteie um saco de romãs para dar sorte e prosperidade ao nosso lar',
     value: 30,
-    icon: 'book'
-  },
-  {
-    id: 'movie-night',
-    name: 'Noite de cinema',
-    description: 'Escolha um filme que assistiremos juntos e pensaremos em você',
-    value: 40,
-    icon: 'film'
-  },
-  {
-    id: 'honeymoon-dinner',
-    name: 'Jantar na lua de mel',
-    description: 'Presenteie um jantar especial durante nossa lua de mel',
-    value: 200,
-    icon: 'dinner'
-  },
-  {
-    id: 'honeymoon-adventure',
-    name: 'Aventura na lua de mel',
-    description: 'Contribua para um passeio ou experiência inesquecível na viagem',
-    value: 300,
-    icon: 'adventure'
+    icon: 'fruit'
   },
   {
     id: 'honeymoon-night',
@@ -60,18 +46,11 @@ const gifts = [
     icon: 'hotel'
   },
   {
-    id: 'kitchen-item',
-    name: 'Item de cozinha',
-    description: 'Contribua para equipar nossa cozinha com utensílios de qualidade',
-    value: 100,
-    icon: 'kitchen'
-  },
-  {
-    id: 'living-decor',
-    name: 'Decoração da sala',
-    description: 'Ajude a deixar nossa sala mais aconchegante e bonita',
-    value: 150,
-    icon: 'decor'
+    id: 'extra-guest',
+    name: 'Levar convidado adicional',
+    description: 'Traga um +1 para a festa! Sujeito a aprovação dos noivos. Não reembolsável.',
+    value: 10000,
+    icon: 'user-plus'
   },
   {
     id: 'surprise',
@@ -80,6 +59,14 @@ const gifts = [
     value: 0,
     icon: 'gift',
     customValue: true
+  },
+  {
+    id: 'knife-set',
+    name: 'Jogo de facas pro noivo',
+    description: 'Um conjunto de facas profissionais para o noivo que adora cozinhar',
+    value: 250,
+    icon: 'knife',
+    easterEgg: true
   },
 ];
 
@@ -100,12 +87,54 @@ const giftsJson = JSON.stringify(gifts);
       <div class="gifts-intro text-center">
         <p class="gifts-intro-text">
           Sua presença é o maior presente que poderíamos receber!
-          Mas se desejar nos presentear, preparamos algumas sugestões
-          criativas e especiais que farão parte da nossa história.
+          Mas se desejar nos presentear, temos algumas listas e ideias especiais.
         </p>
       </div>
 
-      <!-- Gift Grid -->
+      <!-- Registry Links -->
+      <div class="registry-grid">
+        <a href="https://www.amazon.es/wedding/guest-view/21LK9A62UCQVA" class="registry-card" target="_blank" rel="noopener noreferrer">
+          <div class="registry-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M21 8l-2 2m0 0l-2-2m2 2v-6"></path>
+              <path d="M3 8l2 2m0 0l2-2m-2 2V4"></path>
+              <rect x="3" y="14" width="18" height="8" rx="2"></rect>
+              <path d="M12 14v8"></path>
+            </svg>
+          </div>
+          <h3 class="registry-title">Bugigangas legais que vamos gostar</h3>
+          <p class="registry-description">
+            Presentes divertidos e úteis que escolhemos na Amazon
+          </p>
+          <span class="registry-btn-text">Ver lista na Amazon →</span>
+        </a>
+
+        <a href="https://www.elcorteingles.pt/presentes/casamentos/eventos/nrbgmm-casamento-de-bruna-e-marcos--e-marcos/" class="registry-card" target="_blank" rel="noopener noreferrer">
+          <div class="registry-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg>
+          </div>
+          <h3 class="registry-title">Presentes tradicionais de casamento</h3>
+          <p class="registry-description">
+            Lista clássica de casamento no El Corte Inglés
+          </p>
+          <span class="registry-btn-text">Ver lista no El Corte Inglés →</span>
+        </a>
+      </div>
+
+      <!-- Section Separator -->
+      <div class="section-separator">
+        <div class="separator-line"></div>
+        <p class="separator-text">
+          Quer também dar um presente único que não vende em loja? Veja algumas ideias:
+        </p>
+        <div class="separator-line"></div>
+      </div>
+
+      <!-- Unique/Creative Gifts Grid -->
       <div class="gift-grid">
         {gifts.map((gift) => (
           <button
@@ -114,6 +143,7 @@ const giftsJson = JSON.stringify(gifts);
             data-gift-name={gift.name}
             data-gift-value={gift.value}
             data-custom-value={gift.customValue || false}
+            data-easter-egg={gift.easterEgg || false}
           >
             <div class="gift-icon" data-icon={gift.icon}>
               {gift.icon === 'hammer' && (
@@ -135,34 +165,22 @@ const giftsJson = JSON.stringify(gifts);
                   <path d="M12 15c-3.5 0-7-2-7-6 2 0 4.5.5 7 3 2.5-2.5 5-3 7-3 0 4-3.5 6-7 6z"></path>
                 </svg>
               )}
-              {gift.icon === 'book' && (
+              {gift.icon === 'grass' && (
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                  <path d="M4 20h16"></path>
+                  <path d="M4 20c0-8 2-14 4-14s2 6 2 14"></path>
+                  <path d="M10 20c0-6 2-10 4-10s2 4 2 10"></path>
+                  <path d="M14 20c0-8 2-12 4-12s2 4 2 12"></path>
                 </svg>
               )}
-              {gift.icon === 'film' && (
+              {gift.icon === 'fruit' && (
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
-                  <line x1="7" y1="2" x2="7" y2="22"></line>
-                  <line x1="17" y1="2" x2="17" y2="22"></line>
-                  <line x1="2" y1="12" x2="22" y2="12"></line>
-                  <line x1="2" y1="7" x2="7" y2="7"></line>
-                  <line x1="2" y1="17" x2="7" y2="17"></line>
-                  <line x1="17" y1="17" x2="22" y2="17"></line>
-                  <line x1="17" y1="7" x2="22" y2="7"></line>
-                </svg>
-              )}
-              {gift.icon === 'dinner' && (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path>
-                  <path d="M7 2v20"></path>
-                  <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path>
-                </svg>
-              )}
-              {gift.icon === 'adventure' && (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
+                  <circle cx="12" cy="14" r="7"></circle>
+                  <path d="M12 7V4"></path>
+                  <path d="M9 6c0-1 1-2 3-2s3 1 3 2"></path>
+                  <path d="M12 14v3"></path>
+                  <path d="M9 13l1 2"></path>
+                  <path d="M15 13l-1 2"></path>
                 </svg>
               )}
               {gift.icon === 'hotel' && (
@@ -175,21 +193,24 @@ const giftsJson = JSON.stringify(gifts);
                   <path d="M9 17h1"></path>
                 </svg>
               )}
-              {gift.icon === 'kitchen' && (
+              {gift.icon === 'user-plus' && (
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path>
-                  <path d="M7 2v20"></path>
-                  <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path>
-                </svg>
-              )}
-              {gift.icon === 'decor' && (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <path d="M12 3l1.912 5.813a2 2 0 0 0 1.272 1.272L21 12l-5.813 1.912a2 2 0 0 0-1.272 1.272L12 21l-1.912-5.813a2 2 0 0 0-1.272-1.272L3 12l5.813-1.912a2 2 0 0 0 1.272-1.272L12 3z"></path>
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <line x1="19" y1="8" x2="19" y2="14"></line>
+                  <line x1="22" y1="11" x2="16" y2="11"></line>
                 </svg>
               )}
               {gift.icon === 'gift' && (
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                   <path d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path>
+                </svg>
+              )}
+              {gift.icon === 'knife' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M7.05 3.05L3.05 7.05M21.95 16.95L7.05 2.05c-.39-.39-1.02-.39-1.41 0L3.05 4.64c-.39.39-.39 1.02 0 1.41l14.9 14.9c.39.39 1.02.39 1.41 0l2.59-2.59c.39-.39.39-1.02 0-1.41z"></path>
+                  <path d="M14 8l-3 3"></path>
+                  <path d="M17 11l-3 3"></path>
                 </svg>
               )}
             </div>
@@ -213,6 +234,12 @@ const giftsJson = JSON.stringify(gifts);
 
       <h2 class="gift-modal-title">Confirmar Presente</h2>
       <p class="gift-modal-subtitle" id="selectedGiftName"></p>
+
+      <!-- Gift Image (for special gifts like lixadeira) -->
+      <div class="gift-modal-image" id="giftModalImage" style="display: none;">
+        <img id="giftModalImageSrc" src="" alt="" />
+        <a href="" target="_blank" class="gift-modal-image-link" id="giftModalImageLink" style="display: none;"></a>
+      </div>
 
       <!-- QR Code Section -->
       <div class="plox-qr-section" id="ploxQrSection">
@@ -286,6 +313,31 @@ const giftsJson = JSON.stringify(gifts);
       </form>
     </div>
   </div>
+
+  <!-- Easter Egg Modal -->
+  <div class="easter-egg-modal" id="easterEggModal">
+    <div class="easter-egg-overlay"></div>
+    <div class="easter-egg-content">
+      <div class="easter-egg-image">
+        <img src="/casorio-brufu/images/fuck-you.png" alt="Sério mesmo?" />
+      </div>
+      <div class="easter-egg-body">
+        <h2 class="easter-egg-title">Tá de brincadeira comigo?!</h2>
+        <p class="easter-egg-text">
+          Quer dar faca genérica chulé pro noivo?<br/>
+          Paga logo uma lixadeira que ele mesmo faz melhor!
+        </p>
+        <div class="easter-egg-buttons">
+          <button class="btn btn-secondary easter-egg-btn" id="easterEggClose">
+            Sou ramelão, vou dar outra coisa
+          </button>
+          <button class="btn btn-primary easter-egg-btn" id="easterEggAccept">
+            Quero ver ele fazer!
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </ProtectedLayout>
 
 <style>
@@ -325,6 +377,128 @@ const giftsJson = JSON.stringify(gifts);
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: var(--spacing-6);
     margin-bottom: var(--spacing-12);
+  }
+
+  /* Section Separator */
+  .section-separator {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-6);
+    margin: var(--spacing-16) 0;
+    padding: var(--spacing-8) 0;
+  }
+
+  .separator-line {
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+  }
+
+  .separator-text {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-lg);
+    color: var(--color-text-light);
+    text-align: center;
+    max-width: 400px;
+    line-height: var(--line-height-relaxed);
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .section-separator {
+      flex-direction: column;
+      gap: var(--spacing-4);
+    }
+
+    .separator-line {
+      width: 60%;
+      height: 1px;
+    }
+
+    .separator-text {
+      font-size: var(--font-size-base);
+    }
+  }
+
+  /* Registry Grid */
+  .registry-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-6);
+    margin-bottom: var(--spacing-8);
+  }
+
+  @media (max-width: 768px) {
+    .registry-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .registry-card {
+    display: block;
+    background-color: var(--color-secondary);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-8);
+    text-align: center;
+    text-decoration: none;
+    transition: all var(--transition-normal);
+  }
+
+  .registry-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .registry-card:hover .registry-icon {
+    background-color: var(--color-primary-dark);
+    transform: scale(1.05);
+  }
+
+  .registry-card:hover .registry-btn-text {
+    color: var(--color-primary-dark);
+  }
+
+  .registry-icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto var(--spacing-4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-primary);
+    border-radius: var(--radius-full);
+    color: var(--color-text-inverse);
+    transition: all var(--transition-normal);
+  }
+
+  .registry-icon svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  .registry-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-lg);
+    color: var(--color-text);
+    margin-bottom: var(--spacing-2);
+  }
+
+  .registry-description {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-4);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .registry-btn-text {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary);
+    transition: color var(--transition-fast);
   }
 
   .gift-card {
@@ -463,6 +637,35 @@ const giftsJson = JSON.stringify(gifts);
     font-size: var(--font-size-base);
     color: var(--color-primary);
     margin-bottom: var(--spacing-6);
+  }
+
+  /* Gift Modal Image */
+  .gift-modal-image {
+    margin-bottom: var(--spacing-6);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background-color: var(--color-secondary);
+    text-align: center;
+  }
+
+  .gift-modal-image img {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+  }
+
+  .gift-modal-image-link {
+    display: block;
+    padding: var(--spacing-3);
+    font-size: var(--font-size-sm);
+    color: var(--color-primary-alt);
+    text-decoration: underline;
+    background-color: var(--color-background);
+    transition: color var(--transition-fast);
+  }
+
+  .gift-modal-image-link:hover {
+    color: var(--color-primary-alt-dark);
   }
 
   /* QR Code */
@@ -720,6 +923,138 @@ const giftsJson = JSON.stringify(gifts);
       padding: var(--spacing-6);
     }
   }
+
+  /* Easter Egg Modal */
+  .easter-egg-modal {
+    position: fixed;
+    inset: 0;
+    z-index: calc(var(--z-modal) + 10);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-4);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-normal);
+  }
+
+  .easter-egg-modal.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .easter-egg-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(var(--color-primary-rgb), 0.95);
+    backdrop-filter: blur(8px);
+  }
+
+  .easter-egg-content {
+    position: relative;
+    background-color: var(--color-background);
+    border-radius: var(--radius-xl);
+    max-width: 700px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    transform: scale(0.9);
+    transition: transform var(--transition-normal);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  }
+
+  .easter-egg-modal.active .easter-egg-content {
+    transform: scale(1);
+  }
+
+  .easter-egg-image {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    background-color: var(--color-secondary);
+  }
+
+  .easter-egg-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .easter-egg-body {
+    padding: var(--spacing-8);
+    text-align: center;
+  }
+
+  .easter-egg-title {
+    font-family: var(--font-script);
+    font-size: var(--font-size-3xl);
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .easter-egg-text {
+    font-size: var(--font-size-lg);
+    color: var(--color-text);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .easter-egg-link {
+    display: inline-block;
+    font-size: var(--font-size-base);
+    color: var(--color-primary-alt);
+    text-decoration: underline;
+    margin-bottom: var(--spacing-8);
+    transition: color var(--transition-fast);
+  }
+
+  .easter-egg-link:hover {
+    color: var(--color-primary-alt-dark);
+  }
+
+  .easter-egg-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3);
+  }
+
+  .easter-egg-btn {
+    width: 100%;
+    padding: var(--spacing-4) var(--spacing-6);
+    font-size: var(--font-size-base);
+  }
+
+  @media (min-width: 480px) {
+    .easter-egg-buttons {
+      flex-direction: row;
+      justify-content: center;
+    }
+
+    .easter-egg-btn {
+      width: auto;
+      flex: 1;
+      max-width: 280px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .easter-egg-content {
+      max-width: 95%;
+    }
+
+    .easter-egg-body {
+      padding: var(--spacing-6);
+    }
+
+    .easter-egg-title {
+      font-size: var(--font-size-2xl);
+    }
+
+    .easter-egg-text {
+      font-size: var(--font-size-base);
+    }
+  }
 </style>
 
 <script>
@@ -861,9 +1196,76 @@ const giftsJson = JSON.stringify(gifts);
       }
     }
 
+    // Easter Egg Modal elements
+    const easterEggModal = document.getElementById('easterEggModal');
+    const easterEggCloseBtn = document.getElementById('easterEggClose');
+    const easterEggAcceptBtn = document.getElementById('easterEggAccept');
+
+    // Open easter egg modal
+    function openEasterEggModal() {
+      easterEggModal?.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Close easter egg modal
+    function closeEasterEggModal() {
+      easterEggModal?.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Gift modal image elements
+    const giftModalImage = document.getElementById('giftModalImage');
+    const giftModalImageSrc = document.getElementById('giftModalImageSrc') as HTMLImageElement;
+    const giftModalImageLink = document.getElementById('giftModalImageLink') as HTMLAnchorElement;
+
+    // Open regular modal for Lixadeira gift
+    function openLixadeiraGift() {
+      closeEasterEggModal();
+
+      const giftIdInput = document.getElementById('giftId') as HTMLInputElement;
+      const giftValueInput = document.getElementById('giftValue') as HTMLInputElement;
+      const selectedGiftName = document.getElementById('selectedGiftName');
+
+      if (giftIdInput) giftIdInput.value = 'lixadeira-cutelaria';
+      if (giftValueInput) {
+        giftValueInput.value = '7890';
+        giftValueInput.readOnly = true;
+      }
+      if (selectedGiftName) selectedGiftName.textContent = 'Lixadeira de Cutelaria';
+
+      // Show lixadeira image and link
+      if (giftModalImage && giftModalImageSrc) {
+        giftModalImageSrc.src = 'https://acdn-us.mitiendanube.com/stores/001/470/715/products/lixadeira-tforce-13429f73ae71a9318917332572109041-1024-1024.webp';
+        giftModalImageSrc.alt = 'Lixadeira de Cutelaria';
+        giftModalImage.style.display = 'block';
+      }
+      if (giftModalImageLink) {
+        giftModalImageLink.href = 'https://loja.tforceequipamentos.com.br/produtos/lixadeira-profissional/';
+        giftModalImageLink.textContent = 'Não acredita? Clique aqui!';
+        giftModalImageLink.style.display = 'block';
+      }
+
+      updatePloxQrCode(7890, 'lixadeira-cutelaria', 'Lixadeira de Cutelaria');
+
+      modal?.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Easter egg button handlers
+    easterEggCloseBtn?.addEventListener('click', closeEasterEggModal);
+    easterEggAcceptBtn?.addEventListener('click', openLixadeiraGift);
+
     // Open modal when clicking a gift card
     giftCards.forEach((card) => {
       card.addEventListener('click', () => {
+        const isEasterEgg = card.getAttribute('data-easter-egg') === 'true';
+
+        // Check for easter egg first
+        if (isEasterEgg) {
+          openEasterEggModal();
+          return;
+        }
+
         const giftId = card.getAttribute('data-gift-id') || '';
         const giftName = card.getAttribute('data-gift-name');
         const giftValue = parseFloat(card.getAttribute('data-gift-value') || '0');
@@ -879,6 +1281,9 @@ const giftsJson = JSON.stringify(gifts);
           giftValueInput.readOnly = !customValue;
         }
         if (selectedGiftName) selectedGiftName.textContent = giftName || '';
+
+        // Hide image for regular gifts
+        if (giftModalImage) giftModalImage.style.display = 'none';
 
         // Generate QR Code
         if (!customValue && giftValue > 0) {

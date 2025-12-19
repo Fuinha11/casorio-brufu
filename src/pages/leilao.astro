@@ -8,6 +8,7 @@ const auctionItems = [
     name: 'Primeira Música',
     description: 'Escolha a primeira música que tocará na festa! O vencedor terá a honra de dar início à pista de dança.',
     minBid: 100,
+    increment: 10,
     icon: '🎵'
   },
   {
@@ -15,6 +16,7 @@ const auctionItems = [
     name: 'Brinde dos Noivos',
     description: 'Faça o brinde oficial da noite! Levante sua taça e diga algumas palavras para os noivos.',
     minBid: 150,
+    increment: 25,
     icon: '🥂'
   },
   {
@@ -22,6 +24,7 @@ const auctionItems = [
     name: 'Dança Especial',
     description: 'Ganhe uma dança exclusiva com a noiva ou o noivo durante a festa.',
     minBid: 200,
+    increment: 25,
     icon: '💃'
   },
   {
@@ -29,6 +32,7 @@ const auctionItems = [
     name: 'Primeira Foto',
     description: 'Seja a primeira pessoa a tirar uma foto oficial com os recém-casados.',
     minBid: 100,
+    increment: 10,
     icon: '📸'
   },
   {
@@ -36,6 +40,7 @@ const auctionItems = [
     name: 'Escolha do Karaokê',
     description: 'Escolha uma música para cantar no karaokê (e convoque quem quiser para cantar junto!)',
     minBid: 80,
+    increment: 10,
     icon: '🎤'
   },
 ];
@@ -94,6 +99,7 @@ const auctionItemsJson = JSON.stringify(auctionItems);
               data-item-id={item.id}
               data-item-name={item.name}
               data-min-bid={item.minBid}
+              data-increment={item.increment}
             >
               Fazer Lance
             </button>
@@ -135,16 +141,29 @@ const auctionItemsJson = JSON.stringify(auctionItems);
 
             <div class="bid-form-group">
               <label for="bidAmount" class="bid-form-label">Seu lance (R$)</label>
-              <input
-                type="number"
-                id="bidAmount"
-                name="bidAmount"
-                class="bid-form-input"
-                placeholder="0"
-                min="1"
-                step="1"
-                required
-              />
+              <div class="bid-amount-control">
+                <button type="button" class="bid-amount-btn bid-decrement" id="bidDecrement">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <path d="M5 12h14"></path>
+                  </svg>
+                </button>
+                <input
+                  type="number"
+                  id="bidAmount"
+                  name="bidAmount"
+                  class="bid-form-input"
+                  placeholder="0"
+                  min="1"
+                  step="1"
+                  readonly
+                  required
+                />
+                <button type="button" class="bid-amount-btn bid-increment" id="bidIncrement">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <path d="M12 5v14M5 12h14"></path>
+                  </svg>
+                </button>
+              </div>
               <span class="bid-form-hint" id="minBidHint">Lance mínimo: R$ 100</span>
             </div>
 
@@ -471,14 +490,56 @@ const auctionItemsJson = JSON.stringify(auctionItems);
     color: var(--color-text);
   }
 
+  .bid-amount-control {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+  }
+
+  .bid-amount-btn {
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-secondary);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--color-text);
+  }
+
+  .bid-amount-btn:hover:not(:disabled) {
+    border-color: var(--color-accent);
+    background: var(--color-accent);
+    color: white;
+  }
+
+  .bid-amount-btn:active:not(:disabled) {
+    transform: scale(0.95);
+  }
+
+  .bid-amount-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .bid-amount-btn svg {
+    width: 24px;
+    height: 24px;
+  }
+
   .bid-form-input {
-    width: 100%;
+    flex: 1;
+    min-width: 0;
     padding: var(--spacing-4);
     font-family: var(--font-body);
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
     text-align: center;
-    color: var(--color-text);
+    color: var(--color-accent);
     background: var(--color-background);
     border: 2px solid var(--color-border);
     border-radius: var(--radius-lg);
@@ -488,6 +549,10 @@ const auctionItemsJson = JSON.stringify(auctionItems);
   .bid-form-input:focus {
     outline: none;
     border-color: var(--color-accent);
+  }
+
+  .bid-form-input[readonly] {
+    cursor: default;
   }
 
   .bid-form-hint {
@@ -536,6 +601,7 @@ const auctionItemsJson = JSON.stringify(auctionItems);
     id: string;
     name: string;
     minBid: number;
+    increment: number;
     icon: string;
   }
 
@@ -549,13 +615,13 @@ const auctionItemsJson = JSON.stringify(auctionItems);
   let auctionData: AuctionData[] = [];
   let currentItem: AuctionItem | null = null;
 
-  // Item data for icons
-  const itemIcons: Record<string, string> = {
-    'primeira-musica': '🎵',
-    'brinde-noivos': '🥂',
-    'danca-especial': '💃',
-    'primeira-foto': '📸',
-    'karaoke': '🎤'
+  // Item data for icons and increments
+  const itemData: Record<string, { icon: string; increment: number }> = {
+    'primeira-musica': { icon: '🎵', increment: 10 },
+    'brinde-noivos': { icon: '🥂', increment: 25 },
+    'danca-especial': { icon: '💃', increment: 25 },
+    'primeira-foto': { icon: '📸', increment: 10 },
+    'karaoke': { icon: '🎤', increment: 10 }
   };
 
   function init() {
@@ -626,21 +692,50 @@ const auctionItemsJson = JSON.stringify(auctionItems);
     const closeBtn = document.getElementById('closeModal');
     const cancelBtn = document.getElementById('cancelBid');
     const bidForm = document.getElementById('bidForm');
+    const incrementBtn = document.getElementById('bidIncrement');
+    const decrementBtn = document.getElementById('bidDecrement');
 
     // Open modal when clicking bid buttons
     document.querySelectorAll('.auction-bid-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        const itemId = btn.getAttribute('data-item-id');
-        const itemName = btn.getAttribute('data-item-name');
+        const itemId = btn.getAttribute('data-item-id') || '';
+        const itemName = btn.getAttribute('data-item-name') || '';
         const minBid = parseInt(btn.getAttribute('data-min-bid') || '0');
+        const increment = parseInt(btn.getAttribute('data-increment') || '10');
+        const data = itemData[itemId] || { icon: '🎁', increment: 10 };
 
         openModal({
-          id: itemId || '',
-          name: itemName || '',
+          id: itemId,
+          name: itemName,
           minBid,
-          icon: itemIcons[itemId || ''] || '🎁'
+          increment: increment || data.increment,
+          icon: data.icon
         });
       });
+    });
+
+    // Increment/Decrement buttons
+    incrementBtn?.addEventListener('click', () => {
+      if (!currentItem) return;
+      const bidAmountInput = document.getElementById('bidAmount') as HTMLInputElement;
+      const currentValue = parseInt(bidAmountInput?.value || '0');
+      const newValue = currentValue + currentItem.increment;
+      bidAmountInput.value = String(newValue);
+      updateDecrementButtonState();
+    });
+
+    decrementBtn?.addEventListener('click', () => {
+      if (!currentItem) return;
+      const bidAmountInput = document.getElementById('bidAmount') as HTMLInputElement;
+      const currentValue = parseInt(bidAmountInput?.value || '0');
+      const minRequired = getMinRequired();
+      const newValue = currentValue - currentItem.increment;
+
+      // Only decrement if we stay at or above minimum
+      if (newValue >= minRequired) {
+        bidAmountInput.value = String(newValue);
+        updateDecrementButtonState();
+      }
     });
 
     // Close modal
@@ -655,6 +750,25 @@ const auctionItemsJson = JSON.stringify(auctionItems);
 
     // Submit bid
     bidForm?.addEventListener('submit', handleBidSubmit);
+  }
+
+  function getMinRequired(): number {
+    if (!currentItem) return 0;
+    const currentAuction = auctionData.find(a => a.item === currentItem?.id);
+    const currentBid = currentAuction?.amount || 0;
+    return currentBid > 0 ? currentBid + currentItem.increment : currentItem.minBid;
+  }
+
+  function updateDecrementButtonState() {
+    const decrementBtn = document.getElementById('bidDecrement') as HTMLButtonElement;
+    const bidAmountInput = document.getElementById('bidAmount') as HTMLInputElement;
+    if (!decrementBtn || !bidAmountInput || !currentItem) return;
+
+    const currentValue = parseInt(bidAmountInput.value || '0');
+    const minRequired = getMinRequired();
+
+    // Disable if decrementing would go below minimum
+    decrementBtn.disabled = (currentValue - currentItem.increment) < minRequired;
   }
 
   function openModal(item: AuctionItem) {
@@ -681,27 +795,28 @@ const auctionItemsJson = JSON.stringify(auctionItems);
     const currentBid = currentAuction?.amount || 0;
     const currentWinner = currentAuction?.bidder || 'Nenhum';
 
-    // Calculate minimum bid (current bid + 1, or minBid if no bids)
-    const minRequired = currentBid > 0 ? currentBid + 1 : item.minBid;
+    // Calculate minimum bid (current bid + increment, or minBid if no bids)
+    const minRequired = currentBid > 0 ? currentBid + item.increment : item.minBid;
 
     if (modalCurrentBid) modalCurrentBid.textContent = currentBid > 0 ? `R$ ${currentBid}` : 'R$ 0';
     if (modalCurrentWinner) modalCurrentWinner.textContent = currentWinner;
     if (bidAmountInput) {
       bidAmountInput.min = String(minRequired);
       bidAmountInput.value = String(minRequired);
+      bidAmountInput.step = String(item.increment);
     }
-    if (minBidHint) minBidHint.textContent = `Lance mínimo: R$ ${minRequired}`;
+    if (minBidHint) minBidHint.textContent = `Lance mínimo: R$ ${minRequired} (incremento de R$ ${item.increment})`;
     if (bidMessage) {
       bidMessage.textContent = '';
       bidMessage.className = 'bid-message';
     }
 
+    // Update decrement button state
+    updateDecrementButtonState();
+
     // Open modal
     modal?.classList.add('open');
     document.body.style.overflow = 'hidden';
-
-    // Focus input
-    setTimeout(() => bidAmountInput?.focus(), 100);
   }
 
   function closeModal() {
@@ -742,7 +857,8 @@ const auctionItemsJson = JSON.stringify(auctionItems);
     // Validate minimum bid
     const currentAuction = auctionData.find(a => a.item === itemId);
     const currentBid = currentAuction?.amount || 0;
-    const minRequired = currentBid > 0 ? currentBid + 1 : (currentItem?.minBid || 0);
+    const increment = currentItem?.increment || 10;
+    const minRequired = currentBid > 0 ? currentBid + increment : (currentItem?.minBid || 0);
 
     if (bidAmount < minRequired) {
       if (bidMessage) {
