@@ -49,6 +49,23 @@ const auctionItemsJson = JSON.stringify(auctionItems);
 ---
 
 <ProtectedLayout title="Leilão">
+  <!-- Coming Soon Overlay - Remove this div when ready to accept bids -->
+  <div class="coming-soon-overlay">
+    <div class="coming-soon-content">
+      <div class="coming-soon-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+      </div>
+      <h2 class="coming-soon-title">Em Breve</h2>
+      <p class="coming-soon-text">
+        Estamos preparando um leilão super divertido com experiências únicas
+        para vocês participarem! Fiquem ligados, em breve abriremos os lances.
+      </p>
+    </div>
+  </div>
+  <!-- End Coming Soon Overlay -->
+
   <section class="page-hero">
     <HeroDecoration variant="dark" />
     <div class="container text-center">
@@ -192,6 +209,59 @@ const auctionItemsJson = JSON.stringify(auctionItems);
 </ProtectedLayout>
 
 <style>
+  /* Coming Soon Overlay - Remove these styles when ready */
+  .coming-soon-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(2px);
+  }
+
+  .coming-soon-content {
+    max-width: 500px;
+    padding: var(--spacing-8);
+    text-align: center;
+  }
+
+  .coming-soon-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto var(--spacing-6);
+    background: var(--color-accent-light);
+    border-radius: 50%;
+  }
+
+  .coming-soon-icon svg {
+    width: 40px;
+    height: 40px;
+    color: var(--color-accent);
+  }
+
+  .coming-soon-title {
+    font-family: var(--font-script);
+    font-size: var(--font-size-3xl);
+    color: var(--color-accent);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .coming-soon-text {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-light);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: 0;
+  }
+  /* End Coming Soon Overlay styles */
+
   .page-hero {
     position: relative;
     overflow: hidden;
