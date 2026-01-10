@@ -1,0 +1,395 @@
+---
+import ProtectedLayout from '@/layouts/ProtectedLayout.astro';
+import HeroDecoration from '@/components/HeroDecoration.astro';
+---
+
+<ProtectedLayout title="Manual do Convidado">
+  <section class="manual-hero">
+    <HeroDecoration variant="light" />
+    <div class="manual-hero-content">
+      <span class="manual-subtitle">Informações Importantes</span>
+      <h1 class="manual-title">Manual dos Convidados</h1>
+    </div>
+  </section>
+
+  <section class="manual-main">
+    <div class="manual-container">
+      <div class="manual-intro">
+        <h2>O nosso dia está chegando!</h2>
+        <p>
+          Queremos que você se sinta confortável e aproveite cada momento conosco.
+          Preparamos tudo com muito carinho e, para tornar a experiência ainda mais especial,
+          reunimos algumas orientações importantes:
+        </p>
+      </div>
+
+      <div class="manual-items">
+        <article class="manual-item">
+          <div class="manual-item-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <div class="manual-item-content">
+            <h3>Confirme sua presença no site</h3>
+            <p>
+              Sua confirmação é essencial para a nossa organização.
+              Pedimos, por gentileza, que acesse o site do casamento e confirme sua presença (ou ausência) o quanto antes.
+            </p>
+            <p class="manual-highlight">
+              Não teremos convites individuais na entrada. O acesso será realizado com base na lista de confirmados pelo site.
+            </p>
+          </div>
+        </article>
+
+        <article class="manual-item">
+          <div class="manual-item-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <div class="manual-item-content">
+            <h3>Convidado não convida</h3>
+            <p>
+              Cada nome foi escolhido com muito carinho e cuidado.
+              Por isso, pedimos que respeite a nossa lista de convidados e não estenda este convite a terceiros. Agradecemos a compreensão.
+            </p>
+          </div>
+        </article>
+
+        <article class="manual-item">
+          <div class="manual-item-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <div class="manual-item-content">
+            <h3>Pontualidade</h3>
+            <p>
+              Pedimos, por gentileza, que chegue com pelo menos 15 minutos de antecedência, para que todos estejam acomodados e possamos viver esse momento especial com tranquilidade.
+            </p>
+            <p class="manual-highlight">
+              Importante: não teremos serviço de valet e há poucas opções de estacionamento na região. Por isso, sugerimos o uso de aplicativos de transporte para maior conforto e praticidade.
+            </p>
+          </div>
+        </article>
+
+        <article class="manual-item">
+          <div class="manual-item-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.47a1 1 0 00.99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.47a2 2 0 00-1.34-2.23z"></path>
+            </svg>
+          </div>
+          <div class="manual-item-content">
+            <h3>Vestimenta – Traje Social</h3>
+            <p>
+              O traje sugerido é social.
+              Nosso casamento acontecerá com uma atmosfera elegante e natural, inspirada em uma paleta de cores atemporal e pedras preciosas.
+            </p>
+            <p>
+              Sugerimos trajes sociais ou passeio completo, com um look pensado para ocasiões especiais e sempre priorizando o conforto para que você aproveite a celebração do início ao fim.
+            </p>
+          </div>
+        </article>
+
+        <article class="manual-item">
+          <div class="manual-item-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
+            </svg>
+          </div>
+          <div class="manual-item-content">
+            <h3>Não use branco ou tons claros</h3>
+            <p>
+              O branco é uma cor reservada para a noiva.
+              Pedimos também que evitem tons como off-white, bege claro, marfim ou variações claras.
+            </p>
+          </div>
+        </article>
+
+        <article class="manual-item">
+          <div class="manual-item-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+              <circle cx="12" cy="13" r="4"></circle>
+            </svg>
+          </div>
+          <div class="manual-item-content">
+            <h3>Cuidado ao tirar fotos</h3>
+            <p>
+              Sabemos que muitos vão querer registrar esse momento especial e isso é maravilhoso!
+              Apenas pedimos atenção para não ficar à frente dos profissionais nem obstruir o trabalho da equipe de fotografia e filmagem. Assim, garantimos que todos os registros fiquem ainda mais lindos.
+            </p>
+            <p>
+              Durante a noite, aproveite para tirar fotos com a gente!
+              Vamos adorar viver esses momentos juntos. Depois, não se esqueça de enviar seus registros pelo site do casamento, será incrível reviver o nosso dia através do seu olhar.
+            </p>
+          </div>
+        </article>
+
+        <article class="manual-item">
+          <div class="manual-item-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+          </div>
+          <div class="manual-item-content">
+            <h3>Cuidado com a decoração</h3>
+            <p>
+              A decoração foi pensada com muito carinho por nós e pela equipe do Grupo Quintal.
+              Pedimos que apreciem com cuidado e que não levem itens do local, além de evitar qualquer dano aos elementos decorativos, para que tudo permaneça perfeito durante toda a celebração.
+            </p>
+          </div>
+        </article>
+
+        <article class="manual-item">
+          <div class="manual-item-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+          </div>
+          <div class="manual-item-content">
+            <h3>Aguarde o momento certo para os doces</h3>
+            <p>
+              A mesa de doces será liberada no momento oportuno e além dela teremos diversas opções preparadas especialmente para os nossos convidados!
+              Queremos que todos aproveitem ao máximo essa experiência deliciosa.
+            </p>
+          </div>
+        </article>
+
+        <article class="manual-item">
+          <div class="manual-item-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+              <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+              <line x1="6" y1="1" x2="6" y2="4"></line>
+              <line x1="10" y1="1" x2="10" y2="4"></line>
+              <line x1="14" y1="1" x2="14" y2="4"></line>
+            </svg>
+          </div>
+          <div class="manual-item-content">
+            <h3>Não se esqueça de se despedir dos noivos</h3>
+            <p>
+              Antes de partir, reserve um tempinho para nos cumprimentar e compartilhar esse momento.
+              Há pessoas que não vemos há algum tempo e, como não conseguiremos reencontrar todos antes de voltarmos a Portugal, esse abraço especial significará muito para nós.
+            </p>
+            <p class="manual-highlight">
+              Sua presença é extremamente importante e será lembrada com muito carinho.
+            </p>
+          </div>
+        </article>
+
+        <article class="manual-item featured">
+          <div class="manual-item-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+          </div>
+          <div class="manual-item-content">
+            <h3>Divirta-se muito</h3>
+            <p>
+              Este é um dia de matar as saudades com muito amor e alegria.
+              Queremos ver todos felizes, aproveitando cada instante, espalhando boas energias entre nossos familiares e amigos e criando memórias inesquecíveis.
+            </p>
+          </div>
+        </article>
+      </div>
+
+      <div class="manual-footer">
+        <p class="manual-signature">Com amor,</p>
+        <p class="manual-names">Bruna & Marcos</p>
+      </div>
+    </div>
+  </section>
+</ProtectedLayout>
+
+<style>
+  /* Hero */
+  .manual-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 6rem 1.5rem 4rem;
+    background: linear-gradient(135deg, var(--color-secondary-light) 0%, var(--color-secondary-dark) 100%);
+    text-align: center;
+  }
+
+  .manual-hero-content {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .manual-subtitle {
+    display: block;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-text-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .manual-title {
+    font-family: var(--font-script);
+    font-size: 2.5rem;
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  /* Main */
+  .manual-main {
+    background: var(--color-background-alt);
+    padding: 3rem 1.5rem;
+  }
+
+  .manual-container {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* Intro */
+  .manual-intro {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .manual-intro h2 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    margin: 0 0 1rem;
+  }
+
+  .manual-intro p {
+    color: var(--color-text-light);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* Items */
+  .manual-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .manual-item {
+    display: flex;
+    gap: 1.25rem;
+    background: var(--color-background);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px var(--color-shadow-md);
+  }
+
+  .manual-item.featured {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  }
+
+  .manual-item.featured .manual-item-content h3,
+  .manual-item.featured .manual-item-content p {
+    color: var(--color-white);
+  }
+
+  .manual-item-icon {
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-secondary);
+    border-radius: 12px;
+  }
+
+  .manual-item-icon svg {
+    width: 24px;
+    height: 24px;
+    color: var(--color-primary);
+  }
+
+  .manual-item.featured .manual-item-icon {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .manual-item.featured .manual-item-icon svg {
+    color: var(--color-white);
+  }
+
+  .manual-item-content {
+    flex: 1;
+  }
+
+  .manual-item-content h3 {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    color: var(--color-text);
+    margin: 0 0 0.75rem;
+  }
+
+  .manual-item-content p {
+    color: var(--color-text-light);
+    line-height: 1.6;
+    margin: 0 0 0.75rem;
+    font-size: 0.95rem;
+  }
+
+  .manual-item-content p:last-child {
+    margin-bottom: 0;
+  }
+
+  .manual-highlight {
+    background: var(--color-accent-bg);
+    border-left: 3px solid var(--color-accent);
+    padding: 0.75rem 1rem;
+    border-radius: 0 8px 8px 0;
+    font-weight: 500;
+    color: var(--color-accent-text-dark) !important;
+  }
+
+  /* Footer */
+  .manual-footer {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .manual-signature {
+    color: var(--color-text-light);
+    font-style: italic;
+    margin: 0 0 0.5rem;
+  }
+
+  .manual-names {
+    font-family: var(--font-script);
+    font-size: 2rem;
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .manual-item {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .manual-item-icon {
+      width: 45px;
+      height: 45px;
+    }
+
+    .manual-item-icon svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .manual-title {
+      font-size: 2rem;
+    }
+  }
+</style>
