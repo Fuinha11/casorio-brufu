@@ -133,15 +133,17 @@
     const codeLower = code.toString().toLowerCase();
 
     // Find all responses confirmed by this code (case insensitive)
+    // Columns: GuestCode | GuestName | Attending | Dietary | Van | ConfirmedBy | FirstConfirmed | LastUpdated
     for (let i = 1; i < data.length; i++) {
-      if (data[i][4] && data[i][4].toString().toLowerCase() === codeLower) { // ConfirmedBy column
+      if (data[i][5] && data[i][5].toString().toLowerCase() === codeLower) { // ConfirmedBy column
         responses.push({
           guestCode: data[i][0],
           guestName: data[i][1],
           attending: data[i][2],
           dietary: data[i][3],
-          firstConfirmed: data[i][5],
-          lastUpdated: data[i][6]
+          van: data[i][4] || '',
+          firstConfirmed: data[i][6],
+          lastUpdated: data[i][7]
         });
       }
     }
@@ -153,11 +155,12 @@
     const sheet = getSheet('RSVP');
     const guestsSheet = getSheet('Guests');
     const confirmedBy = data.confirmedBy;
-    const guests = data.guests; // Array of { code, name, attending, dietary }
+    const guests = data.guests; // Array of { code, name, attending, dietary, van }
 
     const now = new Date();
     const results = [];
 
+    // Columns: GuestCode | GuestName | Attending | Dietary | Van | ConfirmedBy | FirstConfirmed | LastUpdated
     for (const guest of guests) {
       // Validate guest code exists
       if (!isValidCode(guestsSheet, guest.code)) {
@@ -173,8 +176,9 @@
         sheet.getRange(existingRow, 2).setValue(guest.name);
         sheet.getRange(existingRow, 3).setValue(guest.attending);
         sheet.getRange(existingRow, 4).setValue(guest.dietary);
-        sheet.getRange(existingRow, 5).setValue(confirmedBy);
-        sheet.getRange(existingRow, 7).setValue(now);
+        sheet.getRange(existingRow, 5).setValue(guest.van || '');
+        sheet.getRange(existingRow, 6).setValue(confirmedBy);
+        sheet.getRange(existingRow, 8).setValue(now);
         results.push({ code: guest.code, success: true, action: 'updated' });
       } else {
         // Insert new
@@ -183,6 +187,7 @@
           guest.name,
           guest.attending,
           guest.dietary,
+          guest.van || '',
           confirmedBy,
           now,
           now
