@@ -68,6 +68,83 @@ const gifts = [
     icon: 'gift',
     customValue: true
   },
+  {
+    id: 'just-something',
+    name: 'Só pra não dizer que não dei nada',
+    description: '200€ convertidos com carinho para reais (cotação do dia que a gente inventou)',
+    value: 1266.30,
+    icon: 'euro'
+  },
+  {
+    id: 'bouquet-frontline',
+    name: 'Linha de frente para pegar o Buquê',
+    description: 'Posição VIP garantida na hora do buquê. Cotoveladas permitidas.',
+    value: 150,
+    icon: 'flower'
+  },
+  {
+    id: 'bouquet-bribe',
+    name: 'Propina para NÃO jogar o Buquê na sua namorada',
+    description: 'A noiva promete mirar para o outro lado. Sem garantias.',
+    value: 350,
+    icon: 'shield'
+  },
+  {
+    id: 'guest-blanket',
+    name: 'Cobertor para usar no quarto de visitas',
+    description: 'Para quando vier nos visitar e dormir no sofá-cama',
+    value: 250,
+    icon: 'blanket'
+  },
+  {
+    id: 'brazil-ticket',
+    name: 'A próxima passagem pro Brasil',
+    description: 'Ajude a custear a saudade da família (e do pão de queijo)',
+    value: 12652.46,
+    icon: 'plane'
+  },
+  {
+    id: 'baby-question',
+    name: 'O direito de perguntar "E os filhos?"',
+    description: 'Uma (01) única vez. Válido por 5 anos. Não cumulativo. Não reembolsável.',
+    value: 1500,
+    icon: 'baby'
+  },
+  {
+    id: 'last-dinner',
+    name: 'O último jantar do noivado',
+    description: 'Patrocine a última refeição antes de virarmos gente casada',
+    value: 350,
+    icon: 'dinner'
+  },
+  {
+    id: 'see-bride',
+    name: 'Ir ver a noiva antes da cerimônia',
+    description: 'Quebre a tradição e dê azar pro casamento. A responsabilidade é sua.',
+    value: 2000,
+    icon: 'eye'
+  },
+  {
+    id: 'gym-rats',
+    name: '1 mês de academia pros noivos',
+    description: 'Pra gente ganhar o GymRats e provar que casamento não engorda',
+    value: 633.15,
+    icon: 'dumbbell'
+  },
+  {
+    id: 'lindt-bruna',
+    name: 'Um kg de Lindt só pra Bruna',
+    description: 'Chocolate suíço de qualidade. O Marcos não pode nem chegar perto.',
+    value: 314,
+    icon: 'chocolate'
+  },
+  {
+    id: 'douro-cruise',
+    name: 'Cruzeiro das 6 Pontes do Douro',
+    description: 'Jantar a bordo para dois, vinho incluído (óbvio, é Portugal)',
+    value: 452.36,
+    icon: 'ship'
+  },
 ];
 
 const giftsJson = JSON.stringify(gifts);
@@ -211,6 +288,95 @@ const giftsJson = JSON.stringify(gifts);
                   <path d="M7.05 3.05L3.05 7.05M21.95 16.95L7.05 2.05c-.39-.39-1.02-.39-1.41 0L3.05 4.64c-.39.39-.39 1.02 0 1.41l14.9 14.9c.39.39 1.02.39 1.41 0l2.59-2.59c.39-.39.39-1.02 0-1.41z"></path>
                   <path d="M14 8l-3 3"></path>
                   <path d="M17 11l-3 3"></path>
+                </svg>
+              )}
+              {gift.icon === 'euro' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M7 10h8M7 14h8M15 7c-1.5-1-3-1.5-4.5-1.5-3 0-5.5 2.5-5.5 6.5s2.5 6.5 5.5 6.5c1.5 0 3-.5 4.5-1.5"></path>
+                </svg>
+              )}
+              {gift.icon === 'flower' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M12 2a3 3 0 0 0 0 6 3 3 0 0 0 0-6z"></path>
+                  <path d="M19 7a3 3 0 0 0-5 2 3 3 0 0 0 5-2z"></path>
+                  <path d="M22 12a3 3 0 0 0-6 0 3 3 0 0 0 6 0z"></path>
+                  <path d="M19 17a3 3 0 0 0-5-2 3 3 0 0 0 5 2z"></path>
+                  <path d="M12 22a3 3 0 0 0 0-6 3 3 0 0 0 0 6z"></path>
+                  <path d="M5 17a3 3 0 0 0 5-2 3 3 0 0 0-5 2z"></path>
+                  <path d="M2 12a3 3 0 0 0 6 0 3 3 0 0 0-6 0z"></path>
+                  <path d="M5 7a3 3 0 0 0 5 2 3 3 0 0 0-5-2z"></path>
+                </svg>
+              )}
+              {gift.icon === 'shield' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                  <path d="M9 12l2 2 4-4"></path>
+                </svg>
+              )}
+              {gift.icon === 'blanket' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3 5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5z"></path>
+                  <path d="M3 10h18"></path>
+                  <path d="M8 3v7"></path>
+                  <path d="M16 3v7"></path>
+                  <path d="M7 14h.01"></path>
+                  <path d="M12 14h.01"></path>
+                  <path d="M17 14h.01"></path>
+                  <path d="M7 18h.01"></path>
+                  <path d="M12 18h.01"></path>
+                  <path d="M17 18h.01"></path>
+                </svg>
+              )}
+              {gift.icon === 'plane' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path>
+                </svg>
+              )}
+              {gift.icon === 'baby' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M9 12h.01M15 12h.01"></path>
+                  <path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"></path>
+                  <path d="M19 6.3a9 9 0 0 1 1.8 3.9 2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"></path>
+                </svg>
+              )}
+              {gift.icon === 'dinner' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path>
+                  <path d="M7 2v20"></path>
+                  <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"></path>
+                </svg>
+              )}
+              {gift.icon === 'eye' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+              )}
+              {gift.icon === 'dumbbell' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M6.5 6.5a2 2 0 0 1 3 0L12 9l2.5-2.5a2 2 0 0 1 3 3L15 12l2.5 2.5a2 2 0 0 1-3 3L12 15l-2.5 2.5a2 2 0 0 1-3-3L9 12 6.5 9.5a2 2 0 0 1 0-3z"></path>
+                  <path d="M4 8v8"></path>
+                  <path d="M20 8v8"></path>
+                  <path d="M2 10v4"></path>
+                  <path d="M22 10v4"></path>
+                </svg>
+              )}
+              {gift.icon === 'chocolate' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="6" width="18" height="12" rx="2"></rect>
+                  <path d="M9 6v12"></path>
+                  <path d="M15 6v12"></path>
+                  <path d="M3 12h18"></path>
+                </svg>
+              )}
+              {gift.icon === 'ship' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.5 0 2.5 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"></path>
+                  <path d="M19.38 20A11.6 11.6 0 0 0 21 14l-9-4-9 4c0 2.9.94 5.34 2.81 7.76"></path>
+                  <path d="M12 2v10"></path>
+                  <path d="M12 6l5 2.5"></path>
                 </svg>
               )}
             </div>

@@ -43,6 +43,14 @@ const auctionItems = [
     increment: 10,
     icon: '🎤'
   },
+  {
+    id: 'cubos-acucar',
+    name: 'Primeira Colherada do Carrinho',
+    description: 'Privilégio VIP de dar a primeira colherada no carrinho da @cubosdeacucar!',
+    minBid: 5,
+    increment: 2,
+    icon: '🥄'
+  },
 ];
 
 const auctionItemsJson = JSON.stringify(auctionItems);
@@ -691,7 +699,8 @@ const auctionItemsJson = JSON.stringify(auctionItems);
     'brinde-noivos': { icon: '🥂', increment: 25 },
     'danca-especial': { icon: '💃', increment: 25 },
     'primeira-foto': { icon: '📸', increment: 10 },
-    'karaoke': { icon: '🎤', increment: 10 }
+    'karaoke': { icon: '🎤', increment: 10 },
+    'cubos-acucar': { icon: '🥄', increment: 2 }
   };
 
   function init() {
