@@ -4,23 +4,6 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
 ---
 
 <ProtectedLayout title="Nossa História">
-  <!-- Coming Soon Overlay -->
-  <div class="coming-soon-overlay">
-    <div class="coming-soon-content">
-      <div class="coming-soon-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-        </svg>
-      </div>
-      <h2 class="coming-soon-title">Em Breve</h2>
-      <p class="coming-soon-text">
-        Estamos preparando uma linha do tempo especial contando a nossa história!
-        Em breve vocês poderão conhecer mais sobre a nossa jornada até aqui.
-      </p>
-    </div>
-  </div>
-  <!-- End Coming Soon Overlay -->
-
   <section class="page-hero">
     <HeroDecoration variant="light" />
     <div class="container text-center">
@@ -36,16 +19,13 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
         <div class="timeline-item">
           <div class="timeline-marker"></div>
           <div class="timeline-content">
-            <span class="timeline-date">2018</span>
-            <h3 class="timeline-title">Onde Tudo Começou</h3>
-            <p class="timeline-text">
-              Foi em um dia comum que nossas vidas se cruzaram pela primeira vez.
-              O que parecia ser um encontro casual se transformou no início de uma
-              linda história de amor.
-            </p>
-            <div class="timeline-image-placeholder">
-              <span>Foto do casal</span>
+            <div class="timeline-image">
+              <img src="https://drive.google.com/thumbnail?id=1TDrd48yL7UJVyxNiq2AehsH0LVRBsYzv&sz=w800" alt="Foto 1" />
+              <span class="timeline-year">2010</span>
             </div>
+            <p class="timeline-text">
+              Dois adolescentes que não sabiam nada da vida, se conhecem e começam uma amizade.
+            </p>
           </div>
         </div>
 
@@ -53,15 +33,13 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
         <div class="timeline-item">
           <div class="timeline-marker"></div>
           <div class="timeline-content">
-            <span class="timeline-date">2019</span>
-            <h3 class="timeline-title">Primeiro Ano Juntos</h3>
-            <p class="timeline-text">
-              Descobrimos que éramos melhores juntos. Cada dia nos aproximava mais,
-              e percebemos que tínhamos encontrado algo especial um no outro.
-            </p>
-            <div class="timeline-image-placeholder">
-              <span>Foto do casal</span>
+            <div class="timeline-image">
+              <img src="https://drive.google.com/thumbnail?id=1gRI6xYnm3d1xyXF8VsyCvFcpCI3ZePpn&sz=w800" alt="Foto 2" />
+              <span class="timeline-year">2011</span>
             </div>
+            <p class="timeline-text">
+              Amizade genuína cheia de momentos de felicidade.
+            </p>
           </div>
         </div>
 
@@ -69,15 +47,13 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
         <div class="timeline-item">
           <div class="timeline-marker"></div>
           <div class="timeline-content">
-            <span class="timeline-date">2021</span>
-            <h3 class="timeline-title">Aventuras Compartilhadas</h3>
-            <p class="timeline-text">
-              Viagens, sonhos e planos. Cada experiência vivida juntos fortaleceu
-              ainda mais nosso amor e nos mostrou que queríamos construir uma vida a dois.
-            </p>
-            <div class="timeline-image-placeholder">
-              <span>Foto do casal</span>
+            <div class="timeline-image">
+              <img src="https://drive.google.com/thumbnail?id=1ukC1RaKyvWv5EuU2yFFpQZxgvAv5Dy6-&sz=w800" alt="Foto 3" />
+              <span class="timeline-year">2012</span>
             </div>
+            <p class="timeline-text">
+              A vida é engraçada e tentou dividi-los em faculdades rivais.
+            </p>
           </div>
         </div>
 
@@ -85,16 +61,13 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
         <div class="timeline-item">
           <div class="timeline-marker"></div>
           <div class="timeline-content">
-            <span class="timeline-date">2024</span>
-            <h3 class="timeline-title">O Pedido</h3>
-            <p class="timeline-text">
-              Em um momento mágico e inesquecível, demos mais um passo em nossa
-              jornada. O "sim" foi a confirmação de tudo o que já sabíamos:
-              éramos feitos um para o outro.
-            </p>
-            <div class="timeline-image-placeholder">
-              <span>Foto do noivado</span>
+            <div class="timeline-image">
+              <img src="https://drive.google.com/thumbnail?id=1b1tjUcx4qdqn5nbpyKRPe_r8Idw3NncO&sz=w800" alt="Foto 4" />
+              <span class="timeline-year">2014</span>
             </div>
+            <p class="timeline-text">
+              Mas isso nem mexeu com a amizade.
+            </p>
           </div>
         </div>
 
@@ -102,79 +75,139 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
         <div class="timeline-item">
           <div class="timeline-marker"></div>
           <div class="timeline-content">
-            <span class="timeline-date">2026</span>
-            <h3 class="timeline-title">O Grande Dia</h3>
+            <div class="timeline-image">
+              <img src="https://drive.google.com/thumbnail?id=1vccUqNgIgw3ojLFtep76v8RBhqA2MhUn&sz=w800" alt="Foto 5" />
+              <span class="timeline-year">2015</span>
+            </div>
             <p class="timeline-text">
-              E agora, estamos prestes a dar o próximo passo. No dia 10 de abril de 2026,
-              vamos celebrar nosso amor diante de todos que são especiais para nós.
+              A vida chamou eles pra conhecer o mundo.
+            </p>
+          </div>
+        </div>
+
+        <!-- Timeline Item 6 -->
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="timeline-image">
+              <img src="https://drive.google.com/thumbnail?id=1owvAVUGZ_uBldU685pqgZE5CynrPoSGw&sz=w800" alt="Foto 6" />
+              <span class="timeline-year">2015</span>
+            </div>
+            <p class="timeline-text">
+              Não só ela, mas ele também.
+            </p>
+          </div>
+        </div>
+
+        <!-- Timeline Item 7 -->
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="timeline-image">
+              <img src="https://drive.google.com/thumbnail?id=1S8HqT707gVI_9b2hHgC4voTg3yRFv8-x&sz=w800" alt="Foto 7" />
+              <span class="timeline-year">2017</span>
+            </div>
+            <p class="timeline-text">
+              Quando finalmente cresceram, decidiram que realmente queriam estar juntos.
+            </p>
+          </div>
+        </div>
+
+        <!-- Timeline Item 8 -->
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="timeline-image">
+              <img src="https://drive.google.com/thumbnail?id=19ipfCiu90sN2Rt3-5S8IeH5n4WrJ15aR&sz=w800" alt="Foto 8" />
+              <span class="timeline-year">2018</span>
+            </div>
+            <p class="timeline-text">
+              Buscaram um lugar para chamar de lar.
+            </p>
+          </div>
+        </div>
+
+        <!-- Timeline Item 9 -->
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="timeline-image">
+              <img src="https://drive.google.com/thumbnail?id=1RpN-fnJWEbSBg034dxDdnNyk93ECtXO6&sz=w800" alt="Foto 9" />
+              <span class="timeline-year">2022</span>
+            </div>
+            <p class="timeline-text">
+              Decidiram construir uma família.
+            </p>
+          </div>
+        </div>
+
+        <!-- Timeline Item 10 -->
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="timeline-image">
+              <img src="https://drive.google.com/thumbnail?id=1UiVS0p6bTdzpq_HMYq-1cPLT1Lmw6_RT&sz=w800" alt="Foto 10" />
+              <span class="timeline-year">2023</span>
+            </div>
+            <p class="timeline-text">
+              E das alturas veio o primeiro pedido do "para sempre".
+            </p>
+          </div>
+        </div>
+
+        <!-- Timeline Item 11 -->
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="timeline-collage">
+              <img src="https://drive.google.com/thumbnail?id=1YloeQaU1LFFNn1ap5RdzhCJNBz56PIyW&sz=w400" alt="Foto 11a" />
+              <img src="https://drive.google.com/thumbnail?id=1kzoknnkJu97vHwzmpqIn60_IKdMjpMf_&sz=w400" alt="Foto 11b" />
+              <img src="https://drive.google.com/thumbnail?id=1hFW0Ile7R9Csw0QcM6TIeHOYJKefaO0z&sz=w400" alt="Foto 11c" />
+              <img src="https://drive.google.com/thumbnail?id=1vrX9UV64DjGcnavBDuCMV1wVY7H7O2AP&sz=w400" alt="Foto 11d" />
+            </div>
+            <p class="timeline-text">
+              Seguido de tantos outros pedidos e confirmações...
+            </p>
+          </div>
+        </div>
+
+        <!-- Timeline Item 12 -->
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="timeline-image">
+              <img src="https://drive.google.com/thumbnail?id=1Dkuh9WfNTH6jIM_T9OLZaDgyKz4PoHZl&sz=w800" alt="Foto 12" />
+              <span class="timeline-year">2025</span>
+            </div>
+            <p class="timeline-text">
+              E num novo país decidiram criar raízes.
+            </p>
+          </div>
+        </div>
+
+        <!-- Timeline Item 13 -->
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="timeline-image">
+              <img src="https://drive.google.com/thumbnail?id=1dEs5Z30HGk7c0C499_12uDjWsxZp7Mm5&sz=w800" alt="Foto 13" style="object-position: top;" />
+              <span class="timeline-year">2025</span>
+            </div>
+            <p class="timeline-text">
+              Hoje convidam para celebrar essa união.
             </p>
           </div>
         </div>
       </div>
 
       <div class="story-quote text-center">
-        <blockquote>
-          O amor não se define. Sente-se.
-        </blockquote>
+        <blockquote>"O amor não se define. Sente-se."</blockquote>
       </div>
     </div>
   </section>
 </ProtectedLayout>
 
 <style>
-  /* Coming Soon Overlay */
-  .coming-soon-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(2px);
-  }
-
-  .coming-soon-content {
-    max-width: 500px;
-    padding: var(--spacing-8);
-    text-align: center;
-  }
-
-  .coming-soon-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 80px;
-    height: 80px;
-    margin: 0 auto var(--spacing-6);
-    background: var(--color-primary-light);
-    border-radius: 50%;
-  }
-
-  .coming-soon-icon svg {
-    width: 40px;
-    height: 40px;
-    color: var(--color-primary);
-  }
-
-  .coming-soon-title {
-    font-family: var(--font-script);
-    font-size: var(--font-size-3xl);
-    color: var(--color-primary);
-    margin-bottom: var(--spacing-4);
-  }
-
-  .coming-soon-text {
-    font-size: var(--font-size-lg);
-    color: var(--color-text-light);
-    line-height: var(--line-height-relaxed);
-    margin-bottom: 0;
-  }
-  /* End Coming Soon Overlay */
-
   .page-hero {
     position: relative;
     overflow: hidden;
@@ -236,37 +269,17 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
     box-shadow: var(--shadow-md);
   }
 
-  .timeline-date {
-    display: inline-block;
-    font-family: var(--font-heading);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-accent);
-    text-transform: uppercase;
-    letter-spacing: var(--letter-spacing-wider);
-    margin-bottom: var(--spacing-2);
-  }
-
-  .timeline-title {
-    font-family: var(--font-heading);
-    font-size: var(--font-size-xl);
-    color: var(--color-text);
-    margin-bottom: var(--spacing-3);
-  }
-
   .timeline-text {
     color: var(--color-text-light);
     line-height: var(--line-height-relaxed);
-    margin-bottom: var(--spacing-4);
-  }
-
-  .timeline-text:last-child {
+    margin-top: var(--spacing-4);
     margin-bottom: 0;
+    font-size: var(--font-size-lg);
   }
 
   .timeline-image-placeholder {
     width: 100%;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 4 / 3;
     background-color: var(--color-secondary);
     border-radius: var(--radius-md);
     display: flex;
@@ -276,9 +289,54 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
     font-size: var(--font-size-sm);
   }
 
+  .timeline-image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .timeline-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .timeline-collage {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 4px;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .timeline-collage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    min-height: 0;
+  }
+
+  .timeline-year {
+    position: absolute;
+    bottom: var(--spacing-3);
+    right: var(--spacing-3);
+    font-family: var(--font-script);
+    font-size: 4rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-accent);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
   .story-quote {
     margin-top: var(--spacing-16);
-    padding: var(--spacing-8);
+    padding: var(--spacing-8) var(--spacing-8) 0;
   }
 
   .story-quote blockquote {
@@ -289,22 +347,6 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
     position: relative;
   }
 
-  .story-quote blockquote::before,
-  .story-quote blockquote::after {
-    content: '"';
-    font-family: var(--font-script);
-    font-size: var(--font-size-4xl);
-    color: var(--color-accent);
-    line-height: 1;
-  }
-
-  .story-quote blockquote::before {
-    margin-right: var(--spacing-2);
-  }
-
-  .story-quote blockquote::after {
-    margin-left: var(--spacing-2);
-  }
 
   @media (max-width: 768px) {
     .timeline {
