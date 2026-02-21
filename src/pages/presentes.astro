@@ -411,7 +411,7 @@ const giftsJson = JSON.stringify(gifts);
       <div class="plox-qr-section" id="ploxQrSection">
         <div class="plox-qr-code" id="ploxQrCode"></div>
         <p class="plox-qr-value">Valor: <strong id="ploxQrValue">R$ 0</strong></p>
-        <p class="plox-qr-hint">Escaneie o QR Code com o app do seu banco</p>
+        <p class="plox-qr-hint">Escaneie o QR Code com o app do seu banco, ou copie e use a função pix copia e cola do seu banco.</p>
         <button type="button" class="plox-copy-code-btn" id="copyPloxCode">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
@@ -477,6 +477,27 @@ const giftsJson = JSON.stringify(gifts);
           </span>
         </button>
       </form>
+    </div>
+  </div>
+
+  <!-- Surprise Value Modal -->
+  <div class="surprise-modal" id="surpriseModal">
+    <div class="surprise-modal-overlay"></div>
+    <div class="surprise-modal-box">
+      <button type="button" class="surprise-modal-close" id="closeSurpriseModal">&times;</button>
+      <div class="surprise-modal-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path>
+        </svg>
+      </div>
+      <h3 class="surprise-modal-title">Presente Surpresa</h3>
+      <p class="surprise-modal-text">Qual valor deseja dar de presente?</p>
+      <div class="surprise-modal-input-group">
+        <span class="surprise-modal-prefix">R$</span>
+        <input type="text" id="surpriseValueInput" class="surprise-modal-input" inputmode="numeric" placeholder="0,00" />
+      </div>
+      <p id="surpriseError" class="surprise-modal-error"></p>
+      <button type="button" id="confirmSurpriseBtn" class="surprise-modal-btn">Confirmar</button>
     </div>
   </div>
 
@@ -869,8 +890,9 @@ const giftsJson = JSON.stringify(gifts);
   }
 
   .plox-qr-hint {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-light);
+    font-size: var(--font-size-base);
+    color: var(--color-primary);
+    font-weight: var(--font-weight-medium);
     margin-bottom: var(--spacing-4);
   }
 
@@ -1088,6 +1110,158 @@ const giftsJson = JSON.stringify(gifts);
     .gift-modal-content {
       padding: var(--spacing-6);
     }
+  }
+
+  /* Surprise Value Modal */
+  .surprise-modal {
+    position: fixed;
+    inset: 0;
+    z-index: calc(var(--z-modal) + 5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-4);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-normal);
+  }
+
+  .surprise-modal.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .surprise-modal-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-overlay-backdrop);
+    backdrop-filter: blur(4px);
+  }
+
+  .surprise-modal-box {
+    position: relative;
+    background-color: var(--color-background);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-8);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    transform: translateY(20px);
+    transition: transform var(--transition-normal);
+    box-shadow: 0 10px 40px var(--color-shadow-lg);
+  }
+
+  .surprise-modal.active .surprise-modal-box {
+    transform: translateY(0);
+  }
+
+  .surprise-modal-close {
+    position: absolute;
+    top: var(--spacing-3);
+    right: var(--spacing-3);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: var(--color-text-light);
+    cursor: pointer;
+    transition: color var(--transition-fast);
+  }
+
+  .surprise-modal-close:hover {
+    color: var(--color-text);
+  }
+
+  .surprise-modal-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto var(--spacing-4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-secondary);
+    border-radius: var(--radius-full);
+    color: var(--color-primary);
+  }
+
+  .surprise-modal-icon svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .surprise-modal-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-xl);
+    color: var(--color-text);
+    margin-bottom: var(--spacing-2);
+  }
+
+  .surprise-modal-text {
+    font-size: var(--font-size-base);
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-6);
+  }
+
+  .surprise-modal-input-group {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .surprise-modal-prefix {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary);
+  }
+
+  .surprise-modal-input {
+    flex: 1;
+    padding: var(--spacing-3) var(--spacing-4);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    text-align: center;
+    font-family: inherit;
+  }
+
+  .surprise-modal-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+  }
+
+  .surprise-modal-error {
+    color: var(--color-error-dark);
+    font-size: var(--font-size-sm);
+    margin: 0 0 var(--spacing-4);
+    min-height: 1.2em;
+  }
+
+  .surprise-modal-error:empty {
+    display: none;
+    margin: 0;
+  }
+
+  .surprise-modal-btn {
+    width: 100%;
+    padding: var(--spacing-3) var(--spacing-6);
+    background-color: var(--color-primary);
+    color: var(--color-text-inverse);
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+  }
+
+  .surprise-modal-btn:hover {
+    background-color: var(--color-primary-dark);
   }
 
   /* Easter Egg Modal */
@@ -1421,6 +1595,73 @@ const giftsJson = JSON.stringify(gifts);
     easterEggCloseBtn?.addEventListener('click', closeEasterEggModal);
     easterEggAcceptBtn?.addEventListener('click', openLixadeiraGift);
 
+    // Surprise Value Modal
+    const surpriseModal = document.getElementById('surpriseModal');
+    const surpriseValueInput = document.getElementById('surpriseValueInput') as HTMLInputElement;
+    const surpriseError = document.getElementById('surpriseError');
+    const confirmSurpriseBtn = document.getElementById('confirmSurpriseBtn');
+    const closeSurpriseBtn = document.getElementById('closeSurpriseModal');
+    const surpriseOverlay = surpriseModal?.querySelector('.surprise-modal-overlay');
+
+    function openSurpriseModal() {
+      surpriseModal?.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      if (surpriseValueInput) {
+        surpriseValueInput.value = '';
+        surpriseValueInput.focus();
+      }
+      if (surpriseError) surpriseError.textContent = '';
+    }
+
+    function closeSurpriseModal() {
+      surpriseModal?.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Only allow numeric input (digits and comma/dot for decimals)
+    surpriseValueInput?.addEventListener('input', () => {
+      surpriseValueInput.value = surpriseValueInput.value.replace(/[^0-9.,]/g, '');
+      if (surpriseError) surpriseError.textContent = '';
+    });
+
+    function confirmSurpriseValue() {
+      const raw = surpriseValueInput?.value.replace(',', '.') || '';
+      const value = parseFloat(raw);
+
+      if (!raw || isNaN(value) || value <= 0) {
+        if (surpriseError) surpriseError.textContent = 'Digite um valor numérico válido.';
+        return;
+      }
+
+      closeSurpriseModal();
+
+      // Open the gift modal with the confirmed value
+      const giftIdInput = document.getElementById('giftId') as HTMLInputElement;
+      const giftValueInputEl = document.getElementById('giftValue') as HTMLInputElement;
+      const selectedGiftName = document.getElementById('selectedGiftName');
+
+      if (giftIdInput) giftIdInput.value = 'surprise';
+      if (giftValueInputEl) {
+        giftValueInputEl.value = value.toString();
+        giftValueInputEl.readOnly = true;
+      }
+      if (selectedGiftName) selectedGiftName.textContent = 'Presente surpresa';
+
+      if (giftModalImage) giftModalImage.style.display = 'none';
+
+      updatePloxQrCode(value, 'surprise', 'Presente surpresa');
+
+      modal?.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    confirmSurpriseBtn?.addEventListener('click', confirmSurpriseValue);
+    closeSurpriseBtn?.addEventListener('click', closeSurpriseModal);
+    surpriseOverlay?.addEventListener('click', closeSurpriseModal);
+    surpriseValueInput?.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') confirmSurpriseValue();
+    });
+
     // Open modal when clicking a gift card
     giftCards.forEach((card) => {
       card.addEventListener('click', () => {
@@ -1437,14 +1678,20 @@ const giftsJson = JSON.stringify(gifts);
         const giftValue = parseFloat(card.getAttribute('data-gift-value') || '0');
         const customValue = card.getAttribute('data-custom-value') === 'true';
 
+        // For surprise gift, show the value popup first
+        if (customValue) {
+          openSurpriseModal();
+          return;
+        }
+
         const giftIdInput = document.getElementById('giftId') as HTMLInputElement;
         const giftValueInput = document.getElementById('giftValue') as HTMLInputElement;
         const selectedGiftName = document.getElementById('selectedGiftName');
 
         if (giftIdInput) giftIdInput.value = giftId;
         if (giftValueInput) {
-          giftValueInput.value = customValue ? '' : giftValue.toString();
-          giftValueInput.readOnly = !customValue;
+          giftValueInput.value = giftValue.toString();
+          giftValueInput.readOnly = true;
         }
         if (selectedGiftName) selectedGiftName.textContent = giftName || '';
 
@@ -1452,12 +1699,8 @@ const giftsJson = JSON.stringify(gifts);
         if (giftModalImage) giftModalImage.style.display = 'none';
 
         // Generate QR Code
-        if (!customValue && giftValue > 0) {
+        if (giftValue > 0) {
           updatePloxQrCode(giftValue, giftId, giftName || undefined);
-        } else {
-          // For custom value, show placeholder
-          if (ploxQrCode) ploxQrCode.innerHTML = '<p style="padding: 40px; color: var(--color-text-light);">Digite o valor para gerar o QR Code</p>';
-          if (ploxQrValue) ploxQrValue.textContent = 'R$ --';
         }
 
         modal?.classList.add('active');

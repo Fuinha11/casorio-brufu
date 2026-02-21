@@ -4,6 +4,22 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
 ---
 
 <ProtectedLayout title="Confirmar Presença">
+  <!-- RSVP Overlay -->
+  <div class="rsvp-overlay">
+    <div class="rsvp-overlay-content">
+      <div class="rsvp-overlay-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
+        </svg>
+      </div>
+      <h2 class="rsvp-overlay-title">Atenção!</h2>
+      <p class="rsvp-overlay-text">
+        Avisamos que a Amanda iria fazer bullying com que não confirmasse. Daqui pra frente essa etapa é com ela, você irá receber uma mensagem no WhatsApp com o link!
+      </p>
+    </div>
+  </div>
+  <!-- End RSVP Overlay -->
+
   <section class="rsvp-hero">
     <HeroDecoration variant="light" />
     <div class="rsvp-hero-content">
@@ -548,6 +564,62 @@ import HeroDecoration from '@/components/HeroDecoration.astro';
   }
   .rsvp-modal-error:empty {
     display: none;
+  }
+
+  /* RSVP Overlay */
+  .rsvp-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(2px);
+  }
+
+  .rsvp-overlay-content {
+    max-width: 500px;
+    padding: var(--spacing-8);
+    text-align: center;
+    background: var(--color-background);
+    border-radius: 16px;
+    box-shadow: 0 10px 40px var(--color-shadow-lg);
+    margin: 1rem;
+  }
+
+  .rsvp-overlay-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto var(--spacing-6);
+    background: var(--color-accent-light);
+    border-radius: 50%;
+  }
+
+  .rsvp-overlay-icon svg {
+    width: 40px;
+    height: 40px;
+    color: var(--color-accent);
+  }
+
+  .rsvp-overlay-title {
+    font-family: var(--font-script);
+    font-size: var(--font-size-3xl);
+    color: var(--color-accent);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .rsvp-overlay-text {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-light);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: 0;
   }
 
   /* Responsive */
